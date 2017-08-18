@@ -1,0 +1,10 @@
+<div class="field {{if showError (if error "error")}}">
+  {{input id=name name=name type=type required='true' placeholder=placeholder value=value}}
+  <label for={{name}}>{{placeholder}}</label>
+  {{#if showError}}
+    {{#if error}}
+      <p>{{error}}</p>
+    {{/if}}
+  {{/if}}
+  {{yield}}
+</div>

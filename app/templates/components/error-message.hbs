@@ -1,0 +1,8 @@
+{{#if errors}}
+  <div class="error-message">
+    <p><strong>Error!</strong></p>
+    {{#each errors as |error|}}
+      <p>{{error}}</p>
+    {{/each}}
+  </div>
+{{/if}}

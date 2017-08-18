@@ -1,1 +1,31 @@
-{{outlet}}
+<div class="container--login">
+  <div class="row center-xs">
+    <div class="col-sm-5">
+
+      <div class="card--login">
+        <div class="logo--full-color"></div>
+        {{validated-text-input name='email'
+                               type='text'
+                               placeholder='Email'
+                               value=email
+                               error=validations.attrs.email.message
+                               showError=showError}}
+
+        {{#validated-text-input name='password'
+                                type='password'
+                                placeholder='Password'
+                                value=password
+                                error=validations.attrs.password.message
+                                showError=showError}}
+          {{#link-to "forgot-password" id="forgot-password"}}Forgot your password?{{/link-to}}
+        {{/validated-text-input}}
+
+        {{#spin-button action=(action 'loginButtonPressed') class="btn-primary" buttonStyle="contract"}}Login{{/spin-button}}
+
+        <section>
+          {{error-message errors=errors}}
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
