@@ -7,7 +7,6 @@ moduleFor('route:login', 'Unit | Route | login', {
 });
 
 test('it sets an error on the controller when authentication fails', function(assert) {
-  assert.expect(2);
   let route = this.subject();
   let controller = Ember.Object.create();
 
@@ -19,10 +18,9 @@ test('it sets an error on the controller when authentication fails', function(as
 
   route.set('controller', controller);
   route.set('session', session);
+  let defer = Ember.RSVP.defer();
   Ember.run(function(){
-    route.send('login', 'a@b.com', 'aaa', (() => {
-      assert.ok('failed');
-    }));
+    route.send('login', 'a@b.com', 'aaa', defer);
   });
 
   assert.equal(route.get('controller.errors')[0], ["Your username and password combination is not correct. Please try again."][0]);
