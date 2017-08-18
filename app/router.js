@@ -9,6 +9,7 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('login');
   this.route('forgot-password');
+  this.route('signup');
 });
 
 export default Router;
