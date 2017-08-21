@@ -1,1 +1,61 @@
-{{outlet}}
+<div>
+  <div>
+    What is your team called?
+    {{validated-text-input name='teamName'
+                           type='text'
+                           placeholder='Name your team...'
+                           value=teamName
+                           error=validations.attrs.teamName.message
+                           showError=showError}}
+
+  </div>
+  <div>
+    What is your name?
+    <div>
+      {{validated-text-input name='firstName'
+                             type='text'
+                             placeholder='First Name'
+                             value=firstName
+                             error=validations.attrs.firstName.message
+                             showError=showError}}
+
+    </div>
+    <div>
+      {{validated-text-input name='lastName'
+                             type='text'
+                             placeholder='Last Name'
+                             value=firstName
+                             error=validations.attrs.lastName.message
+                             showError=showError}}
+    </div>
+  </div>
+
+  <div>
+    What is your email address?
+    {{validated-text-input name='emailAddress'
+                           type='text'
+                           placeholder='Enter your email...'
+                           value=emailAddress
+                           error=validations.attrs.emailAddress.message
+                           showError=showError}}
+  </div>
+
+  <div>
+    Create a solid password
+    {{validated-text-input name='password'
+                           type='text'
+                           placeholder='Create your password...'
+                           value=password
+                           error=validations.attrs.password.message
+                           showError=showError}}
+  </div>
+
+  <p>We'll start you out with our Pro Plan on the house for 30 days. After that, you'll have the option to upgrade or
+    continue using Albatross for free.</p>
+
+  {{#spin-button action=(action 'signupButtonPressed') class="btn-primary" buttonStyle="contract"}}Get Started!{{/spin-button}}
+
+  <section>
+    {{error-message errors=errors}}
+  </section>
+</div>
