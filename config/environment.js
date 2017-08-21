@@ -23,6 +23,8 @@ module.exports = function(environment) {
       // when it is created
     },
 
+    clientId: 'MUkImBIB0GpBkplwGweuL7mEGzjqmvcYX2mJumNX',
+    clientSecret: 'Iidg9RnNY1LYyxCVDdUt9INgGqZtvzrnJPNx95TQ',
     routeAfterAuthentication: '/app/projects',
   };
 

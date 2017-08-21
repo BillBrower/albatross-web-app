@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 import {buildValidations, validator} from "ember-cp-validations";
 import ValidationErrors from "../constants/errors";
-const {attr, Model} = DS;
+const {attr, Model, belongsTo} = DS;
 
 const Validations = buildValidations({
   emailAddress: [

@@ -8,7 +8,7 @@ export default Ember.Route.extend({
       user.save().then(() => {
         this.transitionTo('app.projects');
       }).catch((response) => {
-        this.controller.set('errors', Errors.mapResponseErrors(response))
+        this.controller.set('errors', Errors.mapResponseErrors(response));
         result.reject();
       })
     }
