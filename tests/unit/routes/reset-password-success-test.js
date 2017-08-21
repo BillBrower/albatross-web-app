@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('route:forgot-password-success', 'Unit | Route | forgot password success', {
+moduleFor('route:reset-password-success', 'Unit | Route | reset password success', {
   // Specify the other units that are required for this test.
   needs: ['service:session']
 });
