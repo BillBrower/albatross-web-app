@@ -17,6 +17,7 @@ Router.map(function() {
     this.route('projects');
     this.route('users');
     this.route('settings');
+    this.route('project', {path: '/projects/:project_id'});
   });
 });
 

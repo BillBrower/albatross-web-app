@@ -7,8 +7,9 @@ export default Ember.Route.extend({
   },
 
   actions: {
-    createProject(projectName, result) {
+    createProject() {
       //TODO: Implement
+      this.transitionTo('app.project', '1');
     }
   }
 });
