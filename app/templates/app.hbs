@@ -1,0 +1,17 @@
+<div class="navbar">
+  <div class="navbar-container">
+    <div class="left-nav">
+      {{#link-to 'app.projects'}}<div class="logo"></div>{{/link-to}}
+    </div>
+    <div class="right-nav">
+      <ul class="nav-list">
+        <li>{{#link-to 'app.projects'}}Projects{{/link-to}}</li>
+        <li>{{#link-to 'app.users'}}Users{{/link-to}}</li>
+        <li>{{#link-to 'app.settings'}}Settings{{/link-to}}</li>
+        <li><a id="logout" href="" {{action 'logout'}}>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+{{outlet}}

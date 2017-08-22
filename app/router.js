@@ -13,6 +13,11 @@ Router.map(function() {
   this.route('forgot-password-success');
   this.route('reset-password');
   this.route('reset-password-success');
+  this.route('app', function() {
+    this.route('projects');
+    this.route('users');
+    this.route('settings');
+  });
 });
 
 export default Router;
