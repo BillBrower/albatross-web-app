@@ -30,6 +30,68 @@ module.exports = function(deployTarget) {
 
       'package': require('../package.json'),
 
+      'slack': {
+        webhookURL: env('SLACK_WEBHOOK'),
+        channel: '#albatross',
+        username: 'ember-cli-deploy',
+        willDeploy: function(context) {
+          return function(slack) {
+            return {
+              slackStartDeployDate: new Date()
+            };
+          };
+        },
+        didDeploy: function(context) {
+          return function(slack) {
+            const start = context.slackStartDeployDate;
+            const end = new Date();
+            const duration = (end - start) / 1000;
+            const message = '' + context.deployMetaData.deployer + ' successfully deployed a new revision!';
+            return slack.notify({
+              attachments: [{
+                "fallback": message,
+                "pretext": message,
+                "color":"good",
+                "fields":[
+                  {
+                    "title":"Stats",
+                    "value":"Deploying revision took "+duration,
+                    "short":false
+                  }
+                ]
+              }]
+            });
+          };
+        },
+        didFail: function(context) {
+          return function(slack) {
+            const message = 'Deployment by ' + context.deployMetaData.deployer + ' failed!';
+            return slack.notify({
+              attachments: [{
+                "fallback": "Deployment failed!",
+                "pretext": "Deployment failed!",
+                "color": "danger",
+                "fields":[
+                  {
+                    "title": "Failure",
+                    "value": message,
+                    "short": false
+                  }
+                ]
+              }]
+
+            });
+          };
+        }
+      },
+
+      'display-revisions' : {
+        amount: 1,
+        revisions: function(context) {
+          return context.revisions;
+        }
+      },
+
       'revision-data': {
         type: 'git-commit'
       },
