@@ -1,6 +1,6 @@
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
 import Ember from 'ember';
-import ENV from 'case-status/config/environment';
+import ENV from 'albatross-web-app/config/environment';
 import JSONAPIAdapter from 'ember-data/adapters/json-api';
 
 export default JSONAPIAdapter.extend(DataAdapterMixin, {
