@@ -1,1 +1,29 @@
-{{outlet}}
+<div>
+
+  <div>
+    <div>
+      <p>BUFFER</p>
+      <p>ESTIMATED HOURS</p>
+      <p>ACTUAL HOURS</p>
+    </div>
+    <div>
+      <button>Sync with Toggle</button>
+      <p class="italic">Import hours from your Toggle project called {{model.name}}. We'll match category names here with
+      tags in your time entries for the project.</p>
+    </div>
+  </div>
+
+  <div>
+    <button>+ New Category</button>
+  </div>
+  {{#if hasCategory}}
+    {{#each category in model.categories}}
+      {{category-card model=category}}
+    {{/each}}
+  {{else}}
+    <div>
+      <h1>Add the first category!</h1>
+      Categories will match with tags in Toggle when you import your hours
+    </div>
+  {{/if}}
+</div>
