@@ -1,1 +1,9 @@
-{{yield}}
+<div>
+  <!--TODO: Replace "1" with model.id-->
+  {{live-updating-text-input name="description" value=description saveValue=(action onSaveDescription "1")}}
+
+  {{live-updating-text-input name="estimated" value=estimated saveValue=(action onSaveEstimated "1")}}
+
+  {{live-updating-text-input name="actual" value=actual saveValue=(action onSaveActual "1")}}
+
+</div>

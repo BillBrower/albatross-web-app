@@ -13,9 +13,18 @@
     </div>
   </div>
 
+  <!-- Sample category -->
+  {{category-card onSaveDescription=(action "saveDescription")
+                  onSaveEstimated=(action "saveEstimated")
+                  onSaveActual=(action "saveActual")}}
+
   {{#if hasCategory}}
+
     {{#each category in model.categories}}
-      {{category-card model=category}}
+      {{category-card model=category
+                      onSaveDescription=(action "saveDescription")
+                      onSaveEstimated=(action "saveEstimated")
+                      onSaveActual=(action "saveActual")}}
     {{/each}}
     {{new-category}}
   {{else}}
