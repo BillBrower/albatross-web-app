@@ -5,27 +5,7 @@
     {{model.length}}
   </div>
   <div>
-    <!-- New project card-->
-    {{#if isAddingNewProject}}
-      <div>
-        <h2>New Project</h2>
-        All you need to do to add a project is give it a name
-        {{validated-text-input name='newProjectName'
-                               type='text'
-                               placeholder='Name your project'
-                               value=newProjectName
-                               error=validations.attrs.newProjectName.message
-                               showError=showError}}
-        <div>
-        <button {{action "toggleIsAddingNewProject"}}>Cancel</button>
-        {{#spin-button action=(action 'saveButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
-        </div>
-      </div>
-    {{else}}
-      <div {{action "toggleIsAddingNewProject"}}>
-        + New Project
-      </div>
-    {{/if}}
+    {{new-project-card onSave=(action 'createNewProject')}}
     {{#each project in model}}
       {{project-card model=project}}
     {{/each}}

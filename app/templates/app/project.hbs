@@ -13,14 +13,13 @@
     </div>
   </div>
 
-  <div>
-    <button>+ New Category</button>
-  </div>
   {{#if hasCategory}}
     {{#each category in model.categories}}
       {{category-card model=category}}
     {{/each}}
+    {{new-category}}
   {{else}}
+    {{new-category}}
     <div>
       <h1>Add the first category!</h1>
       Categories will match with tags in Toggle when you import your hours
