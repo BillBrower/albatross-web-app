@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  model(params) {
+  model() {
     //TODO: Wait until backend is ready
     /*
     this.set('id', params.project_id);

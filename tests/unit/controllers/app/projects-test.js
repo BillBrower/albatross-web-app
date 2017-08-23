@@ -11,12 +11,3 @@ test('it exists', function(assert) {
   assert.ok(controller);
 });
 
-test('it toggles isAddingNewProject correctly', function(assert) {
-  let controller = this.subject();
-  controller.set('isAddingNewProject', false);
-  controller.send('toggleIsAddingNewProject');
-  assert.ok(controller.get('isAddingNewProject'));
-
-  controller.send('toggleIsAddingNewProject');
-  assert.notOk(controller.get('isAddingNewProject'));
-});
