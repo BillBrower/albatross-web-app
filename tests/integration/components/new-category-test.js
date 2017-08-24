@@ -5,21 +5,23 @@ moduleForComponent('new-category', 'Integration | Component | new category', {
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it renders + New Category when not adding a new category', function(assert) {
 
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
   this.render(hbs`{{new-category}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$().text().trim(), '+ New Category');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#new-category}}
-      template block text
-    {{/new-category}}
-  `);
+});
 
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it renders a text field when editing', function(assert) {
+
+  // Set any properties with this.set('myProperty', 'value');
+  // Handle any actions with this.on('myAction', function(val) { ... });
+
+  this.render(hbs`{{new-category isAddingNewCategory=true}}`);
+
+  assert.ok(this.$('input').length);
 });
