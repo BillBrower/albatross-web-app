@@ -1,1 +1,20 @@
-{{yield}}
+<div>
+  {{#if isAddingNewCategory}}
+    <div>
+      {{validated-text-input name='newCategoryName'
+                             type='text'
+                             placeholder='Name the category'
+                             value=newCategoryName
+                             error=validations.attrs.newCategoryName.message
+                             showError=showError}}
+      <div>
+        <button {{action "toggleIsAddingNewCategory"}}>Cancel</button>
+        {{#spin-button action=(action 'saveButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
+      </div>
+    </div>
+  {{else}}
+    <div {{action "toggleIsAddingNewCategory"}}>
+      + New Category
+    </div>
+  {{/if}}
+</div>

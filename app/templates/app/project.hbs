@@ -26,9 +26,9 @@
                       onSaveEstimated=(action "saveEstimated")
                       onSaveActual=(action "saveActual")}}
     {{/each}}
-    {{new-category}}
+    {{new-category onSave=(action "addNewCategory")}}
   {{else}}
-    {{new-category}}
+    {{new-category onSave=(action "addNewCategory")}}
     <div>
       <h1>Add the first category!</h1>
       Categories will match with tags in Toggle when you import your hours

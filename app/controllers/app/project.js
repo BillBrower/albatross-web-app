@@ -3,6 +3,10 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 
   actions: {
+    addNewCategory(categoryName, result) {
+      //TODO: Save category
+      result.resolve();
+    },
     saveActual(id, value) {
       console.log('Actual- id: ' + id + ' value: ' + value);
     },
