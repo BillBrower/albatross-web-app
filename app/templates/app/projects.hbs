@@ -1,13 +1,11 @@
-<div>
-  <div>
-    {{currentUser.user.team.name}}
+<div class="header">
+  <h1>Good afternoon, {{currentUser.user.name}}!</h1>
+  <p>{{model.length}} projects</p>
+</div>
 
-    {{model.length}}
-  </div>
-  <div>
-    {{new-project-card onSave=(action 'createNewProject')}}
-    {{#each project in model}}
-      {{project-card model=project}}
-    {{/each}}
-  </div>
+<div>
+  {{new-project-card onSave=(action 'createNewProject')}}
+  {{#each project in model}}
+    {{project-card model=project}}
+  {{/each}}
 </div>

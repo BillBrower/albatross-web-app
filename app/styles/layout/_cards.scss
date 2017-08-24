@@ -33,6 +33,7 @@
 
   &--project {
     @extend .card;
+    cursor: pointer;
     height: 12.5em;
     padding: $padding-mid $padding-mid $padding-mid calc($padding-mid - 5px);
 
@@ -42,6 +43,7 @@
       left: 0;
       position: absolute;
       top: 0;
+      transition: 0.2s ease-out;
       width: 5px;
 
       &.green {
@@ -83,6 +85,16 @@
         p {
           display: inline-block;
         }
+      }
+    }
+
+    &:hover {
+      .color {
+        width: 12px;
+      }
+
+      h1 {
+        color: $black;
       }
     }
   }

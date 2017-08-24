@@ -1,67 +1,67 @@
+<div class="header text-center">
+  <h1>Settings</h1>
+</div>
 <div>
   <div>
-    Account Settings
     <div>
-      <div>
-        {{validated-text-input name='firstName'
-                               type='text'
-                               placeholder='First Name'
-                               value=model.firstName
-                               error=model.validations.attrs.firstName.message
-                               showError=showError}}
-
-      </div>
-      <div>
-        {{validated-text-input name='lastName'
-                               type='text'
-                               placeholder='Last Name'
-                               value=model.lastName
-                               error=model.validations.attrs.lastName.message
-                               showError=showError}}
-      </div>
-    </div>
-
-    <div>
-      {{validated-text-input name='emailAddress'
+      {{validated-text-input name='firstName'
                              type='text'
-                             placeholder='Enter your email...'
-                             value=model.emailAddress
-                             error=validations.attrs.emailAddress.message
+                             placeholder='First Name'
+                             value=model.firstName
+                             error=model.validations.attrs.firstName.message
+                             showError=showError}}
+
+    </div>
+    <div>
+      {{validated-text-input name='lastName'
+                             type='text'
+                             placeholder='Last Name'
+                             value=model.lastName
+                             error=model.validations.attrs.lastName.message
                              showError=showError}}
     </div>
-
-    <div>
-      {{validated-text-input name='password'
-                             type='text'
-                             placeholder='Enter a new password...'
-                             value=password
-                             error=validations.attrs.password.message
-                             showError=showError}}
-    </div>
-
-    {{#spin-button action=(action 'saveAccountButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
-
-    <section>
-      {{error-message errors=accountErrors}}
-    </section>
   </div>
 
   <div>
-    Team Settings
-    <div>
-        {{validated-text-input name='toggleToken'
-                               type='text'
-                               placeholder='Toggle API Token'
-                               value=toggleToken
-                               error=model.validations.attrs.toggleToken.message
-                               showError=showError}}
-
-    </div>
-
-    {{#spin-button action=(action 'saveTokenButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
-
-    <section>
-      {{error-message errors=tokenErrors}}
-    </section>
+    {{validated-text-input name='emailAddress'
+                           type='text'
+                           placeholder='Enter your email...'
+                           value=model.emailAddress
+                           error=validations.attrs.emailAddress.message
+                           showError=showError}}
   </div>
+
+  <div>
+    {{validated-text-input name='password'
+                           type='text'
+                           placeholder='Enter a new password...'
+                           value=password
+                           error=validations.attrs.password.message
+                           showError=showError}}
+  </div>
+
+  {{#spin-button action=(action 'saveAccountButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
+
+  <section>
+    {{error-message errors=accountErrors}}
+  </section>
+</div>
+
+<div>
+  Team Settings
+  <div>
+      {{validated-text-input name='toggleToken'
+                             type='text'
+                             placeholder='Toggle API Token'
+                             value=toggleToken
+                             error=model.validations.attrs.toggleToken.message
+                             showError=showError}}
+
+  </div>
+
+  {{#spin-button action=(action 'saveTokenButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
+
+  <section>
+    {{error-message errors=tokenErrors}}
+  </section>
 </div>
