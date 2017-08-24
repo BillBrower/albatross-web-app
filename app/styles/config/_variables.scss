@@ -1,0 +1,111 @@
+// Variables
+// All global variables for the app
+// --------------------------------------------------------------------
+
+// Base em reference
+$base-reference: 18px;
+
+// Colors
+// All colors in the app
+// --------------------------------------------------------------------
+
+// Greyscale
+$white: #ffffff;
+$light: #F8FAFC;
+$grey-light: #D8E2EB;
+$grey-mid: #B0C0C9;
+$grey-dark: #82A0AF;
+$dark: #28586E;
+$black: #003146;
+
+$inactive: $grey-mid;
+
+// Colors
+$primary: #56D694;
+$primary-dark: mix($primary, $black, 80%);
+$primary-light: mix($primary, $white, 80%);
+
+//UI Colors
+$red: #F46070;
+$red-dark: mix($red, $black, 80%);
+$red-light: mix($red, $white, 80%);
+$yellow: #FDD371;
+$yellow-dark: mix($yellow, $black, 80%);
+$yellow-light: mix($yellow, $white, 80%);
+
+
+// --------------------------------------------------------------------
+
+
+// Fonts
+// All base font styles
+// --------------------------------------------------------------------
+
+// Import Google Web Fonts
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,600,700,900');
+
+// Font Stacks
+$display: 'Lato', 'Helvetica', sans-serif !default;
+$body: $display;
+
+// Font Weights
+$display-reg: 400;
+$display-bold: 900;
+$body-reg: 400;
+$body-bold: 600;
+
+// Defaults
+$base-font-family: $body;
+$base-font-color: $dark;
+$base-font-size: $base-reference;
+$base-line-height: 1.65;
+
+// Helpers
+$letter-spacing-default: 1px;
+$letter-spacing-wide: 2px;
+
+// --------------------------------------------------------------------
+
+
+// Layout Settings
+// --------------------------------------------------------------------
+
+// General
+$container-width: 65em;
+$container-padding: 1.5em;
+
+// Navbar
+$navbar-content-height: 3.5em;
+
+// --------------------------------------------------------------------
+
+
+// Utilities
+// --------------------------------------------------------------------
+
+// Margins
+$margin: 1em !default;
+$margin-small: $margin / 1.5;
+$margin-big: $margin * 2;
+
+// Padding
+$padding: 1em !default;
+$padding-small: $padding / 1.5;
+$padding-mid: $padding * 1.5;
+$padding-big: 2.77em;
+
+// General Settings
+$border-radius: 2px;
+$box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+$transition: .3s ease-in-out;
+
+// --------------------------------------------------------------------
+
+
+
+// Breakpoints
+// --------------------------------------------------------------------
+$big-break: 75em;
+$mid-break: 58em;
+$small-break: 1024px;
+$xs-break: 767px;

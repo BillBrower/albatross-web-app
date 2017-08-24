@@ -1,0 +1,40 @@
+// Base Layout
+// All base layout styles, grids, containers, etc.
+// -------------------------------------------------------------------
+
+// Max width container for entire app
+.container {
+  height: auto;
+  overflow: hidden;
+  margin: 0 auto;
+  max-width: $container-width;
+  width: 100%;
+
+  &--main {
+    @extend .container;
+    padding: $padding-mid;
+    width: 100%;
+  }
+}
+
+.header {
+  padding: $padding 0 $padding-big 0;
+
+  h1 {
+    display: inline-block;
+  }
+
+  p {
+    color: $grey-mid;
+    float: right;
+  }
+}
+
+
+// Utilities
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}

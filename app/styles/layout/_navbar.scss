@@ -1,0 +1,70 @@
+// Navbar Layout
+// All styles for laying out elements inside the navbar
+// -------------------------------------------------------------------
+
+.navbar {
+  background: $white;
+  height: auto;
+  left: 0;
+  overflow: hidden;
+  padding: 0.3em 0;
+  top: 0;
+  width: 100vw;
+  z-index: 99;
+
+  .container {
+    margin: 0 auto;
+    padding: 0 $container-padding;
+
+    .logo {
+      background-position: center left;
+      height: $navbar-content-height;
+      width: 8em;
+    }
+
+    .left-nav {
+      display: inline-block;
+      float: left;
+
+      ul, .logo {
+        float: left;
+      }
+    }
+
+    .right-nav {
+      display: inline-block;
+      float: right;
+    }
+
+    ul {
+      display: inline-block;
+      height: $navbar-content-height;
+      list-style-type: none;
+      margin: 0;
+
+      li {
+        display: inline-block;
+        line-height: $navbar-content-height;
+        padding: 0 $padding-small;
+        position: relative;
+
+        a {
+          color: $grey-mid;
+          font-size: 0.8em;
+          line-height: $navbar-content-height;
+          padding: $padding-small;
+          transition: $transition;
+
+          &.active, &:hover {
+            color: $dark;
+          }
+        }
+      }
+    }
+
+    #{$all-buttons}, #{$all-text-inputs}, .field {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+  }
+}

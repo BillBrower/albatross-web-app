@@ -1,0 +1,54 @@
+
+
+.status {
+  position: relative;
+  display: inline-block;
+
+  .icon {
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    height: 1em;
+    left: 0;
+    position: absolute;
+    top: 6px;
+    width: 1em;
+  }
+
+  &.green {
+    .icon {
+      background-image: url('/img/icons/status-icons/green-icon.svg');
+    }
+
+    p {
+      color: $primary;
+    }
+  }
+
+  &.red {
+    .icon {
+      background-image: url('/img/icons/status-icons/red-icon.svg');
+    }
+
+    p {
+      color: $red;
+    }
+  }
+
+  &.yellow {
+    .icon {
+      background-image: url('/img/icons/status-icons/yellow-icon.svg');
+    }
+
+    p {
+      color: $yellow;
+    }
+  }
+
+  p {
+    display: inline-block;
+    font-weight: 900;
+    margin: auto;
+    padding: 0 0 0 1.2em;
+  }
+}

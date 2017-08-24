@@ -1,0 +1,12 @@
+// Logo
+// All styles for creating logo element
+// -------------------------------------------------------------------
+
+.logo {
+  background-image: url('/img/logo/albatross-logo.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  height: 4rem;
+  width: 12rem;
+}

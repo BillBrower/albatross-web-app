@@ -19,6 +19,7 @@ Router.map(function() {
     this.route('settings');
     this.route('project', {path: '/projects/:project_id'});
   });
+  this.route('sandbox');
 });
 
 export default Router;

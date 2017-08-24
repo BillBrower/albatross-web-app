@@ -1,0 +1,93 @@
+<div class="navbar">
+  <div class="container">
+    <div class="left-nav">
+      <div class="logo"></div>
+      <ul class="nav-list">
+        <li>{{#link-to 'app.projects'}}Projects{{/link-to}}</li>
+        <li>{{#link-to 'app.users'}}Users{{/link-to}}</li>
+      </ul>
+    </div>
+    <div class="right-nav">
+      <ul class="nav-list">
+        <li>{{#link-to 'app.settings'}}Settings{{/link-to}}</li>
+        <li><a id="logout" href="" {{action 'logout'}}>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container--main">
+  <div class="header">
+    <h1>Good afternoon, Austin!</h1>
+    <p>4 projects</p>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-4">
+      <div class="card--project">
+        <div class="color green"></div>
+        <div class="content">
+
+          <div class="top-content">
+            <h1 class="bold black">Hello world</h1>
+            <p class="small">updated 08/27/17</p>
+          </div>
+
+          <div class="bottom-content">
+            <span class="status green left">
+              <span class="icon"></span>
+              <p>83 under</p>
+            </span>
+            <p class="small right">112/195</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-4">
+      <div class="card--project">
+        <div class="color red"></div>
+        <div class="content">
+
+          <div class="top-content">
+            <h1 class="bold black">Hello world</h1>
+            <p class="small">updated 08/27/17</p>
+          </div>
+
+          <div class="bottom-content">
+            <span class="status red left">
+              <span class="icon"></span>
+              <p>83 under</p>
+            </span>
+            <p class="small right">112/195</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-4">
+      <div class="card--project">
+        <div class="color green"></div>
+        <div class="content">
+
+          <div class="top-content">
+            <h1 class="bold black">Hello world</h1>
+            <p class="small">updated 08/27/17</p>
+          </div>
+
+          <div class="bottom-content">
+            <span class="status green left">
+              <span class="icon"></span>
+              <p>83 under</p>
+            </span>
+            <p class="small right">112/195</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  {{outlet}}
+</div>

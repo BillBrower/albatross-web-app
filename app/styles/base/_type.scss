@@ -1,0 +1,66 @@
+// Type
+// All base font and typography styles
+// -------------------------------------------------------------------
+
+
+// Defaults
+body {
+  background: $light;
+  color: $base-font-color;
+  font-family: $base-font-family;
+  font-size: $base-reference;
+  font-style: normal;
+  line-height: $base-line-height;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
+
+  &.black {
+    color: $black;
+  }
+}
+
+h1 {
+  font-size: 1.45em;
+  font-weight: 400;
+
+  &.bold {
+    font-weight: 900;
+  }
+}
+
+h2 {
+  font-size: 1em;
+  font-weight: 900;
+}
+
+
+p {
+  color: $dark;
+  font-size: 1em;
+  margin: 0 0 1rem;
+
+  &.small {
+    color: $grey-mid;
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+
+  &.black {
+    color: $black;
+  }
+}
+
+a {
+  color: $primary;
+  cursor: pointer;
+  font-weight: $body-bold;
+  text-decoration: none;
+  transition: $transition;
+  font-weight: 800;
+
+  &:hover {
+    color: $primary-dark;
+  }
+}
