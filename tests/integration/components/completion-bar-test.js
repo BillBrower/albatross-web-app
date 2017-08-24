@@ -5,21 +5,13 @@ moduleForComponent('completion-bar', 'Integration | Component | completion bar',
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it renders a percentage', function(assert) {
 
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{completion-bar}}`);
+  this.render(hbs`{{completion-bar estimated=37 actual=33}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$().text().trim(), '89%');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#completion-bar}}
-      template block text
-    {{/completion-bar}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
 });
