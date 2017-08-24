@@ -1,7 +1,19 @@
-<div>
-  {{model.name}}
-  <p class="italic">Updated {{model.updatedAt}}</p>
+<div class="card--project">
+  <div class="color green"></div>
+  <div class="content">
 
-  <!--TODO: Summary stats -->
+    <div class="top-content">
+      <h1 class="bold black">{{model.name}}</h1>
+      <p class="small">{{model.updatedAt}}</p>
+    </div>
 
+    <div class="bottom-content">
+      <!--TODO: Use hours from model -->
+      {{hours-remaining icon=true
+                        text=true
+                        estimated=195
+                        actual=112}}
+      <p class="small right">112/195</p>
+    </div>
+  </div>
 </div>

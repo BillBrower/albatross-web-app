@@ -1,6 +1,11 @@
-{{#if icon}}
-<img src={{formattedIcon}} />
-{{/if}}
-{{#if text}}
-  {{formattedText}}
-{{/if}}
+<span class="status {{color}} left">
+  {{#if icon}}
+    <span class="icon"></span>
+  {{/if}}
+  {{#if text}}
+    <p>{{formattedText}}</p>
+  {{/if}}
+</span>
+
+
+

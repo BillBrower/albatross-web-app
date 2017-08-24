@@ -2,7 +2,7 @@ import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('controller:app/users', 'Unit | Controller | app/users', {
   // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
+   needs: ['validator:presence', 'validator:format']
 });
 
 // Replace this with your real tests.
