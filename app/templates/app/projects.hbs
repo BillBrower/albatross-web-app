@@ -5,6 +5,8 @@
   </div>
   <div>
     {{new-project-card onSave=(action 'createNewProject')}}
+      <!-- Sample project card-->
+    {{project-card}}
     {{#each project in model}}
       {{project-card model=project}}
     {{/each}}
