@@ -21,10 +21,12 @@
 @import
 'components/buttons',
 'components/logo',
+'components/progress-bar.scss',
 'components/status';
 
 // Layout
 @import
 'layout/base',
 'layout/cards',
-'layout/navbar';
+'layout/navbar',
+'layout/summary';

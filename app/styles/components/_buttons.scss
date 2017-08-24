@@ -1,0 +1,63 @@
+// Buttons
+// All styles for creating button elements
+// -------------------------------------------------------------------
+
+#{$all-buttons} {
+  border-radius: $border-radius;
+  border-width: 0;
+  box-shadow: none;
+  color: $white;
+  cursor: pointer;
+  font-family: $body;
+  font-size: 1rem;
+  font-weight: 900;
+  margin: 0;
+  min-width: golden-ratio($base-font-size,  4);
+  outline: none;
+  padding: 0.75rem $padding-mid;
+  position: relative;
+  transition: $transition;
+
+  &[disabled], &:disabled {
+    background: $grey-light !important;
+    color: $white !important;
+    cursor: initial;
+  }
+
+  &.btn-primary {
+    background: $primary;
+
+    &:hover {
+      background: $primary-dark;
+    }
+
+    &.spin-button {
+      @include buttonColor('blue', $primary);
+
+      &:hover {
+        @include buttonColor('blue', $primary-dark);
+      }
+    }
+  }
+
+  &.spin-button {
+    border: none;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    padding: 0.75rem $padding-big !important;
+    width: auto !important;
+
+    span {
+      font-size: 1rem;
+    }
+
+    &.in-flight {
+      border-radius: 4px !important;
+      width: auto !important;
+    }
+  }
+
+  &.no-margin {
+    margin: 0;
+  }
+}

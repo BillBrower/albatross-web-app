@@ -1,0 +1,34 @@
+// Progress Bar
+// All styles for creating progress bar components
+// -------------------------------------------------------------------
+
+.progress-bar {
+  background: $grey-light;
+  border-radius: 7px;
+  height: 7px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+
+  .fill {
+    background: $primary;
+    border-radius: 7px;
+    height: 100%;
+
+    // Loop through 0-100 and match the percent complete with the class name
+    @for $i from 0 through 100 {
+      &.complete-#{$i} {
+        width: ($i + %);
+      }
+    }
+
+    // Match the color in the class with the right variable for the fill color
+    @each $color in 'green', 'red', 'yellow' {
+      &.#{$color} {
+        @if $color == 'green' {background: $primary};
+        @if $color == 'red' {background: $red};
+        @if $color == 'yellow' {background: $yellow};
+      }
+    }
+  }
+}

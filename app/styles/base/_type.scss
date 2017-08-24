@@ -45,11 +45,15 @@ p {
   &.small {
     color: $grey-mid;
     font-size: 0.8em;
-    font-weight: 600;
+    font-weight: 800;
   }
 
   &.black {
     color: $black;
+  }
+
+  strong {
+    font-weight: 900;
   }
 }
 

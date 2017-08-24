@@ -1,0 +1,46 @@
+// Status
+// All styles for layout out the status section on a Project
+// -------------------------------------------------------------------
+
+.summary {
+
+  .buffer {
+
+  }
+
+  .progress-wrapper {
+    .content {
+      .section {
+        display: inline-block;
+        height: auto;
+        overflow: hidden;
+        padding: 0 $padding;
+        width: auto;
+
+        &-left {
+          @extend .section;
+
+          span {
+            &:last-child {
+              padding: 0 0 0 $padding-big;
+            }
+
+            p:last-child {
+              padding: 0 0 0 5px;
+            }
+          }
+        }
+
+        &-right {
+          @extend .section;
+          float: right;
+        }
+      }
+    }
+  }
+
+  p {
+    display: inline-block;
+    margin: 0;
+  }
+}
