@@ -1,8 +1,7 @@
-<div>
-  <div>
-    {{currentUser.user.team.name}}
-
-    {{model.length}}
+<div class="container--main">
+  <div class="header">
+    <h1>Good afternoon, {{currentUser.user.team.name}}!</h1>
+    <p>{{model.length}} projects</p>
   </div>
   <div>
     {{new-project-card onSave=(action 'createNewProject')}}
