@@ -5,7 +5,7 @@ moduleForComponent('hours-remaining', 'Integration | Component | hours remaining
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it renders nothing when icon and text is not present', function(assert) {
 
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
@@ -14,12 +14,37 @@ test('it renders', function(assert) {
 
   assert.equal(this.$().text().trim(), '');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#hours-remaining}}
-      template block text
-    {{/hours-remaining}}
-  `);
+});
 
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it renders correct text when the hours difference is greater than 10% of the estimate', function(assert) {
+
+  // Set any properties with this.set('myProperty', 'value');
+  // Handle any actions with this.on('myAction', function(val) { ... });
+
+  this.render(hbs`{{hours-remaining text=true estimated=10 actual=4}}`);
+
+  assert.equal(this.$().text().trim(), '6 under');
+
+});
+
+test('it renders correct text when the hours difference is less than 10% of the estimate but greater than 0', function(assert) {
+
+  // Set any properties with this.set('myProperty', 'value');
+  // Handle any actions with this.on('myAction', function(val) { ... });
+
+  this.render(hbs`{{hours-remaining text=true estimated=11 actual=10}}`);
+
+  assert.equal(this.$().text().trim(), 'right on');
+
+});
+
+test('it renders correct text when the hours difference is less than 0', function(assert) {
+
+  // Set any properties with this.set('myProperty', 'value');
+  // Handle any actions with this.on('myAction', function(val) { ... });
+
+  this.render(hbs`{{hours-remaining text=true estimated=10 actual=15}}`);
+
+  assert.equal(this.$().text().trim(), '5 over');
+
 });
