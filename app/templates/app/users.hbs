@@ -1,1 +1,22 @@
-{{outlet}}
+<div>
+  Users
+  <div>
+    <h2>Invite a New User</h2>
+    {{validated-text-input name='emailAddress'
+                           type='text'
+                           placeholder='Enter an email...'
+                           value=emailAddress
+                           error=validations.attrs.emailAddress.message
+                           showError=showError}}
+    To add your teammates to Albatross, just enter their email and we'll send them a link to join
+    {{#spin-button action=(action 'inviteButtonPressed') class="btn-primary" buttonStyle="contract"}}Invite{{/spin-button}}
+  </div>
+
+  <div>
+    Current Users
+    <!--Todo table-->
+    {{#each user in model.users}}
+
+    {{/each}}
+  </div>
+</div>
