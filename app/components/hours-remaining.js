@@ -8,13 +8,13 @@ export default Ember.Component.extend({
     const difference = estimated - actual;
     if (difference > estimated * .1) {
       this.set('formattedText', `${difference} under`);
-      this.set('formattedIcon', 'green icon')
+      this.set('color', 'green')
     } else if (difference >= 0) {
       this.set('formattedText',`right on`);
-      this.set('formattedIcon', 'yellow icon');
+      this.set('color', 'yellow');
     } else {
       this.set('formattedText', `${Math.abs(difference)} over`);
-      this.set('formattedIcon', 'red icon')
+      this.set('color', 'red')
     }
   }.on('init')
 });
