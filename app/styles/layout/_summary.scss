@@ -2,13 +2,43 @@
 // All styles for layout out the status section on a Project
 // -------------------------------------------------------------------
 
+$buffer-width: 8em;;
+
 .summary {
 
   .buffer {
+    display: inline-block;
+    width: $buffer-width;
 
+    label {
+      display: inline-block;
+      line-height: 4.65em;
+      float: left;
+      padding: 0 $padding 0 0;
+    }
+
+    #{$all-text-inputs} {
+      display: inline-block;
+      padding-right: 1.8em;
+      text-align: right;
+      width: 5em;
+    }
+
+    .percent-sign {
+      color: $grey-mid;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-60%);
+      right: 1em;
+    }
   }
 
   .progress-wrapper {
+    display: inline-block;
+    float: right;
+    width: calc(95% - #{$buffer-width});
+    transform: translateY(20px);
+
     .content {
       .section {
         display: inline-block;

@@ -1,0 +1,94 @@
+// Inputs
+// All styles for creating input elements
+// -------------------------------------------------------------------
+
+#{$all-text-inputs} {
+  border-radius: 6px;
+  border: 1px solid $grey-light;
+  height: 60px;
+  margin-bottom: 0.35rem;
+  outline: none;
+  padding: 1rem;
+  width: 100%;
+  font-size: 1em;
+  transition: $transition;
+
+  &:focus {
+    border-color: $primary;
+  }
+
+  &.error {
+    border-color: $red;
+  }
+
+  &::placeholder {
+    color: $grey-mid;
+  }
+}
+
+#{$all-text-inputs-focus},
+#{$all-text-inputs-active} {
+
+  ~ label {
+    color: $primary;
+    transition: $transition;
+  }
+
+  &.disabled {
+    color: $grey-mid;
+
+    ~ label {
+      color: $grey-mid;
+    }
+  }
+}
+
+.field {
+  margin: $padding 0 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  width: 100%;
+
+  &--half {
+    @extend .field;
+    display: inline-block;
+    margin-right: $padding;
+    width: 46%;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  label {
+    font-size: 0.8rem;
+    left: $padding;
+  }
+
+  &.no-label {
+
+    #{$all-text-inputs} {
+      height: auto;
+      padding: $padding;
+
+      #{$all-text-inputs-active}, #{$all-button-inputs-focus} {
+        height: auto;
+        padding: $padding;
+      }
+    }
+  }
+
+  &.error {
+    #{$all-text-inputs} {
+      border-color: $red;
+    }
+
+    p {
+      color: $red;
+      font-style: italic;
+      margin: 0;
+    }
+  }
+}

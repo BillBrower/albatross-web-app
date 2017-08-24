@@ -112,7 +112,15 @@
 
       <div class="summary">
         <div class="buffer">
-          <p class="small">Buffer:</p><p><strong>8%</strong></p>
+          <div class="field">
+            <label for="buffer">Buffer</label>
+            <span class="percent-sign">%</span>
+            {{live-updating-text-input
+                name='buffer'
+                type='number'
+                placeholder='0'
+                value=8}}
+          </div>
         </div>
 
         <div class="progress-wrapper">
