@@ -1,6 +1,8 @@
 <div class="field {{if showError (if error "error")}}">
-  {{input id=name name=name type=type required='true' placeholder=placeholder value=value}}
-  <label for={{name}}>{{placeholder}}</label>
+  {{input focus-in=focusIn id=name name=name type=type required='true' placeholder=placeholder value=value}}
+  {{#if label}}
+    <label for={{name}}>{{label}}</label>
+  {{/if}}
   {{#if showError}}
     {{#if error}}
       <p>{{error}}</p>

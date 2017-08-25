@@ -2,6 +2,10 @@
 // All base layout styles, grids, containers, etc.
 // -------------------------------------------------------------------
 
+.ember-view {
+  display: inline-block;
+}
+
 // Max width container for entire app
 .container {
   height: auto;

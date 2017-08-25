@@ -40,6 +40,16 @@
     }
   }
 
+  &.cancel {
+    background: none;
+    color: $grey-dark;
+    min-width: 0;
+
+    &:hover, &:focus {
+      color: $red;
+    }
+  }
+
   &.spin-button {
     border: none;
     border-radius: $border-radius;

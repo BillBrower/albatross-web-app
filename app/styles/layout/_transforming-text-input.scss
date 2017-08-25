@@ -1,0 +1,57 @@
+// Transforming Text Input
+// All styles for creating the transforming text input component
+// -------------------------------------------------------------------
+
+.transforming-text-input {
+  display: inline-block;
+  max-width: 100%;
+  width: auto;
+
+  .field {
+    display: inline-block;
+    margin: 0;
+    width: auto;
+  }
+
+  #{$all-text-inputs} {
+    background: transparent;
+    border: none;
+    border-bottom: 1px dotted transparent;
+    border-radius: 0;
+    color: $base-font-color;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.45em;
+    padding: 0;
+    margin: 0;
+    transition: $transition;
+    width: auto;
+  }
+
+  #{$all-text-inputs-active}, #{$all-text-inputs-focus} {
+    border-bottom: 1px dotted $primary;
+    color: $black;
+    cursor: text;
+  }
+
+  .btn-group {
+    height: 0;
+    overflow: hidden;
+    transition: 0.2s ease-out;
+
+    #{$all-buttons} {
+      margin: 0;
+    }
+
+    .cancel {
+      padding-left: 0;
+    }
+  }
+
+  &.is-active {
+
+    .btn-group {
+      height: 2.65em;
+    }
+  }
+}
