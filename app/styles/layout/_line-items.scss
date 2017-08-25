@@ -1,0 +1,68 @@
+// Line Items
+// All styles for creating line items on projects
+// -------------------------------------------------------------------
+
+$status-icon-width: 6%;
+$description-width: 50%;
+$estimated-width: calc((98% - (#{$description-width} + #{$status-icon-width})) / 2);
+$actual-width: $estimated-width;
+
+.line-items {
+  padding: 0;
+
+  .items-header {
+    border-bottom: $border;
+    padding: 0 $padding-mid $padding-small;
+
+    p {
+      display: inline-block;
+
+      &.description {
+        width: $description-width;
+      }
+      &.estimated {
+        width: $estimated-width;
+      }
+      &.actual {
+        width: $actual-width;
+      }
+    }
+  }
+
+  .item {
+    border-bottom: $border;
+    padding: $padding-small $padding-mid;
+
+    .description {
+      display: inline-block;
+      width: $description-width;
+    }
+    .estimated {
+      display: inline-block;
+      width: $estimated-width;
+    }
+    .actual {
+      display: inline-block;
+      width: $actual-width;
+    }
+    .ember-view {
+      display: inline-block;
+      float: right;
+      height: 1.65em;
+      width: $status-icon-width;
+
+      .status {
+        height: 1.65em;
+        width: 100%;
+      }
+    }
+  }
+
+  .item-bottom {
+    padding: $padding-small $padding-mid;
+
+    #{$all-buttons} {
+      margin: 0;
+    }
+  }
+}

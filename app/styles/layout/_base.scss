@@ -12,7 +12,7 @@
 
   &--main {
     @extend .container;
-    padding: $padding-mid;
+    padding: $padding-mid $padding-mid $padding-big $padding-mid;
     width: 100%;
   }
 }

@@ -29,7 +29,7 @@
         <div class="content">
 
           <div class="top-content">
-            <h1 class="bold">Hello world</h1>
+            <h1 class="bold">Case Status MVP</h1>
             <p class="small">updated 08/27/17</p>
           </div>
 
@@ -51,7 +51,7 @@
         <div class="content">
 
           <div class="top-content">
-            <h1 class="bold">Hello world</h1>
+            <h1 class="bold">Inspire A Career</h1>
             <p class="small">updated 08/27/17</p>
           </div>
 
@@ -73,7 +73,7 @@
         <div class="content">
 
           <div class="top-content">
-            <h1 class="bold">Hello world</h1>
+            <h1 class="bold">Forty Seven South Updates</h1>
             <p class="small">updated 08/27/17</p>
           </div>
 
@@ -143,6 +143,72 @@
           </div>
           <div class="progress-bar yellow">
             <div class="fill complete-75 yellow"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-body">
+        <div class="card category">
+          <div class="name">
+            <h1>Design</h1>
+          </div>
+
+          <div class="summary category">
+            <div class="progress-wrapper category">
+              <span class="section-left">
+                <span>
+                  <p><strong>137</strong></p><p class="small">Estimated</p>
+                </span>
+                <span>
+                  <p><strong>92</strong></p><p class="small">Actual</p>
+                </span>
+              </span>
+
+                <div class="progress-bar">
+                  <div class="fill complete-45 green"></div>
+                </div>
+
+                <span class="section-right">
+                <span class="status green">
+                  <span class="icon"></span>
+                    <p>83 under</p>
+                </span>
+              </span>
+
+            </div>
+          </div>
+
+          <div class="line-items">
+            <div class="items-header">
+              <p class="small description">Description</p>
+              <p class="small estimated">Estimated</p>
+              <p class="small actual">Actual</p>
+            </div>
+
+            <div class="item">
+              <div class="description">I am an item</div>
+              <div class="estimated">53</div>
+              <div class="actual">35</div>
+              {{hours-remaining
+                  actual=35
+                  estimated=53
+                  icon=true}}
+            </div>
+
+            <div class="item">
+              <div class="description">I am an item</div>
+              <div class="estimated">53</div>
+              <div class="actual">35</div>
+              {{hours-remaining
+                actual=35
+                estimated=53
+                icon=true}}
+            </div>
+
+            <div class="item-bottom">
+              <button class="btn-primary">+ New Item</button>
+            </div>
+
           </div>
         </div>
       </div>

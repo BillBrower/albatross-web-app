@@ -62,11 +62,6 @@
     }
   }
 
-  label {
-    font-size: 0.8rem;
-    left: $padding;
-  }
-
   &.no-label {
 
     #{$all-text-inputs} {

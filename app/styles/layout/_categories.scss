@@ -1,0 +1,13 @@
+// Categories
+// All styles for creating category layouts
+// -------------------------------------------------------------------
+
+$padding-width: $padding-mid;
+
+.category {
+  padding: 0;
+
+  .name {
+    padding: $padding $padding-mid 0;
+  }
+}

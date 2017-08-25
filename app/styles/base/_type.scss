@@ -14,6 +14,7 @@ body {
 }
 
 h1,h2,h3,h4,h5,h6 {
+  line-height: 1.3;
   margin: 0;
   transition: $transition;
 
@@ -27,7 +28,7 @@ h1 {
   font-weight: 400;
 
   &.bold {
-    font-weight: 900;
+    font-weight: 700;
   }
 }
 
@@ -40,12 +41,12 @@ h2 {
 p {
   color: $dark;
   font-size: 1em;
-  margin: 0 0 1rem;
+  margin: 0;
 
   &.small {
     color: $grey-mid;
     font-size: 0.8em;
-    font-weight: 800;
+    font-weight: 600;
   }
 
   &.black {
@@ -73,5 +74,5 @@ a {
 label {
   color: $grey-mid;
   font-size: 0.8em;
-  font-weight: 800;
+  font-weight: 600;
 }

@@ -42,10 +42,10 @@ $yellow-light: mix($yellow, $white, 80%);
 // --------------------------------------------------------------------
 
 // Import Google Web Fonts
-@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,600,700,900');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,700,900');
 
 // Font Stacks
-$display: 'Lato', 'Helvetica', sans-serif !default;
+$display: 'Source Sans Pro', 'Helvetica', sans-serif !default;
 $body: $display;
 
 // Font Weights
@@ -91,10 +91,11 @@ $margin-big: $margin * 2;
 // Padding
 $padding: 1em !default;
 $padding-small: $padding / 1.5;
-$padding-mid: $padding * 1.5;
+$padding-mid: $padding * 1.3;
 $padding-big: 2.77em;
 
 // General Settings
+$border: 1px solid $grey-light;
 $border-radius: 2px;
 $box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
 $transition: .3s ease-in-out;

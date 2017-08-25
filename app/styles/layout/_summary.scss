@@ -5,6 +5,9 @@
 $buffer-width: 8em;;
 
 .summary {
+  height: auto;
+  padding: 0 0 $padding-big 0;
+  overflow: hidden;
 
   .buffer {
     display: inline-block;
@@ -39,32 +42,30 @@ $buffer-width: 8em;;
     width: calc(95% - #{$buffer-width});
     transform: translateY(20px);
 
-    .content {
-      .section {
-        display: inline-block;
-        height: auto;
-        overflow: hidden;
-        padding: 0 $padding;
-        width: auto;
+    .section {
+      display: inline-block;
+      height: auto;
+      overflow: hidden;
+      padding: 0 $padding;
+      width: auto;
 
-        &-left {
-          @extend .section;
+      &-left {
+        @extend .section;
 
-          span {
-            &:last-child {
-              padding: 0 0 0 $padding-big;
-            }
+        span {
+          &:last-child {
+            padding: 0 0 0 $padding-big;
+          }
 
-            p:last-child {
-              padding: 0 0 0 5px;
-            }
+          p:last-child {
+            padding: 0 0 0 5px;
           }
         }
+      }
 
-        &-right {
-          @extend .section;
-          float: right;
-        }
+      &-right {
+        @extend .section;
+        float: right;
       }
     }
   }
@@ -72,5 +73,35 @@ $buffer-width: 8em;;
   p {
     display: inline-block;
     margin: 0;
+  }
+
+  &.category {
+    padding: $padding-small $padding-mid 0;
+
+    .progress-wrapper {
+      transform: none;
+      width: 100%;
+
+      .section {
+
+        &-left {
+          min-width: 14em;
+          padding-left: 0;
+          width: auto;
+        }
+        &-right {
+          min-width: 8em;
+          padding-right: 0;
+          text-align: right;
+          width: auto;
+        }
+      }
+
+      .progress-bar {
+        display: inline-block;
+        transform: translateY(-10px);
+        width: calc(99% - (14em + 8em));
+      }
+    }
   }
 }
