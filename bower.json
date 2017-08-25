@@ -2,6 +2,7 @@
   "name": "albatross-web-app",
   "dependencies": {
     "spin.js": "^2.3.2",
-    "bourbon": "4.2.6"
+    "bourbon": "4.2.6",
+    "flexboxgrid": "^6.3.2"
   }
 }

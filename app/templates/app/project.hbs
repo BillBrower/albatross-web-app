@@ -1,14 +1,51 @@
 <div class="container--main">
-  <div>
-    <div>
-      <p>BUFFER</p>
-      <p>ESTIMATED HOURS</p>
-      <p>ACTUAL HOURS</p>
+  <div class="row">
+    <div class="col-xs-1">
+      <div class="header">
+        <a>Back</a>
+      </div>
     </div>
-    <div>
-      <button>Sync with Toggle</button>
-      <p class="italic">Import hours from your Toggle project called {{model.name}}. We'll match category names here with
-      tags in your time entries for the project.</p>
+  <div class="col-xs-10">
+    <div class="header">
+      <h1>Case Status MVP</h1>
+      <button class="btn-primary pull-right">Import from Toggl</button>
+    </div>
+
+    <div class="summary">
+      <div class="buffer">
+        <div class="field">
+          <label for="buffer">Buffer</label>
+          <span class="percent-sign">%</span>
+          {{live-updating-text-input
+            name='buffer'
+            type='number'
+            placeholder='0'
+            saveValue=(action "onBufferChanged")
+            value=buffer}}
+        </div>
+      </div>
+
+      <!-- TODO: Replace numbers with real ones from model-->
+      <div class="progress-wrapper">
+        <div class="content">
+            <span class="section-left">
+              <span>
+                <p><strong>{{estimated}}</strong></p><p class="small">Estimated</p>
+              </span>
+              <span>
+                <p><strong>{{actual}}</strong></p><p class="small">Actual</p>
+              </span>
+            </span>
+
+          <span class="section-right">
+              {{hours-remaining text=true
+                                icon=true
+                                estimated=estimated
+                                actual=actual}}
+            </span>
+        </div>
+        {{completion-bar estimated=estimated actual=actual}}
+      </div>
     </div>
   </div>
 
@@ -33,4 +70,5 @@
       Categories will match with tags in Toggle when you import your hours
     </div>
   {{/if}}
+</div>
 </div>

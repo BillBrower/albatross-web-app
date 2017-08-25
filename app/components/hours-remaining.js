@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Status from '../constants/status';
 
 export default Ember.Component.extend({
 
@@ -6,15 +7,14 @@ export default Ember.Component.extend({
     const estimated = this.get('estimated');
     const actual = this.get('actual');
     const difference = estimated - actual;
-    if (difference > estimated * .1) {
+    const statusColor = Status.statusColor(estimated, actual);
+    this.set('color', statusColor);
+    if (statusColor === 'green') {
       this.set('formattedText', `${difference} under`);
-      this.set('color', 'green')
-    } else if (difference >= 0) {
+    } else if (statusColor === 'yellow') {
       this.set('formattedText',`right on`);
-      this.set('color', 'yellow');
-    } else {
+    } else if (statusColor === 'red') {
       this.set('formattedText', `${Math.abs(difference)} over`);
-      this.set('color', 'red')
     }
-  }.on('init')
+  }.observes('estimated','actual').on('init')
 });
