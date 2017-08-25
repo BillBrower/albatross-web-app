@@ -2,7 +2,7 @@
 // All styles for creating line items on projects
 // -------------------------------------------------------------------
 
-$status-icon-width: 6%;
+$status-icon-width: 10%;
 $description-width: 50%;
 $estimated-width: calc((98% - (#{$description-width} + #{$status-icon-width})) / 2);
 $actual-width: $estimated-width;
@@ -18,12 +18,17 @@ $actual-width: $estimated-width;
       display: inline-block;
 
       &.description {
+        padding: 0 $padding-small 0 0;
         width: $description-width;
       }
       &.estimated {
+        padding: 0 $padding 0 $padding-big;
+        text-align: right;
         width: $estimated-width;
       }
       &.actual {
+        padding: 0 $padding 0 $padding-big;
+        text-align: right;
         width: $actual-width;
       }
     }
@@ -33,27 +38,58 @@ $actual-width: $estimated-width;
     border-bottom: $border;
     padding: $padding-small $padding-mid;
 
+    .toggle-input {
+      width: 100%;
+    }
+    .field {
+      margin: 0;
+    }
+
     .description {
       display: inline-block;
+      float: left;
+      padding: 0 $padding-small 0 0;
       width: $description-width;
     }
     .estimated {
       display: inline-block;
+      float: left;
+      padding: 0 0 0 $padding-big;
+      text-align: right;
       width: $estimated-width;
+
+      #{$all-text-inputs} {
+        float: right;
+        max-width: 4em;
+        text-align: right;
+      }
     }
     .actual {
       display: inline-block;
+      float: left;
+      padding: 0 0 0 $padding-big;
+      text-align: right;
       width: $actual-width;
+
+      #{$all-text-inputs} {
+        float: right;
+        max-width: 4em;
+        text-align: right;
+      }
     }
-    .ember-view {
+    .status-wrapper {
       display: inline-block;
-      float: right;
       height: 1.65em;
       width: $status-icon-width;
 
       .status {
         height: 1.65em;
         width: 100%;
+
+        .icon {
+          left: auto;
+          right: 0;
+        }
       }
     }
   }

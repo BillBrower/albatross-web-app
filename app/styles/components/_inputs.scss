@@ -25,6 +25,27 @@
   &::placeholder {
     color: $grey-mid;
   }
+
+  &.toggle-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px dotted transparent;
+    border-radius: 0;
+    color: $base-font-color;
+    cursor: pointer;
+    display: inline-block;
+    height: 1.65em;
+    padding: 0;
+    margin: 0;
+    transition: $transition;
+    width: auto;
+
+    &:focus, &:active {
+      border-bottom: 1px dotted $primary;
+      color: $black;
+      cursor: text;
+    }
+  }
 }
 
 #{$all-text-inputs-focus},
