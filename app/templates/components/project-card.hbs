@@ -1,14 +1,15 @@
-<div class="card--project">
+<div class="col-xs-4">
+<div {{action 'cardClicked'}} class="card--project" >
   <div class="color green"></div>
   <div class="content">
-
+    <!--TODO: Use model data -->
     <div class="top-content">
-      <h1 class="bold black">{{model.name}}</h1>
-      <p class="small">{{model.updatedAt}}</p>
+      <h1 class="bold black">Albatross MVP</h1>
+      <p class="small">08/25/2017</p>
     </div>
 
     <div class="bottom-content">
-      <!--TODO: Use hours from model -->
+
       {{hours-remaining icon=true
                         text=true
                         estimated=195
@@ -16,4 +17,5 @@
       <p class="small right">112/195</p>
     </div>
   </div>
+</div>
 </div>

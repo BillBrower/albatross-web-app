@@ -10,6 +10,10 @@ export default Ember.Route.extend({
     createProject() {
       //TODO: Implement
       this.transitionTo('app.project', '1');
+    },
+
+    goToProject(id) {
+      this.transitionTo('app.project', id);
     }
   }
 });
