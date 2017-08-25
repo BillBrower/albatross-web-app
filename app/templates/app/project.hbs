@@ -1,4 +1,10 @@
 <div class="container--main">
+  <div class="row">
+    <div class="col-xs-1">
+      <div class="header">
+        <a>Back</a>
+      </div>
+    </div>
   <div class="col-xs-10">
     <div class="header">
       <h1>Case Status MVP</h1>
@@ -14,7 +20,8 @@
             name='buffer'
             type='number'
             placeholder='0'
-            value=8}}
+            saveValue=(action "onBufferChanged")
+            value=buffer}}
         </div>
       </div>
 
@@ -23,21 +30,21 @@
         <div class="content">
             <span class="section-left">
               <span>
-                <p><strong>137</strong></p><p class="small">Estimated</p>
+                <p><strong>{{estimated}}</strong></p><p class="small">Estimated</p>
               </span>
               <span>
-                <p><strong>92</strong></p><p class="small">Actual</p>
+                <p><strong>{{actual}}</strong></p><p class="small">Actual</p>
               </span>
             </span>
 
           <span class="section-right">
               {{hours-remaining text=true
                                 icon=true
-                                estimated=137
-                                actual=92}}
+                                estimated=estimated
+                                actual=actual}}
             </span>
         </div>
-        {{completion-bar estimated=137 actual=92}}
+        {{completion-bar estimated=estimated actual=actual}}
       </div>
     </div>
   </div>
@@ -63,4 +70,5 @@
       Categories will match with tags in Toggle when you import your hours
     </div>
   {{/if}}
+</div>
 </div>

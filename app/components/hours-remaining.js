@@ -16,5 +16,5 @@ export default Ember.Component.extend({
     } else if (statusColor === 'red') {
       this.set('formattedText', `${Math.abs(difference)} over`);
     }
-  }.on('init')
+  }.observes('estimated','actual').on('init')
 });
