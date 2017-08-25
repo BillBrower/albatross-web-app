@@ -4,8 +4,28 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
+
+  let env = EmberApp.env() || 'development';
+
+  let fingerprintOptions = {
+    enabled: true,
+    extensions: ['js', 'css', 'png', 'jpg', 'gif', 'map', 'svg', 'ico']
+  };
+
+  switch (env) {
+    case 'development':
+      fingerprintOptions.prepend = 'http://localhost:4200/';
+      break;
+    case 'staging':
+      fingerprintOptions.prepend = 'https://s3.amazonaws.com/albatross.web.app.assets/';
+      break;
+    case 'production':
+      fingerprintOptions.prepend = 'https://s3.amazonaws.com/albatross.web.app.assets/';
+      break;
+  }
+
   let app = new EmberApp(defaults, {
-    // Add options here
+    fingerprint: fingerprintOptions
   });
 
   // Use `app.import` to add additional libraries to the generated
