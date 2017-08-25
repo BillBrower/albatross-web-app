@@ -3,6 +3,7 @@ import Status from '../constants/status';
 
 export default Ember.Component.extend({
 
+  tagName: '',
   percentageObserver: function() {
     const estimated = this.get('estimated');
     const actual = this.get('actual');
