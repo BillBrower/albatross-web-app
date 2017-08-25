@@ -2,9 +2,10 @@
   <h1>Good afternoon, {{currentUser.user.name}}!</h1>
   <p>{{model.length}} projects</p>
 </div>
-
-<div>
+<div class="row">
   {{new-project-card onSave=(action 'createNewProject')}}
+    <!-- Sample project card -->
+  {{project-card onCardClicked=(route-action 'goToProject')}}
   {{#each project in model}}
     {{project-card model=project}}
   {{/each}}

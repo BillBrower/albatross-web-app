@@ -12,8 +12,9 @@ const Validations = buildValidations({
 
 export default Ember.Component.extend(Validations, {
 
-  newProjectName: null,
   isAddingNewProject: false,
+  newProjectName: null,
+  tagName:'',
 
   actions: {
     saveButtonPressed() {

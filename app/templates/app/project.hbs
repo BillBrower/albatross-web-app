@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-1">
       <div class="header">
-        <a>Back</a>
+        {{#link-to "app.projects"}}Back{{/link-to}}
       </div>
     </div>
   <div class="col-xs-10">
@@ -47,7 +47,8 @@
         {{completion-bar estimated=estimated actual=actual}}
       </div>
     </div>
-  </div>
+
+    <div class="project-body">
 
   <!-- Sample category -->
   {{category-card onSaveDescription=(action "saveDescription")
@@ -70,5 +71,7 @@
       Categories will match with tags in Toggle when you import your hours
     </div>
   {{/if}}
+    </div>
 </div>
+  </div>
 </div>
