@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Status from '../constants/status';
 
 export default Ember.Component.extend({
 
@@ -6,10 +7,13 @@ export default Ember.Component.extend({
     const estimated = this.get('estimated');
     const actual = this.get('actual');
     if (actual > estimated) {
-      this.set('percentageWidth', '100%');
+      this.set('percentage', '100');
     } else {
-      this.set('percentageWidth',`${Math.floor((actual / estimated) * 100)}%`);
+      this.set('percentage',`${Math.floor((actual / estimated) * 100)}`);
     }
+
+    this.set('color', Status.statusColor(estimated, actual));
+
   }.on('init')
 
 });
