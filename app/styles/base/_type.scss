@@ -73,6 +73,12 @@ a {
   &:hover {
     color: $primary-dark;
   }
+
+  &.dark {
+    color: $grey-dark;
+
+
+  }
 }
 
 label {

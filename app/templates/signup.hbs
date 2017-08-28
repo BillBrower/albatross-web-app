@@ -1,61 +1,74 @@
-<div>
-  <div>
-    What is your team called?
-    {{validated-text-input name='teamName'
-                           type='text'
-                           placeholder='Name your team...'
-                           value=teamName
-                           error=validations.attrs.teamName.message
-                           showError=showError}}
-
-  </div>
-  <div>
-    What is your name?
-    <div>
-      {{validated-text-input name='firstName'
-                             type='text'
-                             placeholder='First Name'
-                             value=firstName
-                             error=validations.attrs.firstName.message
-                             showError=showError}}
-
+<div class="navbar login">
+  <div class="container">
+    <div class="left-nav">
+      <div class="logo"></div>
     </div>
-    <div>
-      {{validated-text-input name='lastName'
-                             type='text'
-                             placeholder='Last Name'
-                             value=lastName
-                             error=validations.attrs.lastName.message
-                             showError=showError}}
+    <div class="right-nav">
+      <ul class="nav-list">
+        <li>{{#link-to 'login'}}Login{{/link-to}}</li>
+      </ul>
     </div>
   </div>
+</div>
 
-  <div>
-    What is your email address?
-    {{validated-text-input name='emailAddress'
-                           type='text'
-                           placeholder='Enter your email...'
-                           value=emailAddress
-                           error=validations.attrs.emailAddress.message
-                           showError=showError}}
+<div class="container--main">
+  <div class="row center-xs">
+    <div class="col-xs-10 col-sm-5">
+      <div class="header text-center">
+        <h1>Welcome back!</h1>
+      </div>
+
+      {{validated-text-input name='teamName'
+                             type='text'
+                             placeholder='Name your team...'
+                             label='What is your team called?'
+                             value=teamName
+                             error=validations.attrs.teamName.message
+                             showError=showError}}
+
+        {{validated-text-input name='firstName'
+                               type='text'
+                               placeholder='First Name'
+                                 label='What is your name?'
+                               class='half-field-wrapper'
+                               value=firstName
+                               error=validations.attrs.firstName.message
+                               showError=showError}}
+        {{validated-text-input name='lastName'
+                               type='text'
+                               placeholder='Last Name'
+                               class='half-field-wrapper'
+                               value=lastName
+                               error=validations.attrs.lastName.message
+                               showError=showError}}
+
+      {{validated-text-input name='emailAddress'
+                             type='text'
+                             placeholder='Enter your email...'
+                               label='What is your email address?'
+                             value=emailAddress
+                             error=validations.attrs.emailAddress.message
+                             showError=showError}}
+
+      {{validated-text-input name='password'
+                             type='text'
+                             placeholder='Create your password...'
+                               label='Create a nice, secure password'
+                             value=password
+                             error=validations.attrs.password.message
+                             showError=showError}}
+
+      <section>
+        <p class="small">We'll start you out with our Pro Plan on the house for 30 days. After that, you'll have the option to upgrade or
+          continue using Albatross for free.</p>
+      </section>
+
+      {{#spin-button action=(action 'signupButtonPressed') class="btn-primary" buttonStyle="contract"}}Get Started!{{/spin-button}}
+
+      <section>
+        {{error-message errors=errors}}
+      </section>
+
+    </div>
   </div>
-
-  <div>
-    Create a solid password
-    {{validated-text-input name='password'
-                           type='text'
-                           placeholder='Create your password...'
-                           value=password
-                           error=validations.attrs.password.message
-                           showError=showError}}
-  </div>
-
-  <p>We'll start you out with our Pro Plan on the house for 30 days. After that, you'll have the option to upgrade or
-    continue using Albatross for free.</p>
-
-  {{#spin-button action=(action 'signupButtonPressed') class="btn-primary" buttonStyle="contract"}}Get Started!{{/spin-button}}
-
-  <section>
-    {{error-message errors=errors}}
-  </section>
 </div>
