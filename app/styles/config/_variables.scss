@@ -99,7 +99,7 @@ $padding-mid: $padding * 1.3;
 $padding-big: 2.77em;
 
 // General Settings
-$border: 1px solid $grey-light;
+$border: 1px solid mix($grey-light, $white, 50%);
 $border-radius: 2px;
 $box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
 $transition: .3s ease-in-out;

@@ -3,13 +3,13 @@
 // -------------------------------------------------------------------
 
 .transforming-text-input {
+  cursor: pointer;
   display: inline-block;
   float: left;
   max-width: 100%;
   width: auto;
 
   .icon {
-    cursor: pointer;
     transition: $transition;
   }
 

@@ -1,0 +1,54 @@
+// Footer
+// All styles for laying out the footer
+// -------------------------------------------------------------------
+
+footer {
+  border-top: $border;
+  height: auto;
+  left: 0;
+  margin-top: $margin-big;
+  overflow: hidden;
+  padding: $padding-mid 0;
+  top: 0;
+  width: 100vw;
+
+  .logo {
+    background-position: center center;
+    height: 1.3em;
+    width: 6rem;
+  }
+
+  ul {
+    display: inline-block;
+    height: 1.3em;
+    list-style-type: none;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      line-height: 1.3em;
+      padding: 0 $padding-small;
+      position: relative;
+
+      a {
+        color: $grey-mid;
+        font-size: 0.8em;
+        line-height: 1.3em;
+        padding: 0;
+        transition: $transition;
+
+        &.active, &:hover {
+          color: $dark;
+        }
+      }
+
+      p {
+
+        &.small {
+          font-weight: 400;
+          line-height: 1.3em;
+        }
+      }
+    }
+  }
+}
