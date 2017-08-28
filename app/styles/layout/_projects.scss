@@ -1,0 +1,43 @@
+// Projects
+// All styles for laying out the projects view
+// -------------------------------------------------------------------
+
+.projects-wrapper {
+  box-sizing: border-box;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+
+  -webkit-justify-content: center;
+  justify-content: center;
+
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+
+
+  .new-item-box {
+    height: $project-card-height;
+    margin: 0 $margin $margin $margin;
+    width: $project-card-width;
+
+    span {
+      line-height: calc(#{$project-card-height} - (#{$padding} * 2));
+    }
+  }
+
+  .card {
+    &.new-project {
+      height: $project-card-height;
+      margin: 0 $margin $margin $margin;
+      width: $project-card-width;
+    }
+  }
+}

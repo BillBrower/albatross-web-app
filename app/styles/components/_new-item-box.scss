@@ -1,0 +1,31 @@
+// New Item Box
+// All styles for creating the new item component (new project, category, etc.)
+// ------------------------------------------------------------------------------
+
+.new-item-box {
+  background: rgba($primary, 0.1);
+  border: 2px dashed mix($primary, $white, 40%);
+  border-radius: $border-radius;
+  cursor: pointer;
+  height: auto;
+  margin: 0;
+  padding: $padding;
+  transition: $transition;
+  width: 100%;
+
+  span {
+    color: $primary;
+    display: block;
+    font-weight: 700;
+    text-align: center;
+    transition: $transition;
+  }
+
+  &:hover {
+    border-color: $primary;
+
+    span {
+      //transform: scale(1.1);
+    }
+  }
+}

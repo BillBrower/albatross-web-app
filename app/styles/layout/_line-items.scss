@@ -36,6 +36,7 @@ $actual-width: $estimated-width;
 
   .item {
     border-bottom: $border;
+    max-height: 3.15em;
     padding: $padding-small $padding-mid;
 
     .toggle-input {

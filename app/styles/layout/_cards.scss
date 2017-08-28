@@ -34,8 +34,10 @@
   &--project {
     @extend .card;
     cursor: pointer;
-    height: 12.5em;
-    padding: $padding-mid $padding-mid $padding-mid calc($padding-mid - 5px);
+    height: $project-card-height;
+    margin: 0 $margin $margin-big $margin;
+    padding: $padding-mid $padding-mid $padding-mid calc(#{$padding-mid} + 5px);
+    width: $project-card-width;
 
     .color {
       display: inline-block;
@@ -73,6 +75,10 @@
         width: 100%;
         height: auto;
         overflow: hidden;
+
+        .status-component {
+          display: inline-block;
+        }
 
         .left {
           float: left;

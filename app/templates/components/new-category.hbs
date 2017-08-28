@@ -1,20 +1,21 @@
 <div>
   {{#if isAddingNewCategory}}
-    <div>
+    <div class="card">
       {{validated-text-input name='newCategoryName'
                              type='text'
                              placeholder='Name the category'
                              value=newCategoryName
                              error=validations.attrs.newCategoryName.message
                              showError=showError}}
+      <p class="small">If you import your time entries from Toggl, tags on your entries will be matched to category names here.</p>
       <div>
-        <button {{action "toggleIsAddingNewCategory"}}>Cancel</button>
+        <button class="cancel" {{action "toggleIsAddingNewCategory"}}>Cancel</button>
         {{#spin-button action=(action 'saveButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
       </div>
     </div>
   {{else}}
-    <div {{action "toggleIsAddingNewCategory"}}>
-      + New Category
+    <div class="new-item-box" {{action "toggleIsAddingNewCategory"}}>
+      <span>+ New Category</span>
     </div>
   {{/if}}
 </div>

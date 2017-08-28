@@ -1,8 +1,7 @@
-<div class="col-xs-4">
 {{#if isAddingNewProject}}
-<div>
+<div class="card new-project">
   <h2>New Project</h2>
-  All you need to do to add a project is give it a name
+  <p class="small">Just give it a name to get started</p>
   {{validated-text-input name='newProjectName'
                          type='text'
                          placeholder='Name your project'
@@ -10,13 +9,12 @@
                          error=validations.attrs.newProjectName.message
                          showError=showError}}
   <div>
-    <button {{action "toggleIsAddingNewProject"}}>Cancel</button>
+    <button class="cancel" {{action "toggleIsAddingNewProject"}}>Cancel</button>
     {{#spin-button action=(action 'saveButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
   </div>
 </div>
 {{else}}
-<div {{action "toggleIsAddingNewProject"}}>
-  + New Project
+<div class="new-item-box" {{action "toggleIsAddingNewProject"}}>
+  <span>+ New Project</span>
 </div>
 {{/if}}
-</div>
