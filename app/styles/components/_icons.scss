@@ -3,6 +3,7 @@
 // -------------------------------------------------------------------
 
 .icon {
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
   display: inline-block;
@@ -13,5 +14,17 @@
     @extend .icon;
     background-image: url('/img/icons/edit-icon.svg');
     opacity: 0.25;
+  }
+
+  &--back {
+    @extend .icon;
+    background-image: url('/img/icons/back-icon.svg');
+    height: 2em;
+    transition: $transition;
+    width: 0.5em;
+
+    &:hover {
+      background-image: url('/img/icons/back-icon-hover.svg');
+    }
   }
 }
