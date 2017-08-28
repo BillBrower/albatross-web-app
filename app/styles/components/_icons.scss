@@ -1,0 +1,17 @@
+// Icons
+// All styles for creating base icons
+// -------------------------------------------------------------------
+
+.icon {
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  height: 0.85em;
+  width: 0.85em;
+
+  &--edit {
+    @extend .icon;
+    background-image: url('/img/icons/edit-icon.svg');
+    opacity: 0.25;
+  }
+}

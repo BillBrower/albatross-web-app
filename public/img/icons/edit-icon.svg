@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="234" height="234" viewBox="0 0 234 234">
+  <title>Asset 3</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1">
+      <g>
+        <path d="M17.7,145.6" style="fill: none;stroke: #003146;stroke-linejoin: round;stroke-width: 17px"/>
+        <path d="M61,198.3" style="fill: none;stroke: #003146;stroke-linejoin: round;stroke-width: 17px"/>
+        <rect x="31.2" y="98.4" width="134.9" height="74" transform="translate(-66.8 109.4) rotate(-45)" style="fill: none;stroke: #003146;stroke-linejoin: round;stroke-width: 17px"/>
+        <path d="M79.2,207.1" style="fill: none;stroke: #003146;stroke-linejoin: round;stroke-width: 17px"/>
+        <path d="M26.9,154.8" style="fill: none;stroke: #003146;stroke-linejoin: round;stroke-width: 17px"/>
+        <rect x="147.3" y="28.4" width="74" height="42.43" transform="translate(89.1 -115.8) rotate(45)" style="fill: none;stroke: #003146;stroke-linejoin: round;stroke-width: 17px"/>
+        <polygon points="77.1 209.2 8.5 225.5 24.8 156.9 77.1 209.2" style="fill: none;stroke: #003146;stroke-linejoin: round;stroke-width: 17px"/>
+        <line x1="73.4" y1="160.7" x2="127.9" y2="106.2" style="fill: none;stroke: #003146;stroke-linecap: round;stroke-linejoin: round;stroke-width: 17px"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -8,6 +8,7 @@ $buffer-width: 8em;;
   height: auto;
   padding: 0 0 $padding-big 0;
   overflow: hidden;
+  width: 100%;
 
   .buffer {
     display: inline-block;

@@ -4,8 +4,14 @@
 
 .transforming-text-input {
   display: inline-block;
+  float: left;
   max-width: 100%;
   width: auto;
+
+  .icon {
+    cursor: pointer;
+    transition: $transition;
+  }
 
   .field {
     display: inline-block;
@@ -54,7 +60,24 @@
     }
   }
 
+  &:hover {
+
+    .icon {
+      opacity: 0.5;
+    }
+
+  }
+
   &.is-active {
+
+    .icon {
+      display: none;
+    }
+
+    #{$all-text-inputs} {
+      border-bottom: 1px dotted $primary;
+      cursor: text;
+    }
 
     .btn-group {
       height: 2.65em;
