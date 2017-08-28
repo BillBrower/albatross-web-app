@@ -31,13 +31,29 @@ $actual-width: $estimated-width;
         text-align: right;
         width: $actual-width;
       }
+
+      &.name {
+        padding: 0 $padding-small 0 0;
+        width: 49%;
+      }
+      &.email {
+        padding: 0 $padding-small 0 0;
+        width: 49%;
+      }
     }
   }
 
   .item {
     border-bottom: $border;
+    display: inline-block;
+    height: auto;
     max-height: 3.15em;
     padding: $padding-small $padding-mid;
+    width: 100%;
+
+    &:last-child {
+      border: none;
+    }
 
     .toggle-input {
       width: 100%;
@@ -78,6 +94,21 @@ $actual-width: $estimated-width;
         text-align: right;
       }
     }
+
+    // Columns on user screen
+    .name {
+      display: inline-block;
+      float: left;
+      padding: 0 $padding-small 0 0;
+      width: 49%;
+    }
+    .email {
+      display: inline-block;
+      float: left;
+      padding: 0 $padding-small 0 0;
+      width: 49%;
+    }
+
     .status-wrapper {
       display: inline-block;
       height: 1.65em;

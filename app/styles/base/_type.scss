@@ -53,6 +53,10 @@ p {
     color: $black;
   }
 
+  &.light {
+    color: $grey-mid;
+  }
+
   strong {
     font-weight: 900;
   }

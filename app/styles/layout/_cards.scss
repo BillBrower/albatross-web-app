@@ -105,7 +105,11 @@
     }
   }
 
-  &.category {
+  &.has-line-items {
     padding: 0;
+
+    .inner-content {
+      padding: $padding $padding-mid 0;
+    }
   }
 }
