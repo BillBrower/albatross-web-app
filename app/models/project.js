@@ -14,9 +14,10 @@ const Validations = buildValidations({
 export default Model.extend(Validations, {
 
   actual: attr('number'),
+  buffer: attr('number'),
   estimated: attr('number'),
   name: attr('string'),
   updatedAt: attr('date'),
 
-  category: hasMany('category')
+  categories: hasMany('category')
 });

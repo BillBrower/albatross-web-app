@@ -58,7 +58,7 @@
 
     <div class="project-body">
 
-  {{#if hasCategory}}
+  {{#if hasCategories}}
     {{#each model.categories as |category|}}
       {{category-card model=category
                       onSaveDescription=(action "saveDescription")

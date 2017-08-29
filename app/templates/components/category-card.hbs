@@ -13,22 +13,17 @@
       <div class="progress-wrapper category">
               <span class="section-left">
                 <span>
-                  <p><strong>137</strong></p><p class="small">Estimated</p>
+                  <p><strong>{{model.estimated}}</strong></p><p class="small">Estimated</p>
                 </span>
                 <span>
-                  <p><strong>92</strong></p><p class="small">Actual</p>
+                  <p><strong>{{model.actual}}</strong></p><p class="small">Actual</p>
                 </span>
               </span>
 
-        <div class="progress-bar">
-          <div class="fill complete-45 green"></div>
-        </div>
+        {{completion-bar estimated=model.estimated actual=model.actual}}
 
         <span class="section-right">
-          <span class="status green">
-            <span class="icon"></span>
-              <p>83 under</p>
-          </span>
+                {{hours-remaining estimated=model.estimated actual=model.actual text=true icon=true}}
         </span>
 
       </div>
@@ -40,13 +35,15 @@
         <p class="small estimated">Estimated</p>
         <p class="small actual">Actual</p>
       </div>
-      <!-- Sample line item for now -->
-      {{line-item-row description="Description"
-                      estimated=5
-                      actual=10
-                      onSaveDescription=(action onSaveDescription)
-                      onSaveEstimated=(action onSaveEstimated)
-                      onSaveActual=(action onSaveActual)}}
+      {{#each model.items as |item|}}
+        {{line-item-row description=item.description
+                        estimated=item.estimated
+                        actual=item.actual
+                        onSaveDescription=(action onSaveDescription)
+                        onSaveEstimated=(action onSaveEstimated)
+                        onSaveActual=(action onSaveActual)}}
+      {{/each}}
+
       <div class="item-bottom">
         <button class="btn-primary">+ New Item</button>
       </div>

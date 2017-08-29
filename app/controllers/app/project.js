@@ -2,22 +2,32 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  //TODO: Use numbers from model
-  actual: 92,
-  buffer: 0,
-  estimated: Ember.computed('buffer', function() {
-    return Math.round((this.get('buffer') / 100) * this.get('originalEstimated')) + this.get('originalEstimated');
+  hasCategories: Ember.computed('model.categories', function() {
+    return this.get('model.categories').then((categories) => {
+      return categories.length > 0
+    })
   }),
   isShowingToggleModal: false,
-  originalEstimated: 137,
 
   actions: {
     addNewCategory(categoryName, result) {
-      //TODO: Save category
-      result.resolve();
+      this.get('store').createRecord('category', {
+        name: categoryName,
+        project: this.get('model')
+      }).save()
+        .then(() => {
+          result.resolve()
+        }).catch((response) => {
+          result.reject(response)
+      })
     },
     onBufferChanged(value) {
-      this.set('buffer', parseInt(value));
+      const model = this.get('model');
+      model.set('buffer', parseInt(value));
+      model.save()
+        .catch(() => {
+          //TODO: Show error
+        });
     },
     saveActual(id, value) {
       console.log('Actual- id: ' + id + ' value: ' + value);
