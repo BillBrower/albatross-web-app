@@ -7,9 +7,18 @@ export default Ember.Route.extend({
   },
 
   actions: {
-    createProject() {
-      //TODO: Implement
-      this.transitionTo('app.project', '1');
+
+    createProject(name, result) {
+      this.get('store').createRecord('project',{
+        'name':name
+      }).save()
+        .then(() => {
+          this.transitionTo('app.project', '1');
+        }).catch((response)=> {
+        result.reject();
+        console.log(response);
+      })
+
     },
 
     goToProject(id) {

@@ -13,10 +13,8 @@ const Validations = buildValidations({
 
 export default Model.extend(Validations, {
 
-  actual: attr('number'),
-  estimated: attr('number'),
   name: attr('string'),
-  updatedAt: attr('date'),
 
-  category: hasMany('category')
+  items: hasMany('item'),
+  project: belongsTo('project'),
 });

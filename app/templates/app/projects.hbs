@@ -4,11 +4,6 @@
 </div>
 <div class="projects-wrapper">
   {{new-project-card onSave=(action 'createNewProject')}}
-    <!-- Sample project card -->
-  {{project-card onCardClicked=(route-action 'goToProject')}}
-  {{project-card onCardClicked=(route-action 'goToProject')}}
-  {{project-card onCardClicked=(route-action 'goToProject')}}
-  {{project-card onCardClicked=(route-action 'goToProject')}}
 
   <!--<div class="empty-state">
     <div class="icon--left-arrow"></div>
@@ -18,7 +13,7 @@
     </div>
   </div>-->
 
-  {{#each project in model}}
-    {{project-card model=project}}
+  {{#each model as |project|}}
+    {{project-card model=project onCardClicked=(route-action 'goToProject')}}
   {{/each}}
 </div>
