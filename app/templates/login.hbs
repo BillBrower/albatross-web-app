@@ -36,7 +36,9 @@
         <p class="small">{{#link-to "forgot-password" id="forgot-password" class='dark'}}Forgot your password?{{/link-to}}</p>
       {{/validated-text-input}}
 
-      {{#spin-button action=(action 'loginButtonPressed') class="btn-primary" buttonStyle="contract"}}Login{{/spin-button}}
+      <section>
+        {{#spin-button action=(action 'loginButtonPressed') class="btn-primary" buttonStyle="contract"}}Login{{/spin-button}}
+      </section>
 
       <section>
         {{error-message errors=errors}}

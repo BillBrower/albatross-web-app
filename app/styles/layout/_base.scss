@@ -22,6 +22,8 @@
 }
 
 .header {
+  height: auto;
+  overflow: hidden;
   padding: $padding 0 $padding-big 0;
 
   h1 {
@@ -30,7 +32,6 @@
 
   p {
     color: $grey-mid;
-    float: right;
   }
 }
 
