@@ -112,4 +112,8 @@
       padding: $padding $padding-mid 0;
     }
   }
+
+  &.new-category {
+    z-index: 99;
+  }
 }

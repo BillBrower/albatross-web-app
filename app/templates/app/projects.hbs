@@ -1,6 +1,6 @@
 <div class="header">
   <h1>Good afternoon, {{currentUser.user.name}}!</h1>
-  <p>{{model.length}} projects</p>
+  <p class="pull-right">{{model.length}} projects</p>
 </div>
 <div class="projects-wrapper">
   {{new-project-card onSave=(action 'createNewProject')}}
