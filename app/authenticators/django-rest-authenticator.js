@@ -16,14 +16,17 @@ export default Base.extend({
   authenticate(username, password) {
     return new Ember.RSVP.Promise((resolve, reject) => {
       Ember.$.ajax({
-        url: ENV.host + '/api-auth-token/',
+        url: ENV.host + 'api/v1/login/',
         type: 'POST',
         data: JSON.stringify({
           username: username,
           password: password
         }),
-        contentType: 'application/json;charset=utf-8',
-        dataType: 'json'
+        headers: {
+          'Accept':'application/vnd.api+json'
+        },
+        contentType: 'application/vnd.api+json',
+        dataType: 'json',
       }).then((response) => {
         Ember.run(function() {
           resolve({
