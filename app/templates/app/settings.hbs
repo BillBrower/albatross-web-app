@@ -44,11 +44,19 @@
       </section>
       <section>
         <h2>Reset Password</h2>
-        {{validated-text-input name='password'
-                               type='text'
+        {{validated-text-input name='currentPassword'
+                               type='password'
+                               placeholder='Enter your current password...'
+                               label='Current Password'
+                               value=currentPassword
+                               error=validations.attrs.password.message
+                               showError=showError}}
+
+        {{validated-text-input name='newPassword'
+                               type='password'
                                placeholder='Enter a new password...'
-                               label=''
-                               value=password
+                               label='New Password'
+                               value=newPassword
                                error=validations.attrs.password.message
                                showError=showError}}
       </section>
