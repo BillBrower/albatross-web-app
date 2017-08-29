@@ -1,0 +1,55 @@
+<div class="modal-wrapper">
+  <div class="modal-bg" {{action 'close'}}></div>
+  <div class="modal-card">
+    <div class="row">
+      <div class="col-xs-12">
+        <button class="cancel" {{action 'close'}}>Cancel</button>
+      </div>
+    </div>
+
+    <div class="row center-xs">
+      <div class="col-xs-12">
+        <h1>Add your Toggl API token</h1>
+      </div>
+      <div class="col-xs-8">
+        <p class="small">Before we can pull your data from Toggl, you’ll need to enter your Toggle API key. It can be found by going to <a>your profile in Toggl</a> and scrolling to the bottom.</p>
+      </div>
+    </div>
+
+    <div class="row center-xs">
+      <div class="col-xs-6">
+        {{validated-text-input
+           name='togglApiToken'
+           type='text'
+           placeholder='Toggl API Token'
+           value=togglApiToken
+           showError=showError}}
+
+        <section>
+          {{#spin-button class="btn-primary" buttonStyle="contract"}}Import Hours{{/spin-button}}
+        </section>
+      </div>
+    </div>
+
+    <section>
+      <div class="row center-xs">
+        <div class="col-xs-12">
+          <h2>Where to find your Toggl API Token</h2>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row around-xs">
+        <div class="col-xs-4">
+          <p class="small">With Toggl open, go to your profile by clicking on your name at the bottom of the sidebar and selecting “Profile Settings.”</p>
+        </div>
+
+        <div class="col-xs-4">
+          <p class="small">Scroll all the way to the bottom of your Profile Settings to the API Token section. Copy the token from there and paste it in the field above. That’s all!</p>
+        </div>
+      </div>
+    </section>
+
+    {{yield}}
+  </div>
+</div>

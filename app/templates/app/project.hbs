@@ -15,7 +15,7 @@
         value='Case Status MVP'
         maxlength=40
         placeholder='Name your project...'}}
-      <button class="btn-primary pull-right">Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/></button>
+      <button class="btn-primary pull-right" {{action 'toggleIsShowingTogglModal'}}>Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/></button>
     </div>
 
     <div class="summary">
@@ -82,3 +82,8 @@
 </div>
   </div>
 </div>
+
+{{#if isShowingTogglModal}}
+  {{toggl-modal
+    close=(action 'toggleIsShowingTogglModal')}}
+{{/if}}

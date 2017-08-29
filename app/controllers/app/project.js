@@ -8,6 +8,7 @@ export default Ember.Controller.extend({
   estimated: Ember.computed('buffer', function() {
     return Math.round((this.get('buffer') / 100) * this.get('originalEstimated')) + this.get('originalEstimated');
   }),
+  isShowingToggleModal: false,
   originalEstimated: 137,
 
   actions: {
@@ -27,6 +28,9 @@ export default Ember.Controller.extend({
     saveEstimated(id, value) {
       console.log('Estimated- id: ' + id + ' value: ' + value);
     },
+    toggleIsShowingTogglModal() {
+      this.toggleProperty('isShowingTogglModal');
+    }
   }
 
 });
