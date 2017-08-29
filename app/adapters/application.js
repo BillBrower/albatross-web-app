@@ -5,11 +5,13 @@ import JSONAPIAdapter from 'ember-data/adapters/json-api';
 
 export default JSONAPIAdapter.extend(DataAdapterMixin, {
   host: ENV.host,
-
+  isInvalid(status, headers, payload) {
+    return status === 422 || status === 400;
+  },
   authorizer: 'authorizer:oauth2',
 
   pathForType: function(type) {
     var plural = Ember.String.pluralize(type);
     return Ember.String.underscore(plural);
-  }
+  },
 });
