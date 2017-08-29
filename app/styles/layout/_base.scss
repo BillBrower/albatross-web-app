@@ -33,6 +33,10 @@
   p {
     color: $grey-mid;
   }
+
+  .transforming-text-input {
+    width: calc(100% - 250px);
+  }
 }
 
 .inline-wrapper {

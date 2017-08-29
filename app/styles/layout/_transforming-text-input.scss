@@ -7,7 +7,27 @@
   display: inline-block;
   float: left;
   max-width: 100%;
-  width: auto;
+  position: relative;
+  width: 100%;
+
+  &:after {
+    background: rgba($grey-dark, 0.9);
+    border-radius: 2px;
+    bottom: -60%;
+    color: $light;
+    content: attr(data-title);
+    left: 0;
+    opacity: 0;
+    padding: 5px $padding-small;
+    position: absolute;
+    transition: $transition;
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+    z-index: 98;
+    width: auto;
+  }
 
   .icon {
     transition: $transition;
@@ -16,7 +36,7 @@
   .field {
     display: inline-block;
     margin: 0;
-    width: auto;
+    width: 100%;
   }
 
   #{$all-text-inputs} {
@@ -31,7 +51,7 @@
     padding: 0;
     margin: 0;
     transition: $transition;
-    width: auto;
+    width: calc(100% - 1em);
   }
 
   #{$all-text-inputs-active}, #{$all-text-inputs-focus} {
@@ -66,9 +86,27 @@
       opacity: 0.5;
     }
 
+    &:after {
+      opacity: 1;
+      -webkit-transition-delay: 1s;
+      -moz-transition-delay: 1s;
+      -o-transition-delay: 1s;
+      transition-delay: 1s;
+    }
+
   }
 
   &.is-active {
+
+    &:hover {
+      &:after {
+        opacity: 0;
+        -webkit-transition-delay: 0s;
+        -moz-transition-delay: 0s;
+        -o-transition-delay: 0s;
+        transition-delay: 0s;
+      }
+    }
 
     .icon {
       display: none;

@@ -7,8 +7,15 @@
     </div>
   <div class="col-xs-10">
     <div class="header">
-      <h1>Case Status MVP</h1>
-      <button class="btn-primary pull-right">Import from Toggl</button>
+      {{transforming-text-input
+        data-title="Click to edit"
+        big=true
+        name='projectName'
+        type='text'
+        value='Case Status MVP'
+        maxlength=40
+        placeholder='Name your project...'}}
+      <button class="btn-primary pull-right">Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/></button>
     </div>
 
     <div class="summary">

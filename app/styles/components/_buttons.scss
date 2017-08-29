@@ -40,6 +40,11 @@
     }
   }
 
+  img {
+    margin: 0 0 -4px 4px;
+    max-height: 1.2em;
+  }
+
   &.cancel {
     background: none;
     color: $grey-dark;

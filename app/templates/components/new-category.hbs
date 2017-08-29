@@ -1,6 +1,6 @@
 <div>
   {{#if isAddingNewCategory}}
-    <span class="dark-bg"></span>
+    <span class="dark-bg" {{action "toggleIsAddingNewCategory"}}></span>
     <div class="card new-category">
       <h2>New Category</h2>
       {{validated-text-input name='newCategoryName'

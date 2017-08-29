@@ -1,6 +1,6 @@
-<div class="transforming-text-input {{if isActive 'is-active'}} {{if big 'big'}}">
+<div class="transforming-text-input {{if isActive 'is-active'}} {{if big 'big'}}" data-title={{data-title}} >
   <span {{action 'makeActive'}}>
-  {{validated-text-input icon='icon--edit' focusIn=(action 'makeActive' true) class='toggle-input' name=name type=type value=value placeholder=placeholder}}
+  {{validated-text-input icon='icon--edit' maxlength=maxlength focusIn=(action 'makeActive' true) class='toggle-input' name=name type=type value=value placeholder=placeholder}}
   </span>
   <div class="btn-group">
     <button class="cancel" {{action 'cancel'}}>Cancel</button>

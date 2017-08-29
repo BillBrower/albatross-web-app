@@ -1,5 +1,5 @@
 {{#if isAddingNewProject}}
-<span class="dark-bg"></span>
+<span class="dark-bg" {{action "toggleIsAddingNewProject"}}></span>
 <div class="card new-project">
   <h2>New Project</h2>
   <p class="small">Just give it a name to get started</p>
@@ -7,6 +7,7 @@
                          type='text'
                          placeholder='Name your project'
                          value=newProjectName
+                         maxlength=40
                          error=validations.attrs.newProjectName.message
                          showError=showError}}
   <div>
