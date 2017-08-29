@@ -28,7 +28,12 @@ module.exports = function(environment) {
     routeAfterAuthentication: '/app/projects',
   };
 
+  if (environment === 'local') {
+    ENV.host = 'http://127.0.0.1:8000'
+  }
+
   if (environment === 'development') {
+    ENV.host = 'https://getalbatross.com'
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
