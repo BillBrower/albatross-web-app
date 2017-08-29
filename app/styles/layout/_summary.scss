@@ -67,6 +67,34 @@ $buffer-width: 8em;;
       &-right {
         @extend .section;
         float: right;
+
+        .empty-message {
+          display: none;
+        }
+      }
+    }
+
+    &.empty {
+
+      .section {
+
+        &-right {
+
+          .status {
+            display: none;
+          }
+          .empty-message {
+            color: $grey-mid;
+            display: inline-block;
+          }
+        }
+      }
+
+      .progress-bar {
+
+        .fill {
+          background: transparent;
+        }
       }
     }
   }

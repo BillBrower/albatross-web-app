@@ -34,4 +34,11 @@
     height: 2.6em;
     width: 2em;
   }
+
+  &--up-arrow {
+    @extend .icon;
+    background-image: url('/img/arrow-up.svg');
+    height: 2.6em;
+    width: 2em;
+  }
 }

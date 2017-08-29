@@ -52,15 +52,6 @@
       z-index: 99;
     }
   }
-
-  .empty-state {
-
-    .text {
-      display: inline-block;
-      padding: $padding-big 0 $padding $padding;
-      width: auto;
-    }
-  }
 }
 
 .dark-bg {
@@ -71,6 +62,28 @@
   height: 100%;
   background: rgba($black, 0.5);
   z-index: 1;
+}
+
+.empty-state {
+
+  .text {
+    display: inline-block;
+    padding: $padding-big 0 $padding $padding;
+    width: auto;
+  }
+
+  &.project {
+    padding: $padding-mid;
+    text-align: center;
+
+    .icon--up-arrow {
+      width: 100%;
+    }
+
+    .text {
+      padding: $padding-small;
+    }
+  }
 }
 
 
