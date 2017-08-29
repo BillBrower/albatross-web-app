@@ -9,10 +9,15 @@ export default JSONAPIAdapter.extend(DataAdapterMixin, {
   isInvalid(status, headers, payload) {
     return status === 422 || status === 400;
   },
-  authorizer: 'authorizer:oauth2',
+  authorizer: 'authorizer:django-token-authorizer',
 
   pathForType: function(type) {
     var plural = Ember.String.pluralize(type);
     return Ember.String.underscore(plural);
   },
+
+  buildURL: function(type, id, record) {
+    //call the default buildURL and then append a slash
+    return this._super(type, id, record) + '/';
+  }
 });
