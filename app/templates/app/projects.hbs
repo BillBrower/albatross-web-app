@@ -9,6 +9,15 @@
   {{project-card onCardClicked=(route-action 'goToProject')}}
   {{project-card onCardClicked=(route-action 'goToProject')}}
   {{project-card onCardClicked=(route-action 'goToProject')}}
+
+  <!--<div class="empty-state">
+    <div class="icon--left-arrow"></div>
+    <div class="text">
+      <h1 class="bold">Add your first project</h1>
+      <p class="light">Start using Albatross by creating a project</p>
+    </div>
+  </div>-->
+
   {{#each project in model}}
     {{project-card model=project}}
   {{/each}}

@@ -27,4 +27,11 @@
       background-image: url('/img/icons/back-icon-hover.svg');
     }
   }
+
+  &--left-arrow {
+    @extend .icon;
+    background-image: url('/img/arrow-left.svg');
+    height: 2.6em;
+    width: 2em;
+  }
 }

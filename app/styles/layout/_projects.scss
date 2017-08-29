@@ -52,6 +52,15 @@
       z-index: 99;
     }
   }
+
+  .empty-state {
+
+    .text {
+      display: inline-block;
+      padding: $padding-big 0 $padding $padding;
+      width: auto;
+    }
+  }
 }
 
 .dark-bg {
