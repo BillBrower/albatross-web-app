@@ -12,12 +12,23 @@ export default Ember.Controller.extend({
     })
   }),
   isShowingToggleModal: false,
+  notifications: Ember.inject.service('notification-messages'),
+  setupNotifications: function() {
+    this.get('notifications').setDefaultClearDuration(1000);
+  }.observes('notifications').on('init'),
 
   saveItem(item) {
     if (item.get('validations.isValid')) {
       item.save().then(() => {
         this.get('model').reload();
         this.get('store').findRecord('category', item.get('category.id'));
+        this.get('notifications').success("Item updated successfully!", {
+          autoClear: true,
+        });
+      }).catch(() => {
+        this.get('notifications').error("Failed to update item!", {
+          autoClear: true,
+        });
       });
     }
   },
@@ -49,8 +60,15 @@ export default Ember.Controller.extend({
       const model = this.get('model');
       model.set('buffer', parseInt(value));
       model.save()
+        .then(() => {
+          this.get('notifications').success("Buffer updated successfully!", {
+            autoClear: true,
+          });
+        })
         .catch(() => {
-          //TODO: Show error
+          this.get('notifications').error("Buffer failed to update!", {
+            autoClear: true,
+          });
         });
     },
     saveActual(item, value) {
