@@ -25,7 +25,7 @@ export default Model.extend(Validations, {
 
   actual: attr('number', {defaultValue:0}),
   description: attr('string'),
-  estimated: attr('number'),
+  estimated: attr('number', {defaultValue:0}),
 
   category: belongsTo('category'),
 

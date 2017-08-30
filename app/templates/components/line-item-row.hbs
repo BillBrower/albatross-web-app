@@ -12,6 +12,7 @@
     {{live-updating-text-input class='toggle-input small'
                                name='estimated'
                                type='number'
+                               min=0
                                placeholder=0
                                value=model.estimated
                                saveValue=(action onSaveEstimated model)}}
@@ -20,6 +21,7 @@
     {{live-updating-text-input class='toggle-input small'
                                name='actual'
                                type='number'
+                               min=0
                                placeholder=0
                                value=model.actual
                                saveValue=(action onSaveActual model)}}
