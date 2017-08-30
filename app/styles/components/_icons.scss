@@ -28,6 +28,13 @@
     }
   }
 
+  &--down {
+    @extend .icon;
+    background-image: url('/img/icons/down-icon.svg');
+    height: 8px;
+    width: 10px;
+  }
+
   &--left-arrow {
     @extend .icon;
     background-image: url('/img/arrow-left.svg');
