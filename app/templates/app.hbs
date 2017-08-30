@@ -1,17 +1,32 @@
 <div class="navbar">
   <div class="container">
     <div class="left-nav">
+
       <div class="logo"></div>
+
       <ul class="nav-list">
         <li>{{#link-to 'app.projects'}}Projects{{/link-to}}</li>
         <li>{{#link-to 'app.users'}}Users{{/link-to}}</li>
       </ul>
+
     </div>
     <div class="right-nav">
-      <ul class="nav-list">
-        <li>{{#link-to 'app.settings'}}Settings{{/link-to}}</li>
-        <li><a id="logout" href="" {{action 'logout'}}>Logout</a></li>
-      </ul>
+      <div class="user-profile {{if isShowingMenu 'is-active'}}">
+
+        <ul>
+          <li><a class="user-name" {{action 'toggleIsShowingMenu'}}>Austin Price<div class="icon--down"></div></a></li>
+        </ul>
+
+        {{#if isShowingMenu}}
+          <div class="transparent-bg" {{action 'toggleIsShowingMenu'}}></div>
+          <ul class="user-options">
+            <li><p class="small">Built By Krit</p></li>
+            <li {{action 'toggleIsShowingMenu'}}>{{#link-to 'app.settings'}}Settings{{/link-to}}</li>
+            <li {{action 'toggleIsShowingMenu'}}><a id="logout" href="" {{action 'logout'}}>Logout</a></li>
+          </ul>
+        {{/if}}
+
+      </div>
     </div>
   </div>
 </div>

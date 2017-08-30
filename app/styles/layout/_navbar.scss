@@ -35,6 +35,75 @@
     .right-nav {
       display: inline-block;
       float: right;
+
+      .user-profile {
+
+        .user-name {
+          color: $dark;
+          font-size: 0.8em;
+          font-weight: 700;
+          line-height: $navbar-content-height;
+          padding: $padding-small;
+
+          .icon--down {
+            margin-left: 6px;
+          }
+        }
+
+        .user-options {
+          background: $white;
+          border: $border;
+          border-radius: $border-radius;
+          display: block;
+          height: auto;
+          min-width: 8em;
+          overflow: hidden;
+          padding: 0.5em 0;
+          position: absolute;
+          right: calc(((100% - #{$container-width}) / 2) + #{$container-padding});
+          top: 3.25em;
+          width: auto;
+
+          li {
+            display: block;
+            line-height: 2em;
+            width: 100%;
+
+            a {
+              //display: block;
+              line-height: 1.65em;
+              padding: 0;
+            }
+
+            p {
+              border-bottom: $border;
+              //font-weight: 400;
+              line-height: 1.65em;
+              margin: 0 0 0.5em 0;
+              padding: 0 0 0.65em 0;
+            }
+          }
+        }
+
+        &.is-active {
+
+          .user-name {
+
+            .icon--down {
+              transform: rotate(180deg);
+            }
+          }
+        }
+
+      }
+
+      .transparent-bg {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        left: 0;
+        top: 0;
+      }
     }
 
     ul {
@@ -55,6 +124,13 @@
           line-height: $navbar-content-height;
           padding: $padding-small;
           transition: $transition;
+
+          -webkit-touch-callout: none; /* iOS Safari */
+          -webkit-user-select: none; /* Safari */
+          -khtml-user-select: none; /* Konqueror HTML */
+          -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none;
 
           &.active, &:hover {
             color: $dark;

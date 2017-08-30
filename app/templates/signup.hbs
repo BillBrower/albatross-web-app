@@ -15,7 +15,8 @@
   <div class="row center-xs">
     <div class="col-xs-10 col-sm-5">
       <div class="header text-center">
-        <h1>Welcome back!</h1>
+        <h1>Signup for Albatross</h1>
+        <p class="light">Start making smarter project estimates today</p>
       </div>
 
       {{validated-text-input name='teamName'
@@ -26,21 +27,21 @@
                              error=validations.attrs.teamName.message
                              showError=showError}}
 
-        {{validated-text-input name='firstName'
-                               type='text'
-                               placeholder='First Name'
-                                 label='What is your name?'
-                               class='half-field-wrapper'
-                               value=firstName
-                               error=validations.attrs.firstName.message
-                               showError=showError}}
-        {{validated-text-input name='lastName'
-                               type='text'
-                               placeholder='Last Name'
-                               class='half-field-wrapper'
-                               value=lastName
-                               error=validations.attrs.lastName.message
-                               showError=showError}}
+      {{validated-text-input name='firstName'
+                             type='text'
+                             placeholder='First Name'
+                               label='What is your name?'
+                             class='half-field-wrapper'
+                             value=firstName
+                             error=validations.attrs.firstName.message
+                             showError=showError}}
+      {{validated-text-input name='lastName'
+                             type='text'
+                             placeholder='Last Name'
+                             class='half-field-wrapper'
+                             value=lastName
+                             error=validations.attrs.lastName.message
+                             showError=showError}}
 
       {{validated-text-input name='emailAddress'
                              type='text'
