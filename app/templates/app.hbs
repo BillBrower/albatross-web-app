@@ -11,17 +11,20 @@
 
     </div>
     <div class="right-nav">
-      <div class="user-profile">
+      <div class="user-profile {{if isShowingMenu 'is-active'}}">
 
         <ul>
-          <li><a class="user-name">Austin Price</a><div class="icon--down"></div></li>
+          <li><a class="user-name" {{action 'toggleIsShowingMenu'}}>Austin Price<div class="icon--down"></div></a></li>
         </ul>
 
-        {{!--<ul class="user-options">
-          <li><p class="small">Built By Krit</p></li>
-          <li>{{#link-to 'app.settings'}}Settings{{/link-to}}</li>
-          <li><a id="logout" href="" {{action 'logout'}}>Logout</a></li>
-        </ul>--}}
+        {{#if isShowingMenu}}
+          <div class="transparent-bg" {{action 'toggleIsShowingMenu'}}></div>
+          <ul class="user-options">
+            <li><p class="small">Built By Krit</p></li>
+            <li {{action 'toggleIsShowingMenu'}}>{{#link-to 'app.settings'}}Settings{{/link-to}}</li>
+            <li {{action 'toggleIsShowingMenu'}}><a id="logout" href="" {{action 'logout'}}>Logout</a></li>
+          </ul>
+        {{/if}}
 
       </div>
     </div>

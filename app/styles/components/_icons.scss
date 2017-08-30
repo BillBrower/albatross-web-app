@@ -8,6 +8,7 @@
   background-size: contain;
   display: inline-block;
   height: 0.85em;
+  transition: $transition;
   width: 0.85em;
 
   &--edit {
