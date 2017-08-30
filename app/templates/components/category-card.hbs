@@ -11,7 +11,7 @@
     </div>
 
     <div class="summary category">
-      <div class="progress-wrapper category">
+      <div class="progress-wrapper category {{if isEmpty "empty"}}">
               <span class="section-left">
                 <span>
                   <p><strong>{{model.estimated}}</strong></p><p class="small">Estimated</p>
@@ -24,7 +24,11 @@
         {{completion-bar estimated=model.estimated actual=model.actual}}
 
         <span class="section-right">
-                {{hours-remaining estimated=model.estimated actual=model.actual text=true icon=true}}
+                {{hours-remaining estimated=model.estimated
+                                  actual=model.actual
+                                  text=true
+                                  icon=true}}
+          <span class="empty-message">No hours estimated</span>
         </span>
 
       </div>

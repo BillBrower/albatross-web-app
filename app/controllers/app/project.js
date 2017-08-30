@@ -1,7 +1,11 @@
 import Ember from 'ember';
+import Errors from '../../constants/errors';
 
 export default Ember.Controller.extend({
 
+  isEmpty: Ember.computed('model.actual', 'model.estimated', function() {
+    return this.get('model.actual') === 0 && this.get('model.estimated') === 0;
+  }),
   hasCategories: Ember.computed('model.categories', function() {
     return this.get('model.categories').then((categories) => {
       return categories.length > 0
@@ -19,17 +23,19 @@ export default Ember.Controller.extend({
   },
   actions: {
     addNewCategory(categoryName, result) {
-      this.get('store').createRecord('category', {
+      const category = this.get('store').createRecord('category', {
         name: categoryName,
         project: this.get('model')
-      }).save()
+      });
+        category.save()
         .then((category) => {
         this.get('store').createRecord('item', {
           category: category
         });
           result.resolve()
         }).catch((response) => {
-          result.reject(response)
+          category.rollbackAttributes();
+          result.reject(Errors.mapResponseErrors(response))
       })
     },
 

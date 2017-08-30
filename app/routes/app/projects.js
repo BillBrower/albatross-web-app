@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Errors from '../../constants/errors';
 
 export default Ember.Route.extend({
 
@@ -15,7 +16,10 @@ export default Ember.Route.extend({
         newProject.save()
         .then(() => {
           this.transitionTo('app.project', newProject.get('id'));
+          result.resolve();
         }).catch((response)=> {
+          debugger;
+          result.reject(Errors.mapResponseErrors(response));
           newProject.rollbackAttributes();
         result.reject();
       })

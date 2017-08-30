@@ -25,6 +25,8 @@ export default Ember.Component.extend(Validations, {
         return result.promise.then(() => {
           this.set('newCategoryName', null);
           this.send('toggleIsAddingNewCategory');
+        }).catch((errors) => {
+          this.set('errors', errors);
         })
       } else {
         return Ember.RSVP.reject();
