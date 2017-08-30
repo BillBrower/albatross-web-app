@@ -3,7 +3,6 @@
 // -------------------------------------------------------------------
 
 .transforming-text-input {
-  cursor: pointer;
   display: inline-block;
   float: left;
   max-width: 100%;
@@ -31,6 +30,7 @@
   }
 
   .icon {
+    cursor: pointer;
     transition: $transition;
   }
 
@@ -67,7 +67,18 @@
     transition: 0.2s ease-out;
 
     #{$all-buttons} {
+      font-size: 0.8em;
       margin: 0;
+
+      &.btn-primary {
+        background: $dark;
+        min-width: 0;
+        padding: 0.4em 1em;
+
+        &:hover {
+          background: $black;
+        }
+      }
     }
 
     .cancel {
