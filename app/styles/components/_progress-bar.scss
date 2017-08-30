@@ -14,6 +14,7 @@
     background: $primary;
     border-radius: 7px;
     height: 100%;
+    transition: $transition;
 
     // Loop through 0-100 and match the percent complete with the class name
     @for $i from 0 through 100 {
