@@ -23,7 +23,7 @@ const Validations = buildValidations({
 
 export default Model.extend(Validations, {
 
-  actual: attr('number'),
+  actual: attr('number', {defaultValue:0}),
   description: attr('string'),
   estimated: attr('number'),
 

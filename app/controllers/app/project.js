@@ -11,7 +11,10 @@ export default Ember.Controller.extend({
 
   saveItem(item) {
     if (item.get('validations.isValid')) {
-      item.save();
+      item.save().then(() => {
+        this.get('model').reload();
+        this.get('store').findRecord('category', item.get('category.id'));
+      });
     }
   },
   actions: {
