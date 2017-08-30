@@ -48,6 +48,13 @@ export default Ember.Controller.extend({
       item.set('actual', value);
       this.saveItem(item);
     },
+    saveName(model, result) {
+      model.save().then(() =>{
+        result.resolve();
+      }).catch((response) => {
+        result.reject(response);
+      });
+    },
     saveDescription(item, value) {
       item.set('description', value);
      this.saveItem(item);

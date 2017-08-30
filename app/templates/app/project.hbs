@@ -12,6 +12,7 @@
         big=true
         name='projectName'
         type='text'
+        onSave=(action "saveName" model)
         value=model.name
         maxlength=40
         placeholder='Name your project...'}}
@@ -62,6 +63,7 @@
     {{#each model.categories as |category|}}
       {{category-card model=category
                       onAddNewItem=(action "addNewItem")
+                      onSaveCategoryName=(action "saveName")
                       onSaveDescription=(action "saveDescription")
                       onSaveEstimated=(action "saveEstimated")
                       onSaveActual=(action "saveActual")}}
