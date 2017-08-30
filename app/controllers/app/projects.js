@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
 
   currentUser: service('current-user'),
   sortedProjects: Ember.computed.sort('model', 'sortDefinition'),
-  sortDefinition: ['updatedAt:desc'],
+  sortDefinition: ['name'],
 
   actions: {
       createNewProject(name, result) {

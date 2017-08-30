@@ -4,7 +4,7 @@ import ValidationErrors from "../constants/errors";
 const {attr, Model, belongsTo} = DS;
 
 const Validations = buildValidations({
-  emailAddress: [
+  email: [
     validator('presence', {
       presence: true,
       message: ValidationErrors.presenceError,
@@ -32,7 +32,7 @@ export default Model.extend(Validations, {
   name: Ember.computed('firstName', 'lastName', function() {
     return this.get('firstName') + ' ' + this.get('lastName');
   }),
-  emailAddress: attr('string'),
+  email: attr('string'),
   firstName: attr('string'),
   lastName: attr('string'),
   password: attr('string'),
