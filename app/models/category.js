@@ -14,6 +14,7 @@ const Validations = buildValidations({
 export default Model.extend(Validations, {
 
   actual: attr('number', {serialize: false}),
+  createdAt: attr('date', {serialize: false}),
   estimated: attr('number', {serialize: false}),
   name: attr('string'),
 

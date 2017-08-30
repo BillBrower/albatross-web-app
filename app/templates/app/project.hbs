@@ -59,7 +59,7 @@
     <div class="project-body">
 
   {{#if hasCategories}}
-    {{#each model.categories as |category|}}
+    {{#each sortedCategories as |category|}}
       {{category-card model=category
                       onAddNewItem=(action "addNewItem")
                       onSaveCategoryName=(action "saveName")

@@ -40,7 +40,7 @@
         <p class="small estimated">Estimated</p>
         <p class="small actual">Actual</p>
       </div>
-      {{#each model.items as |item|}}
+      {{#each sortedItems as |item|}}
         {{line-item-row model=item
                         onSaveDescription=(action onSaveDescription)
                         onSaveEstimated=(action onSaveEstimated)

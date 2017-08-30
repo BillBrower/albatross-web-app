@@ -20,7 +20,7 @@ const Validations = buildValidations({
     validator('number', {
       allowString: true,
       integer: true,
-      gt: 0,
+      gte: 0,
     }), validator('presence', {
       presence: true,
       message: ValidationErrors.presenceError,
@@ -36,6 +36,7 @@ const Validations = buildValidations({
 export default Model.extend(Validations, {
 
   actual: attr('number', {defaultValue: 0}),
+  createdAt: attr('date', {serialize: false}),
   description: attr('string'),
   estimated: attr('number', {defaultValue: 0}),
 

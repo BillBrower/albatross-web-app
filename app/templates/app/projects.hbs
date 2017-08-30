@@ -13,7 +13,7 @@
     </div>
   </div>-->
 
-  {{#each model as |project|}}
+  {{#each sortedProjects as |project|}}
     {{project-card model=project onCardClicked=(route-action 'goToProject')}}
   {{/each}}
 </div>

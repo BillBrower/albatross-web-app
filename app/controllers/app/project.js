@@ -6,16 +6,18 @@ export default Ember.Controller.extend({
   isEmpty: Ember.computed('model.actual', 'model.estimated', function() {
     return this.get('model.actual') === 0 && this.get('model.estimated') === 0;
   }),
+  isShowingToggleModal: false,
   hasCategories: Ember.computed('model.categories', function() {
     return this.get('model.categories').then((categories) => {
       return categories.length > 0
     })
   }),
-  isShowingToggleModal: false,
   notifications: Ember.inject.service('notification-messages'),
   setupNotifications: function() {
     this.get('notifications').setDefaultClearDuration(1000);
   }.observes('notifications').on('init'),
+  sortedCategories: Ember.computed.sort('model.categories', 'sortDefinition'),
+  sortDefinition: ['createdAt'],
 
   saveItem(item) {
     if (item.get('validations.isValid')) {
@@ -53,6 +55,7 @@ export default Ember.Controller.extend({
     addNewItem(categoryId) {
       const category = this.get('store').peekRecord('category', categoryId);
       this.get('store').createRecord('item', {
+        createdAt: new Date(),
         category: category
       });
     },
