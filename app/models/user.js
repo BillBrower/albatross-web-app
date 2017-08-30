@@ -29,6 +29,9 @@ const Validations = buildValidations({
 
 export default Model.extend(Validations, {
 
+  name: Ember.computed('firstName', 'lastName', function() {
+    return this.get('firstName') + ' ' + this.get('lastName');
+  }),
   emailAddress: attr('string'),
   firstName: attr('string'),
   lastName: attr('string'),

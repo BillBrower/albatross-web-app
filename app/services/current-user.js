@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ENV from 'albatross-web-app/config/environment';
 
 const { inject: { service }, isEmpty, RSVP } = Ember;
 
@@ -7,14 +8,24 @@ export default Ember.Service.extend({
   store: service(),
 
   load() {
-    let userId = this.get('session.data.authenticated.user_id');
-    if (!isEmpty(userId)) {
-      return this.get('store').findRecord(this.get('session.data.authenticated.user_type'), userId).then((user) => {
+    return Ember.$.ajax({
+      url: ENV.host + '/api/v1/users/',
+      type: 'GET',
+      headers: {
+        'Accept':'application/vnd.api+json'
+      },
+      contentType: 'application/vnd.api+json',
+      dataType: 'json',
+    }).then((response) => {
+      const id = response['data']['id'];
+      this.get('store').pushPayload(response);
+      const user = this.get('store').peekRecord('user', id);
+      if (user) {
         this.set('user', user);
-      });
-    } else {
-      return RSVP.resolve();
-    }
+      }
+    }).catch((error) => {
+      this.get('session').invalidate();
+    })
   },
 
   logout() {
