@@ -4,10 +4,20 @@ import ValidationErrors from "../constants/errors";
 const {attr, Model, belongsTo} = DS;
 
 const Validations = buildValidations({
-  name: validator('presence', {
+  actual: validator('presence', {
     presence: true,
     message: ValidationErrors.presenceError,
-    description: 'Name'
+    description: 'Actual'
+  }),
+  estimated: validator('presence', {
+    presence: true,
+    message: ValidationErrors.presenceError,
+    description: 'Estimated'
+  }),
+  description: validator('presence', {
+    presence: true,
+    message: ValidationErrors.presenceError,
+    description: 'Description'
   })
 });
 
@@ -17,6 +27,6 @@ export default Model.extend(Validations, {
   description: attr('string'),
   estimated: attr('number'),
 
-  category: belongsTo('project'),
+  category: belongsTo('category'),
 
 });

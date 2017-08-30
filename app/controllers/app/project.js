@@ -9,17 +9,32 @@ export default Ember.Controller.extend({
   }),
   isShowingToggleModal: false,
 
+  saveItem(item) {
+    if (item.get('validations.isValid')) {
+      item.save();
+    }
+  },
   actions: {
     addNewCategory(categoryName, result) {
       this.get('store').createRecord('category', {
         name: categoryName,
         project: this.get('model')
       }).save()
-        .then(() => {
+        .then((category) => {
+        this.get('store').createRecord('item', {
+          category: category
+        });
           result.resolve()
         }).catch((response) => {
           result.reject(response)
       })
+    },
+
+    addNewItem(categoryId) {
+      const category = this.get('store').peekRecord('category', categoryId);
+      this.get('store').createRecord('item', {
+        category: category
+      });
     },
     onBufferChanged(value) {
       const model = this.get('model');
@@ -29,14 +44,17 @@ export default Ember.Controller.extend({
           //TODO: Show error
         });
     },
-    saveActual(id, value) {
-      console.log('Actual- id: ' + id + ' value: ' + value);
+    saveActual(item, value) {
+      item.set('actual', value);
+      this.saveItem(item);
     },
-    saveDescription(id, value) {
-      console.log('Description- id: ' + id + ' value: ' + value);
+    saveDescription(item, value) {
+      item.set('description', value);
+     this.saveItem(item);
     },
-    saveEstimated(id, value) {
-      console.log('Estimated- id: ' + id + ' value: ' + value);
+    saveEstimated(item, value) {
+      item.set('estimated', value);
+      this.saveItem(item);
     },
     toggleIsShowingTogglModal() {
       this.toggleProperty('isShowingTogglModal');

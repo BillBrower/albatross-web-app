@@ -61,6 +61,7 @@
   {{#if hasCategories}}
     {{#each model.categories as |category|}}
       {{category-card model=category
+                      onAddNewItem=(action "addNewItem")
                       onSaveDescription=(action "saveDescription")
                       onSaveEstimated=(action "saveEstimated")
                       onSaveActual=(action "saveActual")}}

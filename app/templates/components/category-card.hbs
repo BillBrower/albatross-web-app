@@ -5,7 +5,7 @@
         big=true
         name='categoryName'
         type='text'
-        value='Design'
+        value=model.name
         placeholder='Name your project...'}}
     </div>
 
@@ -36,16 +36,14 @@
         <p class="small actual">Actual</p>
       </div>
       {{#each model.items as |item|}}
-        {{line-item-row description=item.description
-                        estimated=item.estimated
-                        actual=item.actual
+        {{line-item-row model=item
                         onSaveDescription=(action onSaveDescription)
                         onSaveEstimated=(action onSaveEstimated)
                         onSaveActual=(action onSaveActual)}}
       {{/each}}
 
       <div class="item-bottom">
-        <button class="btn-primary">+ New Item</button>
+        <button class="btn-primary" {{action (action onAddNewItem model.id)}}>+ New Item</button>
       </div>
     </div>
   </div>
