@@ -9,14 +9,15 @@ export default Ember.Route.extend({
   actions: {
 
     createProject(name, result) {
-      this.get('store').createRecord('project',{
+      const newProject = this.get('store').createRecord('project',{
         'name':name
-      }).save()
+      });
+        newProject.save()
         .then(() => {
-          this.transitionTo('app.project', '1');
+          this.transitionTo('app.project', newProject.get('id'));
         }).catch((response)=> {
+          newProject.rollbackAttributes();
         result.reject();
-        console.log(response);
       })
 
     },
