@@ -1,10 +1,9 @@
 <div {{action 'cardClicked'}} class="card--project" >
-  <div class="color green"></div>
+  <div class="color {{color}}"></div>
   <div class="content">
-    <!--TODO: Use model data -->
     <div class="top-content">
-      <h1 class="bold black">Albatross MVP</h1>
-      <p class="small">08/25/2017</p>
+      <h1 class="bold black">{{model.name}}</h1>
+      <p class="small">Updated {{moment-format model.updatedAt 'MM/DD/YYYY'}}</p>
     </div>
 
     <div class="bottom-content">
@@ -12,9 +11,9 @@
       {{hours-remaining icon=true
                         text=true
                         class='status-component'
-                        estimated=195
-                        actual=112}}
-      <p class="small right">112/195</p>
+                        estimated=model.estimated
+                        actual=model.actual}}
+      <p class="small right">{{model.actual}}/{{model.estimated}}</p>
     </div>
   </div>
 </div>

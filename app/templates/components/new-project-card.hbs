@@ -13,6 +13,7 @@
   <div>
     <button class="cancel" {{action "toggleIsAddingNewProject"}}>Cancel</button>
     {{#spin-button action=(action 'saveButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
+    {{error-message errors=errors}}
   </div>
 </div>
 {{else}}
