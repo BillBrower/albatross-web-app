@@ -7,7 +7,7 @@
         type='text'
         onSave=(action onSaveCategoryName model)
         value=model.name
-        placeholder='Name your project...'}}
+        placeholder='Name the category...'}}
     </div>
 
     <div class="summary category">
@@ -28,7 +28,7 @@
                                   actual=model.actual
                                   text=true
                                   icon=true}}
-          <span class="empty-message">No hours estimated</span>
+          <span class="empty-message">...</span>
         </span>
 
       </div>
@@ -48,7 +48,7 @@
       {{/each}}
 
       <div class="item-bottom">
-        <button class="inline" {{action (action onAddNewItem model.id)}}>+ New Item</button>
+        <button class="inline" {{action (action onAddNewItem model.id)}}><span>+</span> Add Item</button>
       </div>
     </div>
   </div>

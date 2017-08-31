@@ -2,19 +2,22 @@
   {{#if isAddingNewCategory}}
     <span class="dark-bg" {{action "toggleIsAddingNewCategory"}}></span>
     <div class="card new-category">
-      <h2>New Category</h2>
-      {{validated-text-input name='newCategoryName'
-                             type='text'
-                             placeholder='Name the category'
-                             value=newCategoryName
-                             error=validations.attrs.newCategoryName.message
-                             showError=showError}}
-      <p class="small">If you import your time entries from Toggl, tags on your entries will be matched to category names here.</p>
-      <div>
-        <button class="cancel" {{action "toggleIsAddingNewCategory"}}>Cancel</button>
-        {{#spin-button action=(action 'saveButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
-        {{error-message errors=errors}}
+      <div class="transforming-text-input is-active big" data-title={{data-title}} >
+        <span {{action 'makeActive'}}>
+          {{validated-text-input name='newCategoryName'
+                 type='text'
+                 placeholder='Name the category...'
+                 value=newCategoryName
+                 error=validations.attrs.newCategoryName.message
+                 showError=showError}}
+        </span>
+        <div class="btn-group">
+          <button class="cancel" {{action "toggleIsAddingNewCategory"}}>Cancel</button>
+          {{#spin-button action=(action 'saveButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
+          {{error-message errors=errors}}
+        </div>
       </div>
+      <p class="small">Pro Tip: If you import your time entries from Toggl, tags on your entries will be matched to category names here.</p>
     </div>
   {{else}}
     <div class="new-item-box" {{action "toggleIsAddingNewCategory"}}>

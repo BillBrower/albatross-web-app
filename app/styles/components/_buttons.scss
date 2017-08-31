@@ -59,11 +59,11 @@
     border: none;
     border-radius: $border-radius;
     font-size: 1rem;
-    padding: 0.75rem $padding-big !important;
+    padding: 0.75rem $padding-big;
     width: auto !important;
 
     span {
-      font-size: 1rem;
+      font-size: 1em;
     }
 
     &.in-flight {
