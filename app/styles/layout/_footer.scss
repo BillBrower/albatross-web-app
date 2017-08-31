@@ -54,3 +54,21 @@ footer {
     }
   }
 }
+
+
+// Media Queries
+
+@media screen and (max-width: $xs-break) {
+
+  footer {
+
+    .logo {
+      height: 1.53em;
+      width: 5rem;
+    }
+
+    ul {
+      padding: 0;
+    }
+  }
+}

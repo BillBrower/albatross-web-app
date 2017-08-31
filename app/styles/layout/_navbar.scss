@@ -30,80 +30,15 @@
       ul, .logo {
         float: left;
       }
+
+      .user-name {
+        display: none;
+      }
     }
 
     .right-nav {
       display: inline-block;
       float: right;
-
-      .user-profile {
-
-        .user-name {
-          color: $dark;
-          font-size: 0.8em;
-          font-weight: 700;
-          line-height: $navbar-content-height;
-          padding: $padding-small;
-
-          .icon--down {
-            margin-left: 6px;
-          }
-        }
-
-        .user-options {
-          background: $white;
-          border: $border;
-          border-radius: $border-radius;
-          display: block;
-          height: auto;
-          min-width: 8em;
-          overflow: hidden;
-          padding: 0.5em 0;
-          position: absolute;
-          right: calc(((100% - #{$container-width}) / 2) + #{$container-padding});
-          top: 3.25em;
-          width: auto;
-
-          li {
-            display: block;
-            line-height: 2em;
-            width: 100%;
-
-            a {
-              //display: block;
-              line-height: 1.65em;
-              padding: 0;
-            }
-
-            p {
-              border-bottom: $border;
-              //font-weight: 400;
-              line-height: 1.65em;
-              margin: 0 0 0.5em 0;
-              padding: 0 0 0.65em 0;
-            }
-          }
-        }
-
-        &.is-active {
-
-          .user-name {
-
-            .icon--down {
-              transform: rotate(180deg);
-            }
-          }
-        }
-
-      }
-
-      .transparent-bg {
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
-        left: 0;
-        top: 0;
-      }
     }
 
     ul {
@@ -139,6 +74,68 @@
       }
     }
 
+    .user-name {
+      color: $dark;
+      font-size: 0.8em;
+      font-weight: 700;
+      line-height: $navbar-content-height;
+      padding: $padding-small;
+
+      .icon--down {
+        margin-left: 6px;
+      }
+
+      &.is-active {
+        .icon--down {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .user-options {
+      background: $white;
+      border: $border;
+      border-radius: $border-radius;
+      display: block;
+      height: auto;
+      min-width: 8em;
+      overflow: hidden;
+      padding: 0.5em 0;
+      position: absolute;
+      right: calc(((100% - #{$container-width}) / 2) + #{$container-padding});
+      top: 3.25em;
+      width: auto;
+      z-index: 99;
+
+      li {
+        display: block;
+        line-height: 2em;
+        width: 100%;
+
+        a {
+          //display: block;
+          line-height: 1.65em;
+          padding: 0;
+        }
+
+        p {
+          border-bottom: $border;
+          //font-weight: 400;
+          line-height: 1.65em;
+          margin: 0 0 0.5em 0;
+          padding: 0 0 0.65em 0;
+        }
+      }
+    }
+
+    .transparent-bg {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      left: 0;
+      top: 0;
+    }
+
     #{$all-buttons}, #{$all-text-inputs}, .field {
       margin-top: 0 !important;
       margin-bottom: 0 !important;
@@ -149,5 +146,67 @@
   &.login {
     background: transparent;
     border: none;
+  }
+}
+
+
+// Media Queries
+
+// Container width
+@media screen and (max-width: $container-width) {
+
+  .navbar {
+
+    .container {
+
+      .user-options {
+        right: 0.65em;
+      }
+    }
+
+  }
+}
+
+
+@media screen and (max-width: $xs-break) {
+  .navbar {
+
+    .container {
+
+      .left-nav {
+        width: 100%;
+
+        .logo {
+          display: block;
+          float: none;
+          height: 1.5em;
+          margin: 0.5em auto 0;
+        }
+
+        ul {
+          display: block;
+          float: none;
+          text-align: center;
+        }
+
+        .user-name {
+          display: inline-block;
+        }
+      }
+
+      .right-nav {
+        display: none;
+      }
+
+      ul {
+        padding: 0;
+      }
+
+      .user-options {
+        top: 5.5em;
+        right: 2em;
+      }
+    }
+
   }
 }

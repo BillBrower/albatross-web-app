@@ -10,4 +10,57 @@ $padding-width: $padding-mid;
   .name {
     padding: $padding $padding-mid 0;
   }
+
+  .progress-wrapper {
+
+    .section {
+
+
+      &-left {
+        @extend .section;
+        float: left;
+
+        span {
+
+          p {
+
+          }
+
+        }
+      }
+
+      &-right {
+        @extend .section;
+        float: right;
+      }
+    }
+  }
+}
+
+
+
+// Media Queries
+
+// Mobile
+@media screen and (max-width: $xs-break) {
+
+  .summary {
+
+    .progress-wrapper {
+
+      .section {
+
+        &-left {
+
+          span {
+
+            p {
+
+            }
+
+          }
+        }
+      }
+    }
+  }
 }

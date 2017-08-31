@@ -134,3 +134,14 @@
     }
   }
 }
+
+
+// Media Queries
+
+// Mobile
+@media screen and (max-width: $xs-break) {
+
+  .transforming-text-input {
+    width: 100%;
+  }
+}

@@ -55,3 +55,38 @@
 .text-center {
   text-align: center;
 }
+
+
+// Media Queries
+
+// Mobile
+@media screen and (max-width: $xs-break) {
+
+  .header {
+
+    h1 {
+      display: block;
+    }
+
+    #{$all-buttons} {
+      &.pull-right {
+        float: none;
+      }
+    }
+    .transforming-text-input {
+      width: 100%;
+      margin-bottom: 1em;
+    }
+
+    &.project {
+      padding: $padding 0;
+    }
+  }
+}
+
+
+@media screen and (max-width: 48em) {
+  .hidden-xs {
+    display: none;
+  }
+}

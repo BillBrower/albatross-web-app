@@ -114,3 +114,18 @@
   margin: 0 2.5% 0 0;
   width: 47%;
 }
+
+
+// Media Queries
+
+// Mobile
+@media screen and (max-width: $xs-break) {
+
+  .field {
+    margin: 0;
+  }
+
+  .half-field-wrapper {
+    width: 100%;
+  }
+}

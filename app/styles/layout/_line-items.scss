@@ -6,12 +6,15 @@ $status-icon-width: 10%;
 $description-width: 50%;
 $estimated-width: calc((98% - (#{$description-width} + #{$status-icon-width})) / 2);
 $actual-width: $estimated-width;
+$items-min-width: 30em;
 
 .line-items {
+  overflow-x: auto;
   padding: 0;
 
   .items-header {
     border-bottom: $border;
+    min-width: $items-min-width;
     padding: 0 $padding-mid $padding-small;
 
     p {
@@ -48,6 +51,7 @@ $actual-width: $estimated-width;
     display: inline-block;
     height: auto;
     max-height: 3.15em;
+    min-width: $items-min-width;
     padding: $padding-small $padding-mid;
     width: 100%;
 
