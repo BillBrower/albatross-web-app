@@ -144,6 +144,16 @@ $buffer-width: 8em;;
 
   .summary {
 
+    .buffer {
+      width: 100%;
+
+      .field {
+        display: inline-block;
+        margin: 0;
+        width: 8em;
+      }
+    }
+
     .progress-wrapper {
       width: 100%;
 

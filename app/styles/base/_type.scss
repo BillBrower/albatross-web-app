@@ -47,6 +47,10 @@ p {
     color: $grey-mid;
     font-size: 0.8em;
     font-weight: 600;
+
+    strong {
+      color: $grey-dark;
+    }
   }
 
   &.black {

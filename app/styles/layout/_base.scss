@@ -56,8 +56,23 @@
   text-align: center;
 }
 
+.shown-sm {
+  display: none;
+}
+.shown-xs {
+  display: none;
+}
+
 
 // Media Queries
+@media screen and (max-width: $small-break) {
+  .hidden-sm {
+    display: none;
+  }
+  .shown-sm {
+    display: inline-block;
+  }
+}
 
 // Mobile
 @media screen and (max-width: $xs-break) {
@@ -88,5 +103,8 @@
 @media screen and (max-width: 48em) {
   .hidden-xs {
     display: none;
+  }
+  .shown-xs {
+    display: inline-block;
   }
 }

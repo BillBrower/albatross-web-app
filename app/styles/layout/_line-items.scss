@@ -132,6 +132,7 @@ $items-min-width: 30em;
 
   .item-bottom {
     padding: $padding-small $padding-mid;
+    padding: 0;
 
     #{$all-buttons} {
       margin: 0;
@@ -143,7 +144,7 @@ $items-min-width: 30em;
         font-weight: 600;
         min-width: 0;
         //padding: 0.5em 1em;
-        padding: 0.5em 0;
+        padding: $padding;
         width: 100%;
 
         span {
