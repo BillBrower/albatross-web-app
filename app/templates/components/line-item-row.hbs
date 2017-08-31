@@ -5,30 +5,28 @@
                                name='description'
                                type='text'
                                placeholder='Enter a description...'
-                               value=model.description
-                               saveValue=(action onSaveDescription model)}}
+                               value=description
+                               saveValue=(action onSaveDescription '1')}}
   </div>
   <div class="estimated">
     {{live-updating-text-input class='toggle-input small'
                                name='estimated'
                                type='number'
-                               min=0
                                placeholder=0
-                               value=model.estimated
-                               saveValue=(action onSaveEstimated model)}}
+                               value=estimated
+                               saveValue=(action onSaveEstimated '1')}}
     </div>
   <div class="actual">
     {{live-updating-text-input class='toggle-input small'
                                name='actual'
                                type='number'
-                               min=0
                                placeholder=0
-                               value=model.actual
-                               saveValue=(action onSaveActual model)}}
+                               value=actual
+                               saveValue=(action onSaveActual "1")}}
   </div>
   {{hours-remaining
-    actual=model.actual
-    estimated=model.estimated
+    actual=actual
+    estimated=estimated
     icon=true
     class='status-wrapper'}}
 </div>

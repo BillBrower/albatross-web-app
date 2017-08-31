@@ -25,8 +25,6 @@ export default Ember.Component.extend(Validations, {
         this.get('onSave')(this.get('newProjectName'), result);
         return result.promise.then(() => {
           this.set('newProjectName', null);
-        }).catch((errors) => {
-          this.set('errors', errors);
         })
       } else {
         return Ember.RSVP.reject();

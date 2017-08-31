@@ -5,12 +5,9 @@ const { inject: { service } } = Ember;
 export default Ember.Controller.extend({
 
   currentUser: service('current-user'),
-  sortedProjects: Ember.computed.sort('model', 'sortDefinition'),
-  sortDefinition: ['name'],
-
   actions: {
       createNewProject(name, result) {
-        this.send('createProject', name, result);
+        this.send('createProject', name, result)
       }
   }
 });

@@ -28,11 +28,6 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
     if (!this.get('currentUser')) {
       this.get('session').invalidate();
     }
-    return this.get('currentUser').load().catch(() => {
-        if (this.get('session.isAuthenticated')) {
-          this.get('session').invalidate()
-        }
-      }
-    );
+    return this.get('currentUser').load().catch(() => this.get('session').invalidate());
   }
 });

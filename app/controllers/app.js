@@ -1,10 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-
-  currentUser: Ember.inject.service('current-user'),
-  isShowingMenu: false,
   session: Ember.inject.service(),
+
+  isShowingMenu: false,
 
   actions: {
     logout() {

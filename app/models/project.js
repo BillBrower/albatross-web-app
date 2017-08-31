@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 import {buildValidations, validator} from "ember-cp-validations";
 import ValidationErrors from "../constants/errors";
-const {attr, Model, belongsTo, hasMany} = DS;
+const {attr, Model, belongsTo} = DS;
 
 const Validations = buildValidations({
   name: validator('presence', {
@@ -13,11 +13,6 @@ const Validations = buildValidations({
 
 export default Model.extend(Validations, {
 
-  actual: attr('number', {serialize: false}),
-  buffer: attr('number', {defaultValue: 0}),
-  estimated: attr('number', {serialize: false}),
   name: attr('string'),
-  updatedAt: attr('date'),
 
-  categories: hasMany('category')
 });

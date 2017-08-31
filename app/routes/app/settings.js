@@ -7,6 +7,7 @@ export default Ember.Route.extend({
   currentUser: service('current-user'),
 
   model() {
-    return this.get('currentUser.user')
+    //TODO: Remove once auth is setup
+    //return this.get('currentUser.user')
   }
 });
