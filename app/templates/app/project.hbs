@@ -16,7 +16,9 @@
         value=model.name
         maxlength=40
         placeholder='Name your project...'}}
-      <button class="btn-primary pull-right" {{action 'toggleIsShowingTogglModal'}}>Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/></button>
+      <div class="hidden-sm">
+        <button class="btn-primary pull-right" {{action 'toggleIsShowingTogglModal'}}>Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/></button>
+      </div>
     </div>
 
     <div class="summary">
@@ -30,6 +32,9 @@
             placeholder='0'
             saveValue=(action "onBufferChanged")
             value=model.buffer}}
+        </div>
+        <div class="shown-sm pull-right">
+          <button class="btn-primary pull-right" {{action 'toggleIsShowingTogglModal'}}>Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/></button>
         </div>
       </div>
 
