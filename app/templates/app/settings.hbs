@@ -5,6 +5,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-8 col-sm-offset-2">
     <div class="card">
+      <h1>Account</h1>
       <section>
         {{validated-text-input name='firstName'
                                type='text'
@@ -42,31 +43,39 @@
                                showError=showError}}
         <p class="small">You can find your Toggl API Token by going to your <a>profile settings on Toggl</a> and scrolling all the way to the bottom</p>
       </section>
-      <section>
-        <h2>Reset Password</h2>
-        {{validated-text-input name='currentPassword'
-                               type='password'
-                               placeholder='Enter your current password...'
-                               label='Current Password'
-                               value=currentPassword
-                               error=validations.attrs.password.message
-                               showError=showError}}
-
-        {{validated-text-input name='newPassword'
-                               type='password'
-                               placeholder='Enter a new password...'
-                               label='New Password'
-                               value=newPassword
-                               error=validations.attrs.password.message
-                               showError=showError}}
-      </section>
-
 
       {{#spin-button action=(action 'saveAccountButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
 
       <section>
         {{error-message errors=accountErrors}}
       </section>
+
+    </div>
+
+    <div class="card">
+      <h1>Reset Password</h1>
+      {{validated-text-input name='currentPassword'
+                             type='password'
+                             placeholder='Enter your current password...'
+                             label='Current Password'
+                             value=currentPassword
+                             error=validations.attrs.password.message
+                             showError=showError}}
+
+      {{validated-text-input name='newPassword'
+                             type='password'
+                             placeholder='Enter a new password...'
+                             label='New Password'
+                             value=newPassword
+                             error=validations.attrs.password.message
+                             showError=showError}}
+
+      {{#spin-button action=(action 'saveAccountButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
+
+      <section>
+        {{error-message errors=accountErrors}}
+      </section>
+
     </div>
   </div>
 </div>
