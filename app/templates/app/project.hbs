@@ -1,17 +1,19 @@
+<div class="container--main">
   <div class="row">
-    <div class="hidden-xs col-sm-1">
-      <div class="header project">
+    <div class="col-xs-1">
+      <div class="header">
         {{#link-to "app.projects"}}<div class="icon--back"></div>{{/link-to}}
       </div>
     </div>
-  <div class="col-xs-12 col-sm-10">
-    <div class="header project">
+  <div class="col-xs-10">
+    <div class="header">
       {{transforming-text-input
         data-title="Click to edit"
         big=true
         name='projectName'
         type='text'
-        value='Case Status MVP'
+        onSave=(action "saveName" model)
+        value=model.name
         maxlength=40
         placeholder='Name your project...'}}
       <button class="btn-primary pull-right" {{action 'toggleIsShowingTogglModal'}}>Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/></button>
@@ -27,62 +29,57 @@
             type='number'
             placeholder='0'
             saveValue=(action "onBufferChanged")
-            value=buffer}}
+            value=model.buffer}}
         </div>
       </div>
 
-      <!-- TODO: Replace numbers with real ones from model-->
-      <div class="progress-wrapper">
+      <div class="progress-wrapper {{if isEmpty "empty"}}">
         <div class="content">
             <span class="section-left">
               <span>
-                <p><strong>{{estimated}}</strong></p><p class="small">Estimated</p>
+                <p><strong>{{model.estimated}}</strong></p><p class="small">Estimated</p>
               </span>
               <span>
-                <p><strong>{{actual}}</strong></p><p class="small">Actual</p>
+                <p><strong>{{model.actual}}</strong></p><p class="small">Actual</p>
               </span>
             </span>
 
           <span class="section-right">
-              {{hours-remaining
-                  text=true
-                  icon=true
-                  estimated=estimated
-                  actual=actual}}
-            <span class="empty-message">No hours estimated</span>
-          </span>
+              {{hours-remaining text=true
+                                icon=true
+                                estimated=model.estimated
+                                actual=model.actual}}
+          <span class="empty-message">No hours estimated</span>
+            </span>
         </div>
-        {{completion-bar estimated=estimated actual=actual}}
+        {{completion-bar estimated=model.estimated actual=model.actual}}
       </div>
     </div>
 
     <div class="project-body">
 
-      <!-- Sample category -->
-      {{category-card onSaveDescription=(action "saveDescription")
+  {{#if hasCategories}}
+    {{#each sortedCategories as |category|}}
+      {{category-card model=category
+                      onAddNewItem=(action "addNewItem")
+                      onSaveCategoryName=(action "saveName")
+                      onSaveDescription=(action "saveDescription")
                       onSaveEstimated=(action "saveEstimated")
                       onSaveActual=(action "saveActual")}}
-
-      {{#if hasCategory}}
-
-        {{#each category in model.categories}}
-          {{category-card model=category
-                          onSaveDescription=(action "saveDescription")
-                          onSaveEstimated=(action "saveEstimated")
-                          onSaveActual=(action "saveActual")}}
-        {{/each}}
-        {{new-category onSave=(action "addNewCategory")}}
-      {{else}}
-        {{new-category onSave=(action "addNewCategory")}}
-        <!--<div class="empty-state project">
-          <div class="icon--up-arrow"></div>
-          <div class="text">
-            <h1 class="bold">Add the first category!</h1>
-            <p class="light">Categories will match with tags in Toggle when you import your hours</p>
-          </div>
-        </div>-->
-      {{/if}}
+    {{/each}}
+    {{new-category onSave=(action "addNewCategory")}}
+  {{else}}
+    {{new-category onSave=(action "addNewCategory")}}
+    <!--<div class="empty-state project">
+      <div class="icon--up-arrow"></div>
+      <div class="text">
+        <h1 class="bold">Add the first category!</h1>
+        <p class="light">Categories will match with tags in Toggle when you import your hours</p>
+      </div>
+    </div>-->
+  {{/if}}
     </div>
+</div>
   </div>
 </div>
 
@@ -90,3 +87,5 @@
   {{toggl-modal
     close=(action 'toggleIsShowingTogglModal')}}
 {{/if}}
+
+{{notification-container position="top-right"}}

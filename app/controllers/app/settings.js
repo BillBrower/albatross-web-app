@@ -42,15 +42,5 @@ export default Ember.Controller.extend(Validations, {
           });
       }
     },
-
-    saveTokenButtonPressed() {
-      this.set('showError', true);
-      if (!this.get('validations.attrs.toggleToken.isValid')) {
-        return Ember.RSVP.reject();
-      } else {
-        //TODO Save token
-        return Ember.RSVP.resolve();
-      }
-    }
   }
 });

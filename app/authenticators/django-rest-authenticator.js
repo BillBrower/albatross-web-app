@@ -23,23 +23,41 @@ export default Base.extend({
           password: password
         }),
         headers: {
-          'Accept':'application/json'
+          'Accept': 'application/json'
         },
         contentType: 'application/json',
         dataType: 'json',
       }).then((response) => {
-        debugger;
-        Ember.run(function() {
+        Ember.run(function () {
           resolve({
             token: response.key
           });
         });
       }, (xhr) => {
         var response = xhr.responseText;
-        Ember.run(function() {
+        Ember.run(function () {
           reject(response);
         });
       });
     });
   },
+
+  invalidate(data) {
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      const headers = {};
+      headers['Authorization'] = 'Token ' + data.token;
+      headers['Accept'] = 'application/json';
+      Ember.$.ajax({
+        url: ENV.host + '/api/v1/logout/',
+        type: 'POST',
+        headers: headers,
+        contentType: 'application/json',
+        dataType: 'json',
+      }).then(() => {
+        resolve();
+      }).catch(() => {
+        reject();
+      })
+    });
+  }
 });
