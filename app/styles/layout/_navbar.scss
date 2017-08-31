@@ -208,5 +208,33 @@
       }
     }
 
+
+    &.login {
+
+      .container {
+
+        .left-nav {
+          width: auto;
+
+          .logo {
+            display: inline-block;
+            height: 1.5em;
+            margin: 0.5em auto 0;
+          }
+        }
+
+        .right-nav {
+          display: inline-block;
+
+          ul {
+            height: 2.5em;
+
+            li {
+              line-height: 2.5em;
+            }
+          }
+        }
+      }
+    }
   }
 }
