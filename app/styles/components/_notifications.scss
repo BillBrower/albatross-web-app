@@ -1,0 +1,39 @@
+// Notifications
+// All styles for creating notification elements
+// -------------------------------------------------------------------
+
+.notification {
+  background: $primary;
+  border-radius: $border-radius;
+
+  div {
+    font-family: $body;
+    font-size: 0.8em;
+    font-weight: 600;
+
+    &:first-child {
+      background-color: transparent;
+      background-image: url('img/icons/success-icon.svg');
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    &:last-child {
+      background: $primary-dark;
+    }
+  }
+
+  &.error {
+    background: $red;
+
+    div {
+      &:first-child {
+        background-image: url('img/icons/error-icon.svg');
+      }
+
+      &:last-child {
+        background: $red-dark;
+      }
+    }
+  }
+}

@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
   }),
   notifications: Ember.inject.service('notification-messages'),
   setupNotifications: function() {
-    this.get('notifications').setDefaultClearDuration(1000);
+    this.get('notifications').setDefaultClearDuration(1200);
   }.observes('notifications').on('init'),
   sortedCategories: Ember.computed.sort('model.categories', 'sortDefinition'),
   sortDefinition: ['createdAt'],
@@ -24,11 +24,13 @@ export default Ember.Controller.extend({
       item.save().then(() => {
         this.get('model').reload();
         this.get('store').findRecord('category', item.get('category.id'));
-        this.get('notifications').success("Item updated successfully!", {
+        this.get('notifications').success(item.get('description') + " saved successfully!", {
+          cssClasses: 'notification',
           autoClear: true,
         });
       }).catch(() => {
         this.get('notifications').error("Failed to update item!", {
+          cssClasses: 'notification error',
           autoClear: true,
         });
       });
@@ -65,11 +67,13 @@ export default Ember.Controller.extend({
       model.save()
         .then(() => {
           this.get('notifications').success("Buffer updated successfully!", {
+            cssClasses: 'notification',
             autoClear: true,
           });
         })
         .catch(() => {
           this.get('notifications').error("Buffer failed to update!", {
+            cssClasses: 'notification error',
             autoClear: true,
           });
         });

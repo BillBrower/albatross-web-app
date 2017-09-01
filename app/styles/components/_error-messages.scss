@@ -1,0 +1,15 @@
+// Error Messages
+// All styles for creating error message elements
+// -------------------------------------------------------------------
+
+.error-message {
+  background: $red;
+  border: 1px solid $red;
+  border-radius: $border-radius;
+  color: $red-dark;
+  padding: $padding;
+
+  p {
+    color: $white;
+  }
+}
