@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 import {buildValidations, validator} from "ember-cp-validations";
 import ValidationErrors from '../constants/errors';
 
@@ -65,18 +64,14 @@ export default Ember.Controller.extend(Validations, {
         const emailAddress = this.get('emailAddress');
         const password = this.get('password');
 
-        const team = DS.createRecord('team', {
-          name: teamName,
-        });
-        const user = DS.createRecord('user',{
+        const user = this.get('store').createRecord('user',{
           firstName: firstName,
           lastName: lastName,
-          emailAddress: emailAddress,
+          email: emailAddress,
           password: password,
-          team: team
         });
 
-        this.send('signup', user, result);
+        this.send('signup', user, teamName, result);
         return result.promise;
       }
     }

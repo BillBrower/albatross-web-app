@@ -56,7 +56,7 @@ export default Base.extend({
       }).then(() => {
         resolve();
       }).catch(() => {
-        reject();
+        resolve();
       })
     });
   }
