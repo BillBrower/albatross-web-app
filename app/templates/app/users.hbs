@@ -18,6 +18,9 @@
         </p>
       </section>
       {{#spin-button action=(action 'inviteButtonPressed') class="btn-primary" buttonStyle="contract"}}Invite{{/spin-button}}
+      <section>
+        {{error-message errors=errors}}
+      </section>
     </div>
 
 
@@ -34,29 +37,23 @@
         </div>
 
 
+        {{#if model.users}}
+        {{#each model.users as |user|}}
         <div class="item">
           <div class="name">
-            <p>Austin Price</p>
+            {{#if user.name}}
+            <p>{{user.name}}</p>
+            {{else}}
+              <p>Not registered yet</p>
+            {{/if}}
           </div>
           <div class="email">
-            <p>austin@builtbykrit.com</p>
+            <p>{{user.email}}</p>
           </div>
         </div>
-
-        <div class="item">
-          <div class="name">
-            <p class="light">Not registered yet</p>
-          </div>
-          <div class="email">
-            <p>kevin@builtbykrit.com</p>
-          </div>
-        </div>
-
+        {{/each}}
+        {{/if}}
       </div>
-      <!--Todo table-->
-      {{#each user in model.users}}
-
-      {{/each}}
     </div>
 
   </div>
