@@ -8,9 +8,7 @@ export default Ember.Controller.extend({
   }),
   isShowingToggleModal: false,
   hasCategories: Ember.computed('model.categories', function() {
-    return this.get('model.categories').then((categories) => {
-      return categories.length > 0
-    })
+    return this.get('model.categories').content.length > 0;
   }),
   notifications: Ember.inject.service('notification-messages'),
   setupNotifications: function() {

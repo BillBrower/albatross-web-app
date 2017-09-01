@@ -40,6 +40,11 @@
         <p class="small estimated">Estimated</p>
         <p class="small actual">Actual</p>
       </div>
+      {{#if isEmpty}}
+        <div class="item empty">
+          <p>A category is a collection of items that you estimate and track. Add your first item!</p>
+        </div>
+      {{/if}}
       {{#each sortedItems as |item|}}
         {{line-item-row model=item
                         onSaveDescription=(action onSaveDescription)

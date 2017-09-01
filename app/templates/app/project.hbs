@@ -75,13 +75,16 @@
     {{new-category onSave=(action "addNewCategory")}}
   {{else}}
     {{new-category onSave=(action "addNewCategory")}}
-    <!--<div class="empty-state project">
-      <div class="icon--up-arrow"></div>
-      <div class="text">
-        <h1 class="bold">Add the first category!</h1>
-        <p class="light">Categories will match with tags in Toggle when you import your hours</p>
+
+    {{#unless hasCategories}}
+      <div class="empty-state project">
+        <div class="icon--up-arrow"></div>
+        <div class="text">
+          <h1 class="bold">Add the first category!</h1>
+          <p class="light">Categories will match with tags in Toggle when you import your hours</p>
+        </div>
       </div>
-    </div>-->
+    {{/unless}}
   {{/if}}
     </div>
 </div>
