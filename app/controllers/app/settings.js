@@ -1,10 +1,14 @@
 import Ember from 'ember';
+import Errors from '../../constants/errors';
 import ENV from 'albatross-web-app/config/environment';
 
 export default Ember.Controller.extend({
 
+  notifications: Ember.inject.service('notification-messages'),
   session: Ember.inject.service(),
-  password: null,
+  setupNotifications: function() {
+    this.get('notifications').setDefaultClearDuration(1200);
+  }.observes('notifications').on('init'),
   toggleToken: null,
 
   actions: {
@@ -30,6 +34,10 @@ export default Ember.Controller.extend({
               dataType: 'json',
             }).then(() => {
               this.set('accountErrors', null);
+              this.get('notifications').success("Account information saved successfully!", {
+                cssClasses: 'notification',
+                autoClear: true,
+              });
               result.resolve();
             }).catch((response) => {
               this.set('accountErrors', Errors.mapResponseErrors(response));
@@ -41,8 +49,38 @@ export default Ember.Controller.extend({
       }
     },
 
-    resetPasswordButtonPressed() {
+    changePasswordButtonPressed() {
+      let data = {
+        new_password1: this.get('newPassword'),
+        new_password2: this.get('newPassword'),
+        old_password: this.get('currentPassword')
+      };
+      const result = Ember.RSVP.defer();
+      this.get('session')
+        .authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+          const headers = { 'Accept': 'application/json' };
+          headers[headerName] = headerValue;
+          Ember.$.ajax({
+            url: `${ENV.host}/api/v1/password/change/`,
+            type: 'POST',
+            data: JSON.stringify(data),
+            headers: headers,
+            contentType: 'application/json',
+            dataType: 'json',
+          }).then(() => {
+            this.set('passwordErrors', null);
+            this.get('notifications').success("Password changed successfully!", {
+              cssClasses: 'notification',
+              autoClear: true,
+            });
+            result.resolve();
+          }).catch((response) => {
+            this.set('passwordErrors', Errors.mapResponseErrors(response));
+            result.reject();
+          });
+        });
 
+      return result.promise;
     }
   }
 });

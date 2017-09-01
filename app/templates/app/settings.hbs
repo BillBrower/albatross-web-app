@@ -52,7 +52,7 @@
     </div>
 
     <div class="card">
-      <h1>Reset Password</h1>
+      <h1>Change Password</h1>
       {{validated-text-input name='currentPassword'
                              type='password'
                              placeholder='Enter your current password...'
@@ -65,12 +65,14 @@
                              label='New Password'
                              value=newPassword}}
 
-      {{#spin-button action=(action 'resetPasswordButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
+      {{#spin-button action=(action 'changePasswordButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
 
       <section>
-        {{error-message errors=accountErrors}}
+        {{error-message errors=passwordErrors}}
       </section>
 
     </div>
   </div>
 </div>
+
+{{notification-container position="top-right"}}
