@@ -39,7 +39,6 @@
                                placeholder='Toggle API Token'
                                label='Toggle API Token'
                                value=toggleToken
-                               error=model.validations.attrs.toggleToken.message
                                showError=showError}}
         <p class="small">You can find your Toggl API Token by going to your <a>profile settings on Toggl</a> and scrolling all the way to the bottom</p>
       </section>
@@ -58,19 +57,15 @@
                              type='password'
                              placeholder='Enter your current password...'
                              label='Current Password'
-                             value=currentPassword
-                             error=validations.attrs.password.message
-                             showError=showError}}
+                             value=currentPassword}}
 
       {{validated-text-input name='newPassword'
                              type='password'
                              placeholder='Enter a new password...'
                              label='New Password'
-                             value=newPassword
-                             error=validations.attrs.password.message
-                             showError=showError}}
+                             value=newPassword}}
 
-      {{#spin-button action=(action 'saveAccountButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
+      {{#spin-button action=(action 'resetPasswordButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
 
       <section>
         {{error-message errors=accountErrors}}

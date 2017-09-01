@@ -1,46 +1,48 @@
 import Ember from 'ember';
-import Error from '../../constants/errors';
-import {buildValidations, validator} from "ember-cp-validations";
-import ValidationErrors from '../../constants/errors';
+import ENV from 'albatross-web-app/config/environment';
 
-const Validations = buildValidations({
-  teamToken: validator('presence', {
-    presence: true,
-    message: ValidationErrors.presenceError,
-    description: 'Team name'
-  }),
-  password: [
-    validator('presence', {
-      presence: true,
-      message: ValidationErrors.presenceError,
-      description: 'Password'
-    }),
-    validator('length', {
-      min: 8,
-      message: 'Your password must be at least 8 characters.'
-    })
-  ]
-});
+export default Ember.Controller.extend({
 
-export default Ember.Controller.extend(Validations, {
-
+  session: Ember.inject.service(),
   password: null,
   toggleToken: null,
 
   actions: {
     saveAccountButtonPressed() {
       this.set('showError', true);
-      if ((!this.get('validations.attrs.password.isValid') && this.get('password') || !this.get('model.validations.isValid'))) {
+      if ((!this.get('model.validations.isValid') )) {
         return Ember.RSVP.reject()
       } else {
-        return this.get('model').save()
-          .then(() => {
-          this.set('accountErrors', null);
-          })
-          .catch((response) => {
-          this.set('accountErrors', Error.mapResponseErrors(response))
+        let json = this.get('model').serialize();
+        json.data.id = this.get('model').get('id');
+        delete json.data.attributes.password;
+        const result = Ember.RSVP.defer();
+        this.get('session')
+          .authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+            const headers = { 'Accept': 'application/vnd.api+json' };
+            headers[headerName] = headerValue;
+            Ember.$.ajax({
+              url: `${ENV.host}/api/v1/users/`,
+              type: 'PATCH',
+              data: JSON.stringify(json),
+              headers: headers,
+              contentType: 'application/vnd.api+json',
+              dataType: 'json',
+            }).then(() => {
+              this.set('accountErrors', null);
+              result.resolve();
+            }).catch((response) => {
+              this.set('accountErrors', Errors.mapResponseErrors(response));
+              result.reject();
+            });
           });
+
+        return result.promise;
       }
     },
+
+    resetPasswordButtonPressed() {
+
+    }
   }
 });
