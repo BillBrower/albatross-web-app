@@ -9,7 +9,7 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
   routeAfterAuthentication: ENV.routeAfterAuthentication,
 
   beforeModel(transition) {
-    this._super(transition)
+    this._super(transition);
     return this._loadCurrentUser();
   },
 
