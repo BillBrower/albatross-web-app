@@ -6,9 +6,11 @@ import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-
 export default Ember.Route.extend(UnauthenticatedRouteMixin,{
 
   actions: {
-    signup(user, teamName, result) {
+    signup(user, teamName, inviteCode, result) {
       const json = user.serialize();
-      console.log(json);
+      if (inviteCode) {
+        json.data.code = inviteCode;
+      }
       Ember.$.ajax({
         url: ENV.host + '/api/v1/registration/',
         type: 'POST',
@@ -22,6 +24,9 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin,{
           this.get('session')
             .authenticate('authenticator:django-rest-authenticator', user.get('email'), user.get('password'))
             .then(() => {
+            if (inviteCode) {
+              this.transitionTo('app.projects');
+            } else {
               const team = this.get('store').createRecord('team', {
                 name: teamName
               });
@@ -33,6 +38,7 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin,{
                 this.controller.set('errors', Errors.mapResponseErrors(response));
                 result.reject();
               })
+            }
             })
             .catch((response) => {
               this.controller.set('errors', Errors.mapResponseErrors(response));

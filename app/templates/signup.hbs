@@ -19,14 +19,15 @@
         <p class="light">Start making smarter project estimates today</p>
       </div>
 
-      {{validated-text-input name='teamName'
+      {{#unless code}}
+        {{validated-text-input name='teamName'
                              type='text'
                              placeholder='Name your team...'
                              label='What is your team called?'
                              value=teamName
                              error=validations.attrs.teamName.message
                              showError=showError}}
-
+      {{/unless}}
       {{validated-text-input name='firstName'
                              type='text'
                              placeholder='First Name'
