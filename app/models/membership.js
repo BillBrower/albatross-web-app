@@ -7,5 +7,6 @@ export default Model.extend({
   state: attr('string'),
 
   user: belongsTo('user'),
+  invitation: belongsTo('invitation'),
   team: belongsTo('team')
 });

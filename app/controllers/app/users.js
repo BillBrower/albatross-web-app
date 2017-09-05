@@ -22,8 +22,11 @@ export default Ember.Controller.extend(Validations, {
 
   emailAddress: null,
   session: Ember.inject.service('session'),
-  sortedUsers: Ember.computed.sort('model.users', 'sortDefinition'),
-  sortDefinition: ['dateJoined:desc'],
+  sortedInvitations: Ember.computed.sort('model.invitations.content', 'sortInvitationDefinition'),
+  sortedUsers: Ember.computed.sort('model.users.content', 'sortUserDefinition'),
+  sortInvitationDefinition: ['email'],
+  sortUserDefinition: ['dateJoined:desc'],
+
   actions: {
     inviteButtonPressed() {
       this.set('showErrors', true);

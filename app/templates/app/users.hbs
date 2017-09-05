@@ -41,17 +41,26 @@
         {{#each sortedUsers as |user|}}
         <div class="item">
           <div class="name">
-            {{#if user.name}}
             <p>{{user.name}}</p>
-            {{else}}
-              <p>Not registered yet</p>
-            {{/if}}
           </div>
           <div class="email">
             <p>{{user.email}}</p>
           </div>
         </div>
         {{/each}}
+        {{/if}}
+
+        {{#if sortedInvitations}}
+          {{#each sortedInvitations as |invitation|}}
+            <div class="item">
+              <div class="name">
+                  <p>Not registered yet</p>
+              </div>
+              <div class="email">
+                <p>{{invitation.email}}</p>
+              </div>
+            </div>
+          {{/each}}
         {{/if}}
       </div>
     </div>
