@@ -25,7 +25,10 @@ module.exports = function(defaults) {
   }
 
   let app = new EmberApp(defaults, {
-    fingerprint: fingerprintOptions
+    fingerprint: fingerprintOptions,
+    SRI: {
+      enabled: false
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
