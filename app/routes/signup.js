@@ -5,11 +5,13 @@ import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-
 
 export default Ember.Route.extend(UnauthenticatedRouteMixin,{
 
+  routeIfAlreadyAuthenticated: ENV.routeAfterAuthentication,
+
   actions: {
     signup(user, teamName, inviteCode, result) {
       const json = user.serialize();
       if (inviteCode) {
-        json.data.code = inviteCode;
+        json.data.attributes.code = inviteCode;
       }
       Ember.$.ajax({
         url: ENV.host + '/api/v1/registration/',

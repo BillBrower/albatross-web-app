@@ -32,6 +32,7 @@ export default Model.extend(Validations, {
   name: Ember.computed('firstName', 'lastName', function() {
     return this.get('firstName') + ' ' + this.get('lastName');
   }),
+  dateJoined: attr('date'),
   email: attr('string'),
   firstName: attr('string'),
   lastName: attr('string'),

@@ -7,11 +7,11 @@ export default Ember.Route.extend({
   model() {
     const user = this.get('currentUser.user');
     return user.get('membership').then((membership) => {
-      return membership.get('team').then((team) => {
-        return this.get('store').findRecord('team', team.get('id'));
-      });
-
+      if (membership) {
+        return membership.get('team').then((team) => {
+          return this.get('store').findRecord('team', team.get('id'));
+        });
+      }
     });
-
   }
 });
