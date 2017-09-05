@@ -15,8 +15,20 @@
   <div class="row center-xs">
     <div class="col-xs-10 col-sm-5">
       <div class="header text-center">
-        <h1>Signup for Albatross</h1>
-        <p class="light">Start making smarter project estimates today</p>
+        <h1>
+          {{#if code}}
+            Welcome to Albatross!
+          {{else}}
+            Sign up for Albatross
+          {{/if}}
+        </h1>
+        <p class="light">
+          {{#if code}}
+            Join your team and start making smarter project estimates
+          {{else}}
+            Start making smarter project estimates today
+          {{/if}}
+        </p>
       </div>
 
       {{#unless code}}
@@ -59,13 +71,18 @@
                              value=password
                              error=validations.attrs.password.message
                              showError=showError}}
+      <p class="small text-left">Passwords must be at least 8 characters and contain at least 1 special character</p>
+
+      {{#unless code}}
+        <section>
+          <p class="small text-left">We'll start you out with our Pro Plan on the house for 30 days. After that, you'll have the option to upgrade or
+            continue using Albatross for free.</p>
+        </section>
+      {{/unless}}
 
       <section>
-        <p class="small">We'll start you out with our Pro Plan on the house for 30 days. After that, you'll have the option to upgrade or
-          continue using Albatross for free.</p>
+        {{#spin-button action=(action 'signupButtonPressed') class="btn-primary" buttonStyle="contract"}}Get Started!{{/spin-button}}
       </section>
-
-      {{#spin-button action=(action 'signupButtonPressed') class="btn-primary" buttonStyle="contract"}}Get Started!{{/spin-button}}
 
       <section>
         {{error-message errors=errors}}

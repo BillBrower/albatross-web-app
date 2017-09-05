@@ -9,11 +9,11 @@ export default Ember.Component.extend({
     const difference = estimated - actual;
     const statusColor = Status.statusColor(estimated, actual);
     this.set('color', statusColor);
-    if (statusColor === 'green') {
+    if (difference > 0) {
       this.set('formattedText', `${difference} under`);
-    } else if (statusColor === 'yellow') {
+    } else if (difference === 0) {
       this.set('formattedText',`right on`);
-    } else if (statusColor === 'red') {
+    } else if (difference < 0) {
       this.set('formattedText', `${Math.abs(difference)} over`);
     }
   }.observes('estimated','actual').on('init')

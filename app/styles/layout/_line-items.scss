@@ -148,7 +148,6 @@ $items-min-width: 30em;
         color: $grey-mid;
         font-weight: 600;
         min-width: 0;
-        //padding: 0.5em 1em;
         padding: $padding;
         width: 100%;
 
@@ -158,8 +157,7 @@ $items-min-width: 30em;
         }
 
         &:hover {
-          //background: $light;
-          //color: $dark;
+          background: mix($light, $white, 50%);
           color: $dark;
         }
       }
