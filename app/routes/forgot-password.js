@@ -9,13 +9,16 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin, {
 
   actions: {
     sendResetEmail(email, result) {
-      const url = ENV.host + '/reset_password';
+      const url = ENV.host + '/api/v1/password/reset/';
       const data = {
-        'email_address': email
+        'email': email
       };
       Ember.$.ajax({
         contentType: 'application/json',
         data: JSON.stringify(data),
+        headers: {
+          'Accept': 'application/json'
+        },
         method: 'POST',
         url: url,
 

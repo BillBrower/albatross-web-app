@@ -15,9 +15,11 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin, {
 
   actions: {
     resetPassword(token, password, result) {
-      const url = ENV.host + '/reset_password/' + token;
+      const url = ENV.host + '/api/v1/password/reset/confirm/';
       let data = {
-        password: password
+        new_password1: password,
+        new_password2: password,
+        token: token
       };
       Ember.$.ajax({
         contentType: 'application/json',
