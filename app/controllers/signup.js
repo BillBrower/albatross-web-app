@@ -47,13 +47,18 @@ const Validations = buildValidations({
 
 export default Ember.Controller.extend(Validations, {
 
+  queryParams: ['code'],
+
   actions: {
     signupButtonPressed() {
       this.set('errors', null);
-
+      //Set a default team name if there is an invite code
+      if (this.get('code')) {
+        this.set('teamName', 'Team');
+      }
       const errors = this.get('validations.messages');
-
       this.set('showError', true);
+
       if (errors.length > 0) {
         return Ember.RSVP.reject();
       } else {
@@ -70,8 +75,8 @@ export default Ember.Controller.extend(Validations, {
           email: emailAddress,
           password: password,
         });
-
-        this.send('signup', user, teamName, result);
+        const inviteCode = this.get('code');
+        this.send('signup', user, teamName, inviteCode, result);
         return result.promise;
       }
     }
