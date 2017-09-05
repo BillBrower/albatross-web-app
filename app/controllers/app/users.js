@@ -48,7 +48,6 @@ export default Ember.Controller.extend(Validations, {
                 contentType: 'application/json',
                 dataType: 'json',
               }).then(() => {
-                debugger;
                 this.set('emailAddress', null);
                 this.get('model').reload();
                 return Ember.RSVP.resolve();
