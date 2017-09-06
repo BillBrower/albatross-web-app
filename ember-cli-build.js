@@ -27,7 +27,8 @@ module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     fingerprint: fingerprintOptions,
     SRI: {
-      enabled: false
+      enabled: false,
+      crossorigin: 'anonymous'
     },
   });
 

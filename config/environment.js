@@ -7,6 +7,7 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
+    baseURL: '/',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -26,6 +27,13 @@ module.exports = function(environment) {
     clientId: 'MUkImBIB0GpBkplwGweuL7mEGzjqmvcYX2mJumNX',
     clientSecret: 'Iidg9RnNY1LYyxCVDdUt9INgGqZtvzrnJPNx95TQ',
     routeAfterAuthentication: '/app/projects',
+
+    contentSecurityPolicy: {
+      'script-src': "'self' 'unsafe-eval' https://*.googleapis.com https://*.gstatic.com",
+      'img-src': "'self' https://*.googleapis.com https://*.gstatic.com",
+      'font-src': "'self' https://*.gstatic.com",
+      'style-src': "'self' 'unsafe-inline' https://*.googleapis.com"
+    },
   };
 
   if (environment === 'local') {
@@ -53,7 +61,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.host = 'https://getalbatross.com'
   }
 
   return ENV;
