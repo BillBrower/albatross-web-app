@@ -26,11 +26,9 @@ module.exports = function(defaults) {
 
   let app = new EmberApp(defaults, {
     fingerprint: fingerprintOptions,
-    SRI: {
-      enabled: false,
-      crossorigin: 'anonymous'
-    },
   });
+
+  app.options.storeConfigInMeta = false;
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
