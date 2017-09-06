@@ -20,6 +20,8 @@ Router.map(function() {
     this.route('project', {path: '/projects/:project_id'});
   });
   this.route('sandbox');
+  this.route('error');
+  this.route('loading');
 });
 
 export default Router;

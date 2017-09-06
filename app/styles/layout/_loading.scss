@@ -1,0 +1,26 @@
+// Loading
+// All styles for laying out the loading route template
+// -------------------------------------------------------------------
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.loading-wrapper {
+
+  .logo--mark {
+    animation: pulse 1s infinite;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+  }
+}
