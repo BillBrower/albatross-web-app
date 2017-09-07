@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
 
   notifications: Ember.inject.service('notification-messages'),
   session: Ember.inject.service(),
-  setupNotifications: function() {
+  setupNotifications: function () {
     this.get('notifications').setDefaultClearDuration(1200);
   }.observes('notifications').on('init'),
   toggleToken: null,
@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
         const result = Ember.RSVP.defer();
         this.get('session')
           .authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
-            const headers = { 'Accept': 'application/vnd.api+json' };
+            const headers = {'Accept': 'application/vnd.api+json'};
             headers[headerName] = headerValue;
             Ember.$.ajax({
               url: `${ENV.host}/api/v1/users/`,
@@ -33,13 +33,40 @@ export default Ember.Controller.extend({
               contentType: 'application/vnd.api+json',
               dataType: 'json',
             }).then(() => {
-              this.set('accountErrors', null);
-              this.get('notifications').success("Account information saved successfully!", {
-                cssClasses: 'notification',
-                autoClear: true,
-              });
-              result.resolve();
+              this.get('model.profile').then((profile) => {
+                if (profile.get('hasDirtyAttributes')) {
+                  let profileJson = profile.serialize();
+                  profileJson.data.id = profile.get('id');
+                  Ember.$.ajax({
+                    url: `${ENV.host}/api/v1/users/${this.get('model.id')}/profile/`,
+                    type: 'PATCH',
+                    data: JSON.stringify(profileJson),
+                    headers: headers,
+                    contentType: 'application/vnd.api+json',
+                    dataType: 'json',
+                  }).then(() => {
+                    this.set('accountErrors', null);
+                    this.get('notifications').success("Account information saved successfully!", {
+                      cssClasses: 'notification',
+                      autoClear: true,
+                    });
+                    result.resolve();
+                  }).catch((response) => {
+                    debugger;
+                    this.set('accountErrors', Errors.mapResponseErrors(response));
+                    result.reject();
+                  })
+                } else {
+                  this.set('accountErrors', null);
+                  this.get('notifications').success("Account information saved successfully!", {
+                    cssClasses: 'notification',
+                    autoClear: true,
+                  });
+                  result.resolve();
+                }
+              })
             }).catch((response) => {
+              debugger
               this.set('accountErrors', Errors.mapResponseErrors(response));
               result.reject();
             });
@@ -58,7 +85,7 @@ export default Ember.Controller.extend({
       const result = Ember.RSVP.defer();
       this.get('session')
         .authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
-          const headers = { 'Accept': 'application/json' };
+          const headers = {'Accept': 'application/json'};
           headers[headerName] = headerValue;
           Ember.$.ajax({
             url: `${ENV.host}/api/v1/password/change/`,

@@ -38,5 +38,6 @@ export default Model.extend(Validations, {
   lastName: attr('string'),
   password: attr('string'),
 
-  membership: belongsTo('membership')
+  membership: belongsTo('membership'),
+  profile: belongsTo('profile')
 });
