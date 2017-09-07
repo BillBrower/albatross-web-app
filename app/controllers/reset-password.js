@@ -6,6 +6,7 @@ const { RSVP } = Ember;
 
 export default Ember.Controller.extend(buildValidations(Validations.Password),{
 
+  queryParams: ['token', 'uid'],
   confirmPassword: null,
   password:null,
 
@@ -23,8 +24,9 @@ export default Ember.Controller.extend(buildValidations(Validations.Password),{
         });
       } else {
         const password = this.get('password');
-        const token = this.get('model.token');
-        this.send('resetPassword', token, password, result);
+        const token = this.get('token');
+        const uid = this.get('uid');
+        this.send('resetPassword', token, uid, password, result);
 
       }
 
