@@ -8,7 +8,7 @@ const Validations = buildValidations({
   actual: [
     validator('number', {
       allowString: true,
-      integer: true,
+      integer: false,
       gte: 0,
     }),
     validator('presence', {
@@ -19,7 +19,7 @@ const Validations = buildValidations({
   estimated: [
     validator('number', {
       allowString: true,
-      integer: true,
+      integer: false,
       gte: 0,
     }), validator('presence', {
       presence: true,
