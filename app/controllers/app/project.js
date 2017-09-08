@@ -94,6 +94,9 @@ export default Ember.Controller.extend({
     },
     onBufferChanged(value) {
       const model = this.get('model');
+      if (!value) {
+        value = 0;
+      }
       model.set('buffer', parseInt(value));
       model.save()
         .then(() => {
@@ -110,6 +113,9 @@ export default Ember.Controller.extend({
         });
     },
     saveActual(item, value) {
+      if (!value) {
+        value = 0;
+      }
       item.set('actual', value);
       this.saveItem(item);
     },
@@ -128,6 +134,9 @@ export default Ember.Controller.extend({
       this.saveItem(item);
     },
     saveEstimated(item, value) {
+      if (!value) {
+        value = 0;
+      }
       item.set('estimated', value);
       this.saveItem(item);
     },
