@@ -10,7 +10,6 @@ export default Ember.Component.extend({
   actions: {
     inputChanged(event) {
       this.set('value', event.target.value);
-      //console.log(event.target.value);
       Ember.run.throttle(this, "save", this.debounceWait, this.fireAtStart);
     },
   }

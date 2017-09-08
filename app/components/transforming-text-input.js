@@ -7,6 +7,7 @@ export default Ember.Component.extend({
   actions: {
     cancel() {
       this.set('isActive', false);
+      this.get('onCancel')();
     },
 
     makeActive() {

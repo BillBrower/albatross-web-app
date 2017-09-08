@@ -13,6 +13,7 @@
           big=true
           name='projectName'
           type='text'
+          onCancel=(action "cancelSaveName" model)
           onSave=(action "saveName" model)
           value=model.name
           maxlength=40
@@ -75,6 +76,7 @@
           {{#each sortedCategories as |category|}}
             {{category-card model=category
                             onAddNewItem=(action "addNewItem")
+                            onCancelSaveCategoryName=(action "cancelSaveName")
                             onSaveCategoryName=(action "saveName")
                             onSaveDescription=(action "saveDescription")
                             onSaveEstimated=(action "saveEstimated")

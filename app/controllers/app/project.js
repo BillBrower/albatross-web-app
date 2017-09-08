@@ -113,6 +113,9 @@ export default Ember.Controller.extend({
       item.set('actual', value);
       this.saveItem(item);
     },
+    cancelSaveName(model) {
+      model.rollbackAttributes()
+    },
     saveName(model, result) {
       model.save().then(() => {
         result.resolve();
