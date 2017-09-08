@@ -1,17 +1,20 @@
 import Ember from 'ember';
 import Errors from '../../constants/errors';
+import ENV from 'albatross-web-app/config/environment';
 
 export default Ember.Controller.extend({
 
-  isEmpty: Ember.computed('model.actual', 'model.estimated', function() {
+  currentUser: Ember.inject.service('current-user'),
+  isEmpty: Ember.computed('model.actual', 'model.estimated', function () {
     return this.get('model.actual') === 0 && this.get('model.estimated') === 0;
   }),
-  isShowingToggleModal: false,
-  hasCategories: Ember.computed('model.categories', function() {
+  isShowingTogglModal: false,
+  hasCategories: Ember.computed('model.categories', function () {
     return this.get('model.categories').content.length > 0;
   }),
   notifications: Ember.inject.service('notification-messages'),
-  setupNotifications: function() {
+  session: Ember.inject.service(),
+  setupNotifications: function () {
     this.get('notifications').setDefaultClearDuration(1200);
   }.observes('notifications').on('init'),
   sortedCategories: Ember.computed.sort('model.categories', 'sortDefinition'),
@@ -40,15 +43,15 @@ export default Ember.Controller.extend({
         name: categoryName,
         project: this.get('model')
       });
-        category.save()
+      category.save()
         .then((category) => {
-        this.get('store').createRecord('item', {
-          category: category
-        });
+          this.get('store').createRecord('item', {
+            category: category
+          });
           result.resolve()
         }).catch((response) => {
-          category.rollbackAttributes();
-          result.reject(Errors.mapResponseErrors(response))
+        category.rollbackAttributes();
+        result.reject(Errors.mapResponseErrors(response))
       })
     },
 
@@ -58,6 +61,36 @@ export default Ember.Controller.extend({
         createdAt: new Date(),
         category: category
       });
+    },
+
+    importTogglHours(result) {
+      this.get('session')
+        .authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+          const headers = {'Accept': 'application/vnd.api+json'};
+          headers[headerName] = headerValue;
+          Ember.$.ajax({
+            url: `${ENV.host}/api/v1/projects/${this.get('model.id')}/update-actual-time/`,
+            type: 'POST',
+            headers: headers,
+            contentType: 'application/vnd.api+json',
+          }).then(() => {
+            const model = this.get('model');
+            model.reload();
+            model.hasMany('categories').reload();
+            this.get('notifications').success("Toggl hours imported successfully!", {
+              cssClasses: 'notification',
+              autoClear: true,
+            });
+            result.resolve();
+          }).catch((response) => {
+            console.log(response);
+            this.get('notifications').error("Toggl hours failed to import!", {
+              cssClasses: 'notification error',
+              autoClear: true,
+            });
+            result.reject();
+          });
+        });
     },
     onBufferChanged(value) {
       const model = this.get('model');
@@ -81,7 +114,7 @@ export default Ember.Controller.extend({
       this.saveItem(item);
     },
     saveName(model, result) {
-      model.save().then(() =>{
+      model.save().then(() => {
         result.resolve();
       }).catch((response) => {
         result.reject(response);
@@ -89,15 +122,65 @@ export default Ember.Controller.extend({
     },
     saveDescription(item, value) {
       item.set('description', value);
-     this.saveItem(item);
+      this.saveItem(item);
     },
     saveEstimated(item, value) {
       item.set('estimated', value);
       this.saveItem(item);
     },
     toggleIsShowingTogglModal() {
-      this.toggleProperty('isShowingTogglModal');
+      if (this.get('isShowingTogglModal')) {
+        this.set('isShowingTogglModal', false);
+      } else {
+        const result = Ember.RSVP.defer();
+        this.get('currentUser.user.profile').then((profile) => {
+          const togglApiKey = profile.get('togglApiKey');
+          if (!togglApiKey) {
+            this.set('isShowingTogglModal', true);
+            result.resolve('no key');
+          } else {
+            this.send('importTogglHours', result);
+          }
+        });
+        return result.promise;
+      }
+    },
+
+    updateTogglToken(token, result) {
+      this.get('currentUser.user.profile').then((profile) => {
+        let profileJson = profile.serialize();
+        profileJson.data.id = profile.get('id');
+        profileJson.data.attributes.toggl_api_key = token;
+        this.get('session')
+          .authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+            const headers = {'Accept': 'application/vnd.api+json'};
+            headers[headerName] = headerValue;
+            Ember.$.ajax({
+              url: `${ENV.host}/api/v1/users/${this.get('currentUser.user.id')}/profile/`,
+              type: 'PATCH',
+              data: JSON.stringify(profileJson),
+              headers: headers,
+              contentType: 'application/vnd.api+json',
+              dataType: 'json',
+            }).then(() => {
+              this.send('importTogglHours', result);
+            }).catch(() => {
+              this.get('notifications').error("Toggl hours failed to import!", {
+                cssClasses: 'notification error',
+                autoClear: true,
+              });
+              result.reject();
+            })
+          })
+          }).catch((response) => {
+            this.get('notifications').error("Toggl hours failed to import!", {
+              cssClasses: 'notification error',
+              autoClear: true,
+            });
+            result.reject();
+          }
+        );
     }
   }
-
 });
+

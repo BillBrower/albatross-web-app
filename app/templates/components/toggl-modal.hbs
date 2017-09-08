@@ -23,10 +23,11 @@
            type='text'
            placeholder='Toggl API Token'
            value=togglApiToken
+           error=validations.attrs.togglApiToken.message
            showError=showError}}
 
         <section>
-          {{#spin-button class="btn-primary" buttonStyle="contract"}}Import Hours{{/spin-button}}
+          {{#spin-button class="btn-primary" action=(action 'importButtonPressed') buttonStyle="contract"}}Import Hours{{/spin-button}}
         </section>
       </div>
     </div>
