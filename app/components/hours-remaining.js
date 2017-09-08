@@ -6,7 +6,8 @@ export default Ember.Component.extend({
   hoursObserver: function() {
     const estimated = this.get('estimated');
     const actual = this.get('actual');
-    const difference = estimated - actual;
+    //Because javascript doesn't subtract numbers with decimals well
+    const difference = (estimated * 100 - actual * 100)/100;
     const statusColor = Status.statusColor(estimated, actual);
     this.set('color', statusColor);
     if (difference > 0) {
