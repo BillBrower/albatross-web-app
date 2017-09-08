@@ -21,6 +21,7 @@ const Validations = buildValidations({
 export default Ember.Controller.extend(Validations, {
 
   emailAddress: null,
+  notifications: Ember.inject.service('notification-messages'),
   session: Ember.inject.service('session'),
   sortedInvitations: Ember.computed.sort('model.invitations.content', 'sortInvitationDefinition'),
   sortedUsers: Ember.computed.sort('model.users.content', 'sortUserDefinition'),
@@ -36,6 +37,7 @@ export default Ember.Controller.extend(Validations, {
               email: email
         };
         const teamId = this.get('model.id');
+        const result = Ember.RSVP.defer();
         this.get('session')
           .authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
             const headers = { 'Accept': 'application/vnd.api+json' };
@@ -50,13 +52,18 @@ export default Ember.Controller.extend(Validations, {
               }).then(() => {
                 this.set('emailAddress', null);
                 this.get('model').reload();
-                return Ember.RSVP.resolve();
+                this.get('notifications').success("User invited successfully!", {
+                  cssClasses: 'notification',
+                  autoClear: true,
+                });
+                result.resolve();
               }).catch((response) => {
                 this.set('errors', Errors.mapResponseErrors(response));
-                return Ember.RSVP.reject();
+                result.reject();
 
               });
             });
+        return result.promise;
       } else {
         return Ember.RSVP.reject();
       }
