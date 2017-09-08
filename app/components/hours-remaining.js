@@ -7,7 +7,7 @@ export default Ember.Component.extend({
     const estimated = this.get('estimated');
     const actual = this.get('actual');
     //Because javascript doesn't subtract numbers with decimals well
-    const difference = Number(estimated - actual).toFixed(2);
+    const difference = parseFloat(Number(estimated - actual).toFixed(2));
     const statusColor = Status.statusColor(estimated, actual);
     this.set('color', statusColor);
     if (difference > 0) {
