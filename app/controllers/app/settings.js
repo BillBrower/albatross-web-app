@@ -101,7 +101,9 @@ export default Ember.Controller.extend({
             });
             result.resolve();
           }).catch((response) => {
-            this.set('passwordErrors', Errors.mapResponseErrors(response));
+            const detail = Errors.mapResponseErrors(response);
+            const errors = detail[0] === 'Invalid password' ? ['The current password you entered is not correct. Please try again'] : detail
+            this.set('passwordErrors', errors);
             result.reject();
           });
         });
