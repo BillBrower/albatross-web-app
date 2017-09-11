@@ -203,8 +203,22 @@
       }
 
       .user-options {
+        min-width: 10em;
         top: 5.5em;
         right: 2em;
+
+        ul {
+
+          li {
+            line-height: 2em;
+            padding: $padding-small 0;
+
+            p {
+              margin: 0;
+              padding: 0 0 1em 0;
+            }
+          }
+        }
       }
     }
 
@@ -235,6 +249,10 @@
           }
         }
       }
+    }
+
+    .transparent-bg {
+      cursor: pointer;
     }
   }
 }

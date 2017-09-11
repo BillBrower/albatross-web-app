@@ -172,6 +172,15 @@ $buffer-width: 8em;;
 @media screen and (max-width: $xs-break) {
 
   .summary {
+    padding: 0 0 3.77em 0;
+
+    .buffer {
+
+      .btn-primary {
+        margin: $margin-small 0;
+        width: 100% !important;
+      }
+    }
 
     .progress-wrapper {
       width: 100%;
@@ -187,8 +196,14 @@ $buffer-width: 8em;;
             width: auto;
 
             p {
+              display: block;
+              margin-bottom: -0.2em;
               padding: 0;
               width: 100%;
+
+              &.small {
+                margin: 0;
+              }
 
               &:last-child {
                 padding: 0;
@@ -196,7 +211,7 @@ $buffer-width: 8em;;
             }
 
             &:last-child {
-              padding: 0;
+              padding: 0 0 0 $padding-mid;
             }
           }
         }

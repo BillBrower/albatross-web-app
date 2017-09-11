@@ -1,102 +1,100 @@
-<div class="container--main">
-  <div class="row">
-    <div class="col-xs-1">
-      <div class="header">
-        {{#link-to "app.projects"}}
-          <div class="icon--back"></div>{{/link-to}}
+<div class="row">
+  <div class="hidden-xs col-sm-1">
+    <div class="header">
+      {{#link-to "app.projects"}}
+        <div class="icon--back"></div>{{/link-to}}
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-10">
+    <div class="header">
+      {{transforming-text-input
+        data-title="Click to edit"
+        big=true
+        name='projectName'
+        type='text'
+        onCancel=(action "cancelSaveName" model)
+        onSave=(action "saveName" model)
+        value=model.name
+        maxlength=40
+        placeholder='Name your project...'}}
+      <div class="hidden-sm">
+
+        {{#spin-button action=(action 'toggleIsShowingTogglModal') class="btn-primary pull-right"
+                       buttonStyle="contract"}}
+          Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
+        {{/spin-button}}
       </div>
     </div>
-    <div class="col-xs-10">
-      <div class="header">
-        {{transforming-text-input
-          data-title="Click to edit"
-          big=true
-          name='projectName'
-          type='text'
-          onCancel=(action "cancelSaveName" model)
-          onSave=(action "saveName" model)
-          value=model.name
-          maxlength=40
-          placeholder='Name your project...'}}
-        <div class="hidden-sm">
 
-          {{#spin-button action=(action 'toggleIsShowingTogglModal') class="btn-primary pull-right"
+    <div class="summary">
+      <div class="buffer">
+        <div class="field">
+          <label for="buffer">Buffer</label>
+          <span class="percent-sign">%</span>
+          {{live-updating-text-input
+            name='buffer'
+            type='number'
+            placeholder='0'
+            saveValue=(action "onBufferChanged")
+            value=model.buffer}}
+        </div>
+          {{#spin-button action=(action 'toggleIsShowingTogglModal') class="btn-primary shown-sm pull-right "
                          buttonStyle="contract"}}
             Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
           {{/spin-button}}
-        </div>
       </div>
 
-      <div class="summary">
-        <div class="buffer">
-          <div class="field">
-            <label for="buffer">Buffer</label>
-            <span class="percent-sign">%</span>
-            {{live-updating-text-input
-              name='buffer'
-              type='number'
-              placeholder='0'
-              saveValue=(action "onBufferChanged")
-              value=model.buffer}}
-          </div>
-          <div class="shown-sm pull-right">
-            {{#spin-button action=(action 'toggleIsShowingTogglModal') class="btn-primary pull-right"
-                           buttonStyle="contract"}}
-              Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
-            {{/spin-button}}
-          </div>
-        </div>
-
-        <div class="progress-wrapper {{if isEmpty "empty"}}">
-          <div class="content">
-            <span class="section-left">
-              <span>
-                <p><strong>{{model.estimated}}</strong></p><p class="small">Estimated</p>
-              </span>
-              <span>
-                <p><strong>{{model.actual}}</strong></p><p class="small">Actual</p>
-              </span>
+      <div class="progress-wrapper {{if isEmpty "empty"}}">
+        <div class="content">
+          <span class="section-left">
+            <span>
+              <p><strong>{{model.estimated}}</strong></p>
+              <p class="small">Estimated</p>
             </span>
-
-            <span class="section-right">
-              {{hours-remaining text=true
-                                icon=true
-                                estimated=model.estimated
-                                actual=model.actual}}
-              <span class="empty-message">Nothing estimated</span>
+            <span>
+              <p><strong>{{model.actual}}</strong></p>
+              <p class="small">Actual</p>
             </span>
-          </div>
-          {{completion-bar estimated=model.estimated actual=model.actual}}
+          </span>
+
+          <span class="section-right">
+            {{hours-remaining text=true
+                              icon=true
+                              estimated=model.estimated
+                              actual=model.actual}}
+            <span class="empty-message">Nothing estimated</span>
+          </span>
         </div>
+        {{completion-bar estimated=model.estimated actual=model.actual}}
       </div>
+    </div>
 
-      <div class="project-body">
+    <div class="project-body">
 
-        {{#if hasCategories}}
-          {{#each sortedCategories as |category|}}
-            {{category-card model=category
-                            onAddNewItem=(action "addNewItem")
-                            onCancelSaveCategoryName=(action "cancelSaveName")
-                            onSaveCategoryName=(action "saveName")
-                            onSaveDescription=(action "saveDescription")
-                            onSaveEstimated=(action "saveEstimated")
-                            onSaveActual=(action "saveActual")}}
-          {{/each}}
-          {{new-category onSave=(action "addNewCategory")}}
-        {{else}}
-          {{new-category onSave=(action "addNewCategory")}}
+      {{#if hasCategories}}
+        {{#each sortedCategories as |category|}}
+          {{category-card model=category
+                          onAddNewItem=(action "addNewItem")
+                          onCancelSaveCategoryName=(action "cancelSaveName")
+                          onSaveCategoryName=(action "saveName")
+                          onSaveDescription=(action "saveDescription")
+                          onSaveEstimated=(action "saveEstimated")
+                          onSaveActual=(action "saveActual")}}
+        {{/each}}
+        {{new-category onSave=(action "addNewCategory")}}
+      {{else}}
+        {{new-category onSave=(action "addNewCategory")}}
 
-          {{#unless hasCategories}}
-            <div class="empty-state project">
-              <div class="icon--up-arrow"></div>
-              <div class="text">
-                <h1 class="bold">Add the first category!</h1>
-                <p class="light">Categories will match with tags in Toggle when you import your hours</p>
-              </div>
+        {{#unless hasCategories}}
+          <div class="empty-state project">
+            <div class="icon--up-arrow"></div>
+            <div class="text">
+              <h1 class="bold">Add the first category!</h1>
+              <p class="light">Categories will match with tags in Toggle when you import your hours</p>
             </div>
-          {{/unless}}
-        {{/if}}
-      </div>
+          </div>
+        {{/unless}}
+      {{/if}}
     </div>
   </div>
 </div>

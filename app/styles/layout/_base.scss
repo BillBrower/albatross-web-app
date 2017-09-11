@@ -86,6 +86,10 @@
       display: block;
     }
 
+    p {
+      float: none;
+    }
+
     #{$all-buttons} {
       &.pull-right {
         float: none;
@@ -97,6 +101,12 @@
     }
 
     &.project {
+      padding: $padding 0;
+    }
+  }
+
+  .container--main {
+    .header {
       padding: $padding 0;
     }
   }

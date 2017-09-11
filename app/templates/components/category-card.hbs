@@ -22,8 +22,6 @@
                 </span>
               </span>
 
-        {{completion-bar estimated=model.estimated actual=model.actual}}
-
         <span class="section-right">
                 {{hours-remaining estimated=model.estimated
                                   actual=model.actual
@@ -31,6 +29,8 @@
                                   icon=true}}
           <span class="empty-message">...</span>
         </span>
+
+        {{completion-bar estimated=model.estimated actual=model.actual}}
 
       </div>
     </div>
