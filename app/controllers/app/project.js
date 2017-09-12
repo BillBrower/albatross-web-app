@@ -144,11 +144,11 @@ export default Ember.Controller.extend({
         const result = Ember.RSVP.defer();
         this.get('currentUser.user.profile').then((profile) => {
           const togglApiKey = profile.get('togglApiKey');
-          if (!togglApiKey) {
+          if (togglApiKey || this.get('hasUpdatedToken')) {
+            this.send('importTogglHours', result);
+          } else {
             this.set('isShowingTogglModal', true);
             result.resolve('no key');
-          } else {
-            this.send('importTogglHours', result);
           }
         });
         return result.promise;
@@ -172,6 +172,7 @@ export default Ember.Controller.extend({
               contentType: 'application/vnd.api+json',
               dataType: 'json',
             }).then(() => {
+              this.set('hasUpdatedToken', true);
               this.send('importTogglHours', result);
             }).catch(() => {
               this.get('notifications').error("Toggl hours failed to import!", {
