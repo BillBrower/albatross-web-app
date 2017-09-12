@@ -56,7 +56,7 @@
         a {
           color: $grey-mid;
           font-size: 0.8em;
-          line-height: $navbar-content-height;
+          line-height: calc(#{$navbar-content-height} + 1em);
           padding: $padding-small;
           transition: $transition;
 
