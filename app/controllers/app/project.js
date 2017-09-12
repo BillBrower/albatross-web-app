@@ -45,9 +45,6 @@ export default Ember.Controller.extend({
       });
       category.save()
         .then((category) => {
-          this.get('store').createRecord('item', {
-            category: category
-          });
           result.resolve()
         }).catch((response) => {
         category.rollbackAttributes();
