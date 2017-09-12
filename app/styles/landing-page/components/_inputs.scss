@@ -1,0 +1,14 @@
+// --------------------------------------------------------------------
+// Inputs
+// All text input styles
+// --------------------------------------------------------------------
+
+#{$all-text-inputs} {
+  outline: none;
+  padding: $padding;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  font-size: 1.25em;
+  transition: $transition;
+}

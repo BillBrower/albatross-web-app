@@ -1,0 +1,32 @@
+
+
+.signup-form {
+
+	#{$all-text-inputs} {
+		margin-right: 1em;
+	}
+
+	#{$all-buttons} {
+		width: auto;
+	}
+
+	#mc_embed_signup_scroll {
+		display: flex;
+	}
+}
+
+
+// Responsive
+@media screen and (max-width: $small-break) {
+  .signup-form {
+
+  	#mc_embed_signup_scroll {
+		display: flex;
+		flex-wrap: wrap;
+
+		#{$all-buttons} {
+			margin-top: 1em;
+		}
+	}
+  }
+}

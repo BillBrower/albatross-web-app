@@ -23,6 +23,9 @@ Router.map(function() {
   this.route('error');
   this.route('loading');
   this.route('not-found', { path: '/*path' });
+  this.route('index', { path: '/' }, function() {
+    this.route('pricing');
+  });
 });
 
 export default Router;

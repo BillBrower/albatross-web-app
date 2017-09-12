@@ -7,6 +7,11 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin,{
 
   routeIfAlreadyAuthenticated: ENV.routeAfterAuthentication,
 
+  beforeModel() {
+    this._super(...arguments);
+    window.scrollTo(0,0);
+  },
+
   actions: {
     signup(user, teamName, inviteCode, result) {
       const json = user.serialize();

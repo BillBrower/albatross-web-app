@@ -6,6 +6,11 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin, {
 
   routeIfAlreadyAuthenticated: ENV.routeAfterAuthentication,
 
+  beforeModel() {
+    this._super(...arguments);
+    window.scrollTo(0,0);
+  },
+
   actions: {
     login(email, password, result) {
       this.get('session')

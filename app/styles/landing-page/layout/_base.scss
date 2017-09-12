@@ -1,0 +1,72 @@
+// --------------------------------------------------------------------
+// Base Layout
+// Styles for general app layout, including containers, wrapper, etc.
+// --------------------------------------------------------------------
+
+.header {
+  margin: 0 auto;
+  max-width: 70rem;
+  padding: $padding-big 0 $padding;
+  text-align: right;
+
+  h1 {
+    color: $primary;
+    display: inline-block;
+    font-family: $arvo;
+    font-weight: 700;
+  }
+
+  a {
+    color: $grey-mid;
+    height: auto;
+    overflow: hidden;
+    display: inline-block;
+
+    &.logo-wrapper {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .logo {
+      height: 2.3rem;
+      width: 12rem;
+    }
+  }
+
+  #{$all-buttons} {
+    display: inline-block;
+    width: auto;
+  }
+}
+
+// Content container
+.container {
+  margin: 0 auto;
+  max-width: 70rem;
+}
+
+.row {
+  padding: $padding 0;
+
+  &.hero {
+    padding: 3rem 0;
+  }
+}
+
+.main {
+  margin: 0 auto;
+  max-width: 70rem;
+  padding: 0 0 10em 0;
+}
+
+
+// Responsive
+@media screen and (max-width: $small-break) {
+  .row {
+
+    &.hero {
+      padding: 1.5rem 0;
+    }
+  }
+}

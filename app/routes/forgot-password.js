@@ -7,6 +7,11 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin, {
 
   routeIfAlreadyAuthenticated: ENV.routeAfterAuthentication,
 
+  beforeModel() {
+    this._super(...arguments);
+    window.scrollTo(0,0);
+  },
+
   actions: {
     sendResetEmail(email, result) {
       const url = ENV.host + '/api/v1/password/reset/';

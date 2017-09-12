@@ -1,0 +1,68 @@
+// --------------------------------------------------------------------
+// Utilities
+// Styles that can be dropped in throughout the app to perform simple
+// tasks.
+// --------------------------------------------------------------------
+
+
+.base-margin-class {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+// Margins
+.margin-top {
+  @extend .base-margin-class;
+  margin-top: $margin;
+}
+.margin-top-big {
+  @extend .base-margin-class;
+  margin-top: $margin-big;
+}
+.margin-bottom {
+  @extend .base-margin-class;
+  margin-bottom: $margin;
+}
+.margin-bottom-big {
+  @extend .base-margin-class;
+  margin-bottom: $margin-big;
+}
+
+// Padding
+.padding-top {
+  @extend .base-margin-class;
+  padding-top: $padding;
+}
+.padding-top-big {
+  @extend .base-margin-class;
+  padding-top: $padding-big;
+}
+.padding-bottom {
+  @extend .base-margin-class;
+  padding-bottom: $padding;
+}
+.padding-bottom-big {
+  @extend .base-margin-class;
+  padding-bottom: $padding-big;
+}
+
+.padding-left-big {
+  @extend .base-margin-class;
+  padding-left: $padding-big;
+}
+
+
+// Floats
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}
+
+//Display
+.inline {
+  display: inline;
+}
