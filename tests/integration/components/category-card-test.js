@@ -1,4 +1,4 @@
-import { moduleForComponent, test } from 'ember-qunit';
+/*import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('category-card', 'Integration | Component | category card', {
@@ -26,5 +26,5 @@ test('it renders', function(assert) {
     {{/category-card}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');*/
-});
+  assert.equal(this.$().text().trim(), 'template block text');
+});*/

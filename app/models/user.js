@@ -1,5 +1,6 @@
 import DS from 'ember-data';
 import {buildValidations, validator} from "ember-cp-validations";
+import Ember from 'ember';
 import ValidationErrors from "../constants/errors";
 const {attr, Model, belongsTo} = DS;
 

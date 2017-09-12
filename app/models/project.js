@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 import {buildValidations, validator} from "ember-cp-validations";
 import ValidationErrors from "../constants/errors";
-const {attr, Model, belongsTo, hasMany} = DS;
+const {attr, Model, hasMany} = DS;
 
 const Validations = buildValidations({
   name: validator('presence', {

@@ -65,7 +65,6 @@ export default Ember.Controller.extend({
                 }
               })
             }).catch((response) => {
-              debugger
               this.set('accountErrors', Errors.mapResponseErrors(response));
               result.reject();
             });

@@ -43,7 +43,7 @@ export default Base.extend({
   },
 
   invalidate(data) {
-    return new Ember.RSVP.Promise((resolve, reject) => {
+    return new Ember.RSVP.Promise((resolve) => {
       const headers = {};
       headers['Authorization'] = 'Token ' + data.token;
       headers['Accept'] = 'application/json';

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ENV from 'albatross-web-app/config/environment';
 
-const { inject: { service }, isEmpty, RSVP } = Ember;
+const { inject: { service }} = Ember;
 
 export default Ember.Service.extend({
   session: service(),

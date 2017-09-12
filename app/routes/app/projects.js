@@ -18,7 +18,6 @@ export default Ember.Route.extend({
           this.transitionTo('app.project', newProject.get('id'));
           result.resolve();
         }).catch((response)=> {
-          debugger;
           result.reject(Errors.mapResponseErrors(response));
           newProject.rollbackAttributes();
         result.reject();
