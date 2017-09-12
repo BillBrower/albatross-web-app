@@ -19,8 +19,7 @@ export default Ember.Component.extend({
       this.get('onSave')(result);
       return result.promise.then(() => {
         this.send('cancel');
-      }).catch((response) => {
-        //TODO: Error
+      }).catch(() => {
       })
     }
   }

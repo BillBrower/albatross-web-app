@@ -44,7 +44,7 @@ export default Ember.Controller.extend({
         project: this.get('model')
       });
       category.save()
-        .then((category) => {
+        .then(() => {
           result.resolve()
         }).catch((response) => {
         category.rollbackAttributes();
@@ -79,8 +79,7 @@ export default Ember.Controller.extend({
               autoClear: true,
             });
             result.resolve();
-          }).catch((response) => {
-            console.log(response);
+          }).catch(() => {
             this.get('notifications').error("Toggl hours failed to import!", {
               cssClasses: 'notification error',
               autoClear: true,
@@ -182,7 +181,7 @@ export default Ember.Controller.extend({
               result.reject();
             })
           })
-          }).catch((response) => {
+          }).catch(() => {
             this.get('notifications').error("Toggl hours failed to import!", {
               cssClasses: 'notification error',
               autoClear: true,

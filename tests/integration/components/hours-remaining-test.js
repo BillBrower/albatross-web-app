@@ -35,7 +35,7 @@ test('it renders correct text when the hours difference is less than 10% of the 
 
   this.render(hbs`{{hours-remaining text=true estimated=11 actual=10}}`);
 
-  assert.equal(this.$().text().trim(), 'right on');
+  assert.equal(this.$().text().trim(), '1 under');
   assert.ok(this.$('.yellow').length)
 
 });
@@ -47,7 +47,7 @@ test('it renders icon when true', function(assert) {
 
   this.render(hbs`{{hours-remaining text=true icon=true estimated=11 actual=10}}`);
 
-  assert.equal(this.$().text().trim(), 'right on');
+  assert.equal(this.$().text().trim(), '1 under');
   assert.ok(this.$('.yellow').length);
   assert.ok(this.$('.icon').length);
 

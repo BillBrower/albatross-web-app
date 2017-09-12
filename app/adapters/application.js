@@ -6,7 +6,7 @@ import JSONAPIAdapter from 'ember-data/adapters/json-api';
 export default JSONAPIAdapter.extend(DataAdapterMixin, {
   host: ENV.host,
   namespace: 'api/v1',
-  isInvalid(status, headers, payload) {
+  isInvalid(status) {
     return status === 422 || status === 400;
   },
   authorizer: 'authorizer:django-token-authorizer',
