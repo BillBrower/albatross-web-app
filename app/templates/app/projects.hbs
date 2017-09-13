@@ -1,6 +1,11 @@
 <div class="header">
-  <h1>Good afternoon, <strong>{{currentUser.user.firstName}}</strong>!</h1>
-  <p class="pull-right">{{model.length}} projects</p>
+  <h1>Good {{timeOfDay}}, <strong>{{currentUser.user.firstName}}</strong>! 👋</h1>
+  <p class="pull-right">
+    {{#if sortedProjects}}
+      {{model.length}} projects
+    {{/if}}
+  </p>
+
 </div>
 <div class="projects-wrapper">
   {{new-project-card onSave=(action 'createNewProject')}}
@@ -11,7 +16,7 @@
       <div class="icon--left-arrow"></div>
       <div class="text">
         <h1 class="bold">Add your first project</h1>
-        <p class="light">Start using Albatross by creating a project</p>
+        <p class="light">Thanks for signing up! Whenever you're ready, create your first estimate.</p>
       </div>
     </div>
   {{/unless}}

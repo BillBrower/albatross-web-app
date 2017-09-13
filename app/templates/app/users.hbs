@@ -5,7 +5,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-8 col-sm-offset-2">
     <div class="card">
-      <h1>Invite a New User</h1>
+      <h1>Invite a New User 🙋</h1>
       <section>
         {{validated-text-input name='emailAddress'
                                type='text'
@@ -14,7 +14,7 @@
                                error=validations.attrs.emailAddress.message
                                showError=showError}}
         <p class="small">
-          To add your teammates to Albatross, just enter their email and we'll send them a link to join
+          Estimating is more fun with friends. To add your teammates to Albatross, just enter their email and we'll send them a link to join!
         </p>
       </section>
       {{#spin-button action=(action 'inviteButtonPressed') class="btn-primary" buttonStyle="contract"}}Invite{{/spin-button}}
