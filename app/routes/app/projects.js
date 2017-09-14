@@ -18,7 +18,7 @@ export default Ember.Route.extend({
       });
         newProject.save()
         .then(() => {
-          this.get('segment').trackEvent('Adds a new project');
+          this.get('segment').trackEvent('Added a new project', { projectName: name, projectID: newProject.id });
           this.transitionTo('app.project', newProject.get('id'));
           result.resolve();
         }).catch((response)=> {

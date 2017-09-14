@@ -12,8 +12,10 @@ export default Ember.Component.extend({
     } else {
       this.set('percentage',`${Math.floor((actual / estimated) * 100)}`);
     }
-    this.set('color', Status.statusColor(estimated, actual));
-
+    if (estimated) {
+      this.set('color', Status.statusColor(estimated, actual));
+    }
+    
   }.observes('estimated', 'actual').on('init')
 
 });

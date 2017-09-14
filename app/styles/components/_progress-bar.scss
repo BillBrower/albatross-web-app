@@ -20,10 +20,11 @@
   width: 100%;
 
   .fill {
-    background: $primary;
+    background: $grey-light;
     border-radius: 7px;
     height: 100%;
     transition: $transition;
+    width: 0px;
 
     // Loop through 0-100 and match the percent complete with the class name
     @for $i from 0 through 100 {
