@@ -3,12 +3,6 @@
 // --------------------------------------------------------------------
 
 
-.landing-page {
-  @charset "UTF-8";
-
-  // Vendors
-  @import
-  'bourbon/bourbon';
 
   // Config
   @import
@@ -19,18 +13,9 @@
   'base/base',
   'base/type';
 
-  // Components
-  @import
-  'components/utilities',
-  'components/logo',
-  'components/buttons',
-  'components/inputs';
-
   // Layout
   @import
   'layout/base',
-  'layout/footer',
   'layout/list',
-  'layout/pricing',
-  'layout/signup-form';
-}
+  'layout/pricing';
+

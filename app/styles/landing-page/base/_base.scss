@@ -1,36 +1,3 @@
 // Base
 // All base defaults and styles
 // -------------------------------------------------------------------
-
-// Defaults
-html {
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-shadow: rgba(255,255,255,0.01) 0 0 1px;
-
-  // &::after {
-  // 	content: url('/assets/images/levels.svg');
-  // }
-}
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-
-body {
-  background: $light;
-  color: $dark;
-  font-size: 18px;
-  padding: 1rem;
-}
-
-.header {
-  border-bottom: none;
-  margin: 0;
-}
-
-// hr
-hr {
-  border-top: 1px solid $grey-light;
-  border-left: none;
-}

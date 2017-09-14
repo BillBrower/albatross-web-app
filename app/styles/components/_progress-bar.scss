@@ -2,6 +2,15 @@
 // All styles for creating progress bar components
 // -------------------------------------------------------------------
 
+.progress-bar-wrapper {
+  display: inline-block;
+  width: auto;
+  height: 1.65em;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
 .progress-bar {
   background: $grey-light;
   border-radius: 7px;

@@ -1,35 +1,36 @@
 
+.landing-page {
+  .numbered-list {
 
-.numbered-list {
+    .list-item {
+      padding: 1rem 0;
 
-	.list-item {
-		padding: 1rem 0;
+      .number {
+        display: inline-block;
+        font-size: 2.3rem;
+        font-weight: 700;
+        position: relative;
+        width: 45px;
+        vertical-align: top;
 
-		.number {
-			display: inline-block;
-			font-size: 2.3rem;
-			font-weight: 700;
-			position: relative;
-			width: 45px;
-			vertical-align: top;
+        &::after {
+          content: '';
+          background: $primary;
+          height: 80%;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 5px;
+        }
+      }
 
-			&::after {
-				content: '';
-				background: $primary;
-				height: 80%;
-				position: absolute;
-				right: 0;
-				top: 50%;
-				transform: translateY(-50%);
-				width: 5px;
-			}
-		}
-
-		.text {
-      color: $dark;
-			display: inline-block;
-			padding: 0 0 0 1rem;
-			width: calc(100% - 50px);
-		}
-	}
+      .text {
+        color: $dark;
+        display: inline-block;
+        padding: 0 0 0 1rem;
+        width: calc(100% - 50px);
+      }
+    }
+  }
 }

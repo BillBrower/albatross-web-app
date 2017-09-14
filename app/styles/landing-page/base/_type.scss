@@ -2,75 +2,64 @@
 // All base font and typography styles
 // -------------------------------------------------------------------
 
+.landing-page {
 
-// Defaults
-body {
-  line-height: $base-line-height;
-  color: $base-font-color;
-  font-family: $base-font-family;
-  font-size: $base-reference;
-  font-style: normal;
-}
+  // Headers
+  // --------------------------------------------------------------------
 
-
-// Headers
-// --------------------------------------------------------------------
-
-h1,h2,h3,h4,h5,h6 {
-  color: $black;
-  font-weight: 700;
-  margin: 0;
-}
-
-h1 {
-  font-size: 2.5em;
-}
-h2 {
-  font-size: 1.45em;
-}
-
-// --------------------------------------------------------------------
-
-
-
-// Body text
-// --------------------------------------------------------------------
-
-// Paragraph styles
-p {
-  line-height: $base-line-height;
-  color: $grey-dark;
-  font-family: $base-font-family;
-  font-size: 1em;
-  margin: 0;
-
-  &.bold {
-  	font-weight: 900;
+  h1, h2, h3, h4, h5, h6 {
+    color: $black;
+    font-weight: 700;
+    margin: 0;
   }
 
-  &.grey {
-    color: $grey-mid;
-  	font-style: italic;
-  }
-}
-
-a {
-  color: $primary;
-  font-weight: 900;
-  text-decoration: none;
-}
-
-// Labels
-label {
-  color: $grey-mid;
-  font-size: .65em;
-}
-
-
-
-// Responsive
-@media screen and (max-width: $small-break) {
   h1 {
-    font-size: 1.75em;
+    font-size: 2.5em;
   }
+  h2 {
+    font-size: 1.45em;
+  }
+
+  // --------------------------------------------------------------------
+
+  // Body text
+  // --------------------------------------------------------------------
+
+  // Paragraph styles
+  p {
+    line-height: $base-line-height;
+    color: $grey-dark;
+    font-family: $base-font-family;
+    font-size: 1em;
+    margin: 0;
+
+    &.bold {
+      font-weight: 900;
+    }
+
+    &.grey {
+      color: $grey-mid;
+      font-style: italic;
+    }
+  }
+
+  a {
+    color: $primary;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  // Labels
+  label {
+    color: $grey-mid;
+    font-size: .65em;
+  }
+
+  // Responsive
+  @media screen and (max-width: $small-break) {
+    h1 {
+      font-size: 1.75em;
+    }
+  }
+
 }

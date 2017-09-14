@@ -43,6 +43,10 @@ $buffer-width: 8em;;
     width: calc(95% - #{$buffer-width});
     transform: translateY(20px);
 
+    .content {
+      min-height: 2em;
+    }
+
     .section {
       display: inline-block;
       height: auto;
@@ -130,10 +134,16 @@ $buffer-width: 8em;;
         }
       }
 
-      .progress-bar {
+      .progress-bar-wrapper {
         display: inline-block;
         //transform: translateY(-10px);
         width: calc(99% - (14em + 8em));
+
+        .progress-bar {
+          transform: translateY(-50%);
+          top: 50%;
+          position: absolute;
+        }
       }
     }
   }
