@@ -7,6 +7,7 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
 
   currentUser: service('current-user'),
   routeAfterAuthentication: ENV.routeAfterAuthentication,
+  segment: Ember.inject.service(),
 
   beforeModel(transition) {
     this._super(transition);
@@ -21,6 +22,12 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
   sessionInvalidated() {
     if (!testing) {
       window.location.replace('/login');
+    }
+  },
+
+  identifyUser: function() {
+    if (this.get('currentUser')) {
+      this.get('segment').identifyUser(this.get('currentUser.user.id'), this.get('currentUser.user'));
     }
   },
 

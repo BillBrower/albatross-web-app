@@ -63,5 +63,10 @@ module.exports = function(environment) {
     ENV.host = 'https://getalbatross.com'
   }
 
+  ENV['segment'] = {
+    WRITE_KEY: 'Zd2UrFYRkJXe5dd9MWp9nhB7dW1dTXUX',
+    LOG_EVENT_TRACKING: true
+  };
+
   return ENV;
 };

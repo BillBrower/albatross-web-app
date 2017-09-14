@@ -1,11 +1,14 @@
 import Ember from 'ember';
 import Errors from '../../constants/errors';
+const { inject: { service } } = Ember;
 
 export default Ember.Route.extend({
 
   model() {
     return this.get('store').findAll('project')
   },
+
+  segment: Ember.inject.service(),
 
   actions: {
 
@@ -15,6 +18,7 @@ export default Ember.Route.extend({
       });
         newProject.save()
         .then(() => {
+          this.get('segment').trackEvent('Adds a new project');
           this.transitionTo('app.project', newProject.get('id'));
           result.resolve();
         }).catch((response)=> {

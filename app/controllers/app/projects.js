@@ -25,6 +25,7 @@ export default Ember.Controller.extend({
   actions: {
       createNewProject(name, result) {
         this.send('createProject', name, result);
+
       }
   }
 });
