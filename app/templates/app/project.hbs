@@ -13,7 +13,7 @@
         name='projectName'
         type='text'
         onCancel=(action "cancelSaveName" model)
-        onSave=(action "saveName" model)
+        onSave=(action "saveProjectName" model)
         value=model.name
         maxlength=40
         placeholder='Name your project...'}}
@@ -75,7 +75,7 @@
           {{category-card model=category
                           onAddNewItem=(action "addNewItem")
                           onCancelSaveCategoryName=(action "cancelSaveName")
-                          onSaveCategoryName=(action "saveName")
+                          onSaveCategoryName=(action "saveCategoryName")
                           onSaveDescription=(action "saveDescription")
                           onSaveEstimated=(action "saveEstimated")
                           onSaveActual=(action "saveActual")}}

@@ -1,10 +1,12 @@
 import Ember from 'ember';
 import Errors from '../../constants/errors';
 import ENV from 'albatross-web-app/config/environment';
+const { inject: { service } } = Ember;
 
 export default Ember.Controller.extend({
 
   notifications: Ember.inject.service('notification-messages'),
+  segment: Ember.inject.service(),
   session: Ember.inject.service(),
   setupNotifications: function () {
     this.get('notifications').setDefaultClearDuration(1200);
@@ -63,6 +65,8 @@ export default Ember.Controller.extend({
                   });
                   result.resolve();
                 }
+
+                this.get('segment').trackEvent('Updated settings');
               })
             }).catch((response) => {
               this.set('accountErrors', Errors.mapResponseErrors(response));
@@ -99,6 +103,7 @@ export default Ember.Controller.extend({
               autoClear: true,
             });
             result.resolve();
+            this.get('segment').trackEvent('Reset password in settings');
           }).catch((response) => {
             const detail = Errors.mapResponseErrors(response);
             const errors = detail[0] === 'Invalid password' ? ['The current password you entered is not correct. Please try again'] : detail

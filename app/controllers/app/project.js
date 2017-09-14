@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import Errors from '../../constants/errors';
 import ENV from 'albatross-web-app/config/environment';
+const { inject: { service } } = Ember;
+
 
 export default Ember.Controller.extend({
 
@@ -20,6 +22,8 @@ export default Ember.Controller.extend({
   sortedCategories: Ember.computed.sort('model.categories', 'sortDefinition'),
   sortDefinition: ['createdAt'],
 
+  segment: Ember.inject.service(),
+
   saveItem(item) {
     if (item.get('validations.isValid')) {
       item.save().then(() => {
@@ -29,6 +33,7 @@ export default Ember.Controller.extend({
           cssClasses: 'notification',
           autoClear: true,
         });
+        //this.get('segment').trackEvent('Updated an item', { projectId: this.get('model.id'), categoryID: item.get('category.id'), itemDescription: item.get('description'), itemEstimated: item.get('estimated'), itemActual: item.get('actual')});
       }).catch(() => {
         this.get('notifications').error("Failed to update item!", {
           cssClasses: 'notification error',
@@ -45,6 +50,7 @@ export default Ember.Controller.extend({
       });
       category.save()
         .then(() => {
+          this.get('segment').trackEvent('Added a new category', { projectId: this.get('model.id'), categoryName: categoryName, categoryID: category.id });
           result.resolve()
         }).catch((response) => {
         category.rollbackAttributes();
@@ -58,6 +64,7 @@ export default Ember.Controller.extend({
         createdAt: new Date(),
         category: category
       });
+      this.get('segment').trackEvent('Added a new item', { projectId: this.get('model.id'), categoryID: categoryId });
     },
 
     importTogglHours(result) {
@@ -71,6 +78,7 @@ export default Ember.Controller.extend({
             headers: headers,
             contentType: 'application/vnd.api+json',
           }).then(() => {
+            this.get('segment').trackEvent('Imported Toggl hours', { projectId: this.get('model.id'), projectName: this.get('model.name') });
             const model = this.get('model');
             model.reload();
             model.hasMany('categories').reload();
@@ -100,6 +108,7 @@ export default Ember.Controller.extend({
             cssClasses: 'notification',
             autoClear: true,
           });
+          this.get('segment').trackEvent('Updated buffer', { projectId: this.get('model.id'), projectName: this.get('model.name'), buffer: parseInt(value) });
         })
         .catch(() => {
           this.get('notifications').error("Buffer failed to update!", {
@@ -114,13 +123,23 @@ export default Ember.Controller.extend({
       }
       item.set('actual', value);
       this.saveItem(item);
+      this.get('segment').trackEvent('Updated an item actual', { projectId: this.get('model.id'), categoryID: item.get('category.id'), itemID: item.get('id'), itemDescription: item.get('description'), itemEstimated: item.get('estimated'), itemActual: item.get('actual')});
     },
     cancelSaveName(model) {
       model.rollbackAttributes()
     },
-    saveName(model, result) {
+    saveCategoryName(model, result) {
       model.save().then(() => {
         result.resolve();
+        this.get('segment').trackEvent('Updated category name', { projectId: this.get('model.id'), projectName: this.get('model.name') });
+      }).catch((response) => {
+        result.reject(response);
+      });
+    },
+    saveProjectName(model, result) {
+      model.save().then(() => {
+        result.resolve();
+        this.get('segment').trackEvent('Updated project name', { projectId: this.get('model.id'), projectName: this.get('model.name') });
       }).catch((response) => {
         result.reject(response);
       });
@@ -128,6 +147,7 @@ export default Ember.Controller.extend({
     saveDescription(item, value) {
       item.set('description', value);
       this.saveItem(item);
+      this.get('segment').trackEvent('Updated an item description', { projectId: this.get('model.id'), categoryID: item.get('category.id'), itemID: item.get('id'), itemDescription: item.get('description'), itemEstimated: item.get('estimated'), itemActual: item.get('actual')});
     },
     saveEstimated(item, value) {
       if (!value) {
@@ -135,6 +155,7 @@ export default Ember.Controller.extend({
       }
       item.set('estimated', value);
       this.saveItem(item);
+      this.get('segment').trackEvent('Updated an item estimated', { projectId: this.get('model.id'), categoryID: item.get('category.id'), itemID: item.get('id'), itemDescription: item.get('description'), itemEstimated: item.get('estimated'), itemActual: item.get('actual')});
     },
     toggleIsShowingTogglModal() {
       if (this.get('isShowingTogglModal')) {
@@ -147,6 +168,7 @@ export default Ember.Controller.extend({
             this.send('importTogglHours', result);
           } else {
             this.set('isShowingTogglModal', true);
+            this.get('segment').trackEvent('Opened Toggl modal', { projectId: this.get('model.id'), projectName: this.get('model.name') });
             result.resolve('no key');
           }
         });
@@ -173,6 +195,7 @@ export default Ember.Controller.extend({
             }).then(() => {
               this.set('hasUpdatedToken', true);
               this.send('importTogglHours', result);
+              this.get('segment').trackEvent('Updated Toggl API key', { projectId: this.get('model.id'), projectName: this.get('model.name'), togglAPIKey: token });
             }).catch(() => {
               this.get('notifications').error("Toggl hours failed to import!", {
                 cssClasses: 'notification error',

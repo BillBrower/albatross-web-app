@@ -2,10 +2,12 @@ import Errors from '../constants/errors'
 import Ember from 'ember';
 import ENV from 'albatross-web-app/config/environment';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
+const { inject: { service } } = Ember;
 
 export default Ember.Route.extend(UnauthenticatedRouteMixin,{
 
   routeIfAlreadyAuthenticated: ENV.routeAfterAuthentication,
+  segment: Ember.inject.service(),
 
   beforeModel() {
     this._super(...arguments);
@@ -32,6 +34,7 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin,{
             .authenticate('authenticator:django-rest-authenticator', user.get('email'), user.get('password'))
             .then(() => {
             if (inviteCode) {
+              this.get('segment').trackEvent('Signed up from invite', { email: user.get('email'), invited: true, inviteCode: inviteCode });
               this.transitionTo('app.projects');
             } else {
               const team = this.get('store').createRecord('team', {
@@ -45,6 +48,7 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin,{
                 this.controller.set('errors', Errors.mapResponseErrors(response));
                 result.reject();
               })
+              this.get('segment').trackEvent('Signed up team', { email: user.get('email'), team: teamName, invited: false});
             }
             })
             .catch((response) => {

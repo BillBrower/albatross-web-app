@@ -2,6 +2,7 @@ import Ember from 'ember';
 import {buildValidations, validator} from "ember-cp-validations";
 import Errors from '../../constants/errors';
 import ENV from 'albatross-web-app/config/environment';
+const { inject: { service } } = Ember;
 
 const Validations = buildValidations({
 
@@ -22,14 +23,20 @@ export default Ember.Controller.extend(Validations, {
 
   emailAddress: null,
   notifications: Ember.inject.service('notification-messages'),
+  segment: Ember.inject.service(),
   session: Ember.inject.service('session'),
   sortedInvitations: Ember.computed.sort('model.invitations.content', 'sortInvitationDefinition'),
   sortedUsers: Ember.computed.sort('model.users.content', 'sortUserDefinition'),
   sortInvitationDefinition: ['email'],
   sortUserDefinition: ['dateJoined:desc'],
 
+  init() {
+    //console.log(this.get('model'));
+  },
+
   actions: {
     inviteButtonPressed() {
+      console.log(this.get('model.name'));
       this.set('showErrors', true);
       if (this.get('validations.isValid')) {
         const email = this.get('emailAddress');
@@ -56,6 +63,7 @@ export default Ember.Controller.extend(Validations, {
                   cssClasses: 'notification',
                   autoClear: true,
                 });
+                this.get('segment').trackEvent('Invited a new user', { inviteEmail: email });
                 result.resolve();
               }).catch((response) => {
                 this.set('errors', Errors.mapResponseErrors(response));
