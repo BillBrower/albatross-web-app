@@ -19,15 +19,18 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
     this._loadCurrentUser();
   },
 
-  sessionInvalidated() {
-    if (!testing) {
-      window.location.replace('/login');
+  identifyUser() {
+
+    const user = JSON.parse(JSON.stringify(this.get('currentUser.user')));
+    
+    if (user) {
+      this.get('segment').identifyUser(this.get('currentUser.user.id'), user);
     }
   },
 
-  identifyUser: function() {
-    if (this.get('currentUser')) {
-      this.get('segment').identifyUser(this.get('currentUser.user.id'), this.get('currentUser.user'));
+  sessionInvalidated() {
+    if (!testing) {
+      window.location.replace('/login');
     }
   },
 
