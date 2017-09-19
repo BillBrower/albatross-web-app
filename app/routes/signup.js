@@ -29,7 +29,8 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin,{
         },
         contentType: 'application/vnd.api+json',
         dataType: 'json',
-      }).then(() => {
+      }).then((res) => {
+          this.get('segment').identifyUser(res.id, res);
           this.get('session')
             .authenticate('authenticator:django-rest-authenticator', user.get('email'), user.get('password'))
             .then(() => {
@@ -42,13 +43,13 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin,{
               });
               team.save()
                 .then(() => {
+                  this.get('segment').trackEvent('Signed up team', { email: user.get('email'), team: teamName, invited: false});
                   this.transitionTo('app.projects');
                 }).catch((response) => {
                 this.get('session').invalidate();
                 this.controller.set('errors', Errors.mapResponseErrors(response));
                 result.reject();
-              })
-              this.get('segment').trackEvent('Signed up team', { email: user.get('email'), team: teamName, invited: false});
+              });
             }
             })
             .catch((response) => {
