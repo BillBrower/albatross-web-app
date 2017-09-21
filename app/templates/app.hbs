@@ -1,3 +1,44 @@
+{{#if needsToUpgrade}}
+<div class="container--main upgrade landing-page">
+  <div class="logo"></div>
+  <div class="header">
+    <div class="row center-xs">
+      <div class="col-xs-10 col-sm-8">
+        <h2>It's time to upgrade 🚀</h2>
+        <p>Looks like you have {{pastLimit}}. Don't worry, though! Upgrading is easy. Just select a plan below and you'll be back to using Albatross in no time.</p>
+      </div>
+    </div>
+  </div>
+  <div class="row around-sm">
+    <div class="col-xs-12 col-sm-10">
+      <div class="row around-sm">
+        <div class="col-xs-12 col-sm-5">
+          <div class="pricing-container margin-top">
+            <p>Freelancer</p>
+            <h1>$10</h1>
+            <p class="grey">per month</p>
+            <p class="margin-top">Unlimited projects</p>
+            <p class="margin-top">Up to 5 users</p>
+            {{#link-to 'signup'}}<button class="btn-primary">Upgrade Now</button>{{/link-to}}
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-5">
+          <div class="pricing-container margin-top">
+            <p>Agency</p>
+            <h1>$25</h1>
+            <p class="grey">per month</p>
+            <p class="margin-top">Unlimited projects</p>
+            <p class="margin-top">Up to 25 users</p>
+            {{#link-to 'signup'}}<button class="btn-primary">Upgrade Now</button>{{/link-to}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{{else}}
 <div class="navbar">
   <div class="container">
     <div class="left-nav">
@@ -41,3 +82,4 @@
     </ul>
   </div>
 </footer>
+{{/if}}

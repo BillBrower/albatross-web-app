@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import {buildValidations, validator} from "ember-cp-validations";
 import Errors from '../../constants/errors';
+import Permissions from '../../constants/permissions';
 import ENV from 'albatross-web-app/config/environment';
 const { inject: { service } } = Ember;
 
@@ -21,6 +22,7 @@ const Validations = buildValidations({
 
 export default Ember.Controller.extend(Validations, {
 
+  currentUser: service('current-user'),
   emailAddress: null,
   notifications: Ember.inject.service('notification-messages'),
   segment: Ember.inject.service(),
@@ -29,6 +31,12 @@ export default Ember.Controller.extend(Validations, {
   sortedUsers: Ember.computed.sort('model.users.content', 'sortUserDefinition'),
   sortInvitationDefinition: ['email'],
   sortUserDefinition: ['dateJoined:desc'],
+
+  canAddUsers: Ember.computed('sortedUsers', 'currentUser', function() {
+    var itemsToCheck = this.get('sortedUsers').length;
+    var user = this.get('currentUser.user');
+    return Permissions.canAdd(user, itemsToCheck, 'users');
+  }),
 
   init() {
     //console.log(this.get('model'));

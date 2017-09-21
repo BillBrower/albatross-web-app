@@ -8,7 +8,20 @@
 
 </div>
 <div class="projects-wrapper">
-  {{new-project-card onSave=(action 'createNewProject')}}
+  {{#if addProjects}}
+    {{new-project-card onSave=(action 'createNewProject')}}
+  {{else}}
+    <div class="card new-project">
+      <h2>Upgrade to add projects!</h2>
+      <p class="small">Our free tier only allows one project at a time. To add more projects, just upgrade to a paid plan starting at $10/month.</p>
+      <br/>
+      <div>
+        {{#spin-button class="btn-primary" buttonStyle="contract"}}Upgrade Now!{{/spin-button}}
+        {{error-message errors=errors}}
+      </div>
+    </div>
+  {{/if}}
+
 
 
   {{#unless sortedProjects}}

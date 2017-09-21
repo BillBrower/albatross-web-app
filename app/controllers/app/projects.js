@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Permissions from '../../constants/permissions';
 
 const { inject: { service } } = Ember;
 
@@ -24,6 +25,30 @@ export default Ember.Controller.extend({
     } else {
       return "evening"
     }
+  }),
+
+  onTrial: false,
+  planExpired: false,
+  paymentPlan: 0,
+
+  canAddProjects: Ember.computed('onTrial', 'needToUpgrade', 'paymentPlan', function() {
+    var onTrial = this.get('onTrial');
+    var currentProjects = this.get('sortedProjects').length;
+    var paymentPlan = this.get('paymentPlan')
+
+    if (onTrial || currentProjects < 1) {
+      return true;
+    } else if (paymentPlan > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }),
+
+  addProjects: Ember.computed('sortedProjects', 'currentUser', function() {
+    var itemsToCheck = this.get('sortedProjects').length;
+    var user = this.get('currentUser.user');
+    return Permissions.canAdd(user, itemsToCheck, 'projects');
   }),
 
   actions: {
