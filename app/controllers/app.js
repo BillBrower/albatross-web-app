@@ -21,23 +21,6 @@ export default Ember.Controller.extend({
     }
   }),
 
-  // totalProjects: Ember.observer('currentUser', function() {
-  //   if (this.get('currentUser.user')) {
-  //     const user = this.get('currentUser.user');
-  //     const projects = this.get('store').findAll('project').then((loadedProjects) => {
-  //       this.set('numberOfProjects', loadedProjects.get('length'));
-  //     });
-  //   }
-  // }),
-  // totalUsers: Ember.observer('currentUser', function() {
-  //   if (this.get('currentUser.user')) {
-  //     const user = this.get('currentUser.user');
-  //     const projects = this.get('store').findAll('user').then((loadedUsers) => {
-  //       this.set('numberOfUsers', loadedUsers.get('length'));
-  //     });
-  //   }
-  // }),
-
   onTrial: true,
 
   needsToUpgrade: Ember.computed('currentUser', 'onTrial', 'numberOfUsers', 'numberOfProjects', function () {

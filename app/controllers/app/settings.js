@@ -12,6 +12,9 @@ export default Ember.Controller.extend({
     this.get('notifications').setDefaultClearDuration(1200);
   }.observes('notifications').on('init'),
   toggleToken: null,
+  isChangingCard: false,
+  isChangingPlan: false,
+  selectedPlan: 'freelancer-beta-annual',
 
   actions: {
     saveAccountButtonPressed() {
@@ -113,6 +116,16 @@ export default Ember.Controller.extend({
         });
 
       return result.promise;
-    }
+    },
+
+    toggleIsChangingCard() {
+      this.toggleProperty('isChangingCard');
+    },
+    toggleIsChangingPlan() {
+      this.toggleProperty('isChangingPlan');
+    },
+    choosePlan(plan) {
+      this.set('selectedPlan', plan);
+    },
   }
 });

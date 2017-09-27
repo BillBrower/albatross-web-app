@@ -46,6 +46,10 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+
+    ENV.stripe = {
+      publishableKey: 'pk_test_xBKNwc9sDb5owErq1QkZa5I3'
+    };
   }
 
   if (environment === 'test') {

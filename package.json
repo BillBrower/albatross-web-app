@@ -46,6 +46,7 @@
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^1.2.0",
     "ember-cp-validations": "^3.4.0",
+    "ember-credit-card": "^2.5.2",
     "ember-data": "^2.14.10",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
@@ -61,5 +62,8 @@
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "ember-stripe-service": "^6.0.0"
+  }
 }

@@ -1,0 +1,67 @@
+// Select Option
+// All styles for creating select elements (used in payment plans)
+// -------------------------------------------------------------------
+
+.select-option {
+  background: $light;
+  border: $border;
+  border-radius: $border-radius;
+  border-width: 2px;
+  display: inline-block;
+  cursor: pointer;
+  padding: $padding-small;
+  transition: $transition;
+  width: auto;
+
+  .img {
+    background: url('img/icons/status-icons/empty-icon.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    float: left;
+    height: 2.85rem;
+    transition: $transition;
+    width: 1.65rem;
+  }
+
+  .text {
+    color: $grey-mid;
+    display: inline-block;
+    padding: 0 $padding-small;
+    text-align: left;
+
+    p.small {
+      transition: $transition;
+    }
+  }
+
+  &.active {
+    background: $light;
+    border-color: $primary;
+    border-width: 2px;
+
+    .img {
+      background-image: url('img/icons/status-icons/green-icon.svg');
+    }
+
+    .text {
+      color: $dark;
+
+      p.small {
+        color: $grey-dark;
+      }
+    }
+  }
+
+  &:hover {
+
+    .text {
+      color: $dark;
+
+      p.small {
+        color: $grey-dark;
+      }
+    }
+  }
+}

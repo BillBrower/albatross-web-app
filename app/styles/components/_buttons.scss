@@ -72,6 +72,17 @@
     }
   }
 
+  &.btn-small {
+    background: $dark;
+    font-size: 0.8em;
+    min-width: 0;
+    padding: 0.4em 1em;
+
+    &:hover {
+      background: $black;
+    }
+  }
+
   &.no-margin {
     margin: 0;
   }

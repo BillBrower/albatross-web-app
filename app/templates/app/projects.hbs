@@ -1,3 +1,16 @@
+{{#if needsToUpgrade}}
+  <div class="header">
+    <div class="row center-xs">
+      <div class="col-xs-10 col-sm-8">
+        <h2>It's time to upgrade 🚀</h2>
+        <p>Looks like you have {{pastLimit}}. Don't worry, upgrading is easy! Just select a plan below and you'll be back to using Albatross in no time.</p>
+        <section>
+          {{#link-to 'app.upgrade'}}<button class="btn-primary">Choose a plan</button>{{/link-to}}
+        </section>
+      </div>
+    </div>
+  </div>
+{{else}}
 <div class="header">
   <h1>Good {{timeOfDay}}, <strong>{{currentUser.user.firstName}}</strong>! 👋</h1>
   <p class="pull-right">
@@ -8,7 +21,7 @@
 
 </div>
 <div class="projects-wrapper">
-  {{#if addProjects}}
+  {{#if canAddProjects}}
     {{new-project-card onSave=(action 'createNewProject')}}
   {{else}}
     <div class="card new-project">
@@ -38,3 +51,4 @@
     {{project-card model=project onCardClicked=(route-action 'goToProject')}}
   {{/each}}
 </div>
+{{/if}}

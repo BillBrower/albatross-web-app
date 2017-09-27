@@ -17,6 +17,8 @@
   }
 
   section {
+    height: auto;
+    overflow: hidden;
     padding: $padding 0;
   }
 }

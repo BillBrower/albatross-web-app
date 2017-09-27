@@ -1,0 +1,30 @@
+// Payment Plan
+// All styles for laying out the payment plan options when upgrading
+// -------------------------------------------------------------------
+
+.payment-plan {
+  text-align: center;
+  width: auto;
+
+  .options {
+    display: inline-block;
+    padding: $padding 0 0 0;
+    width: 100%;
+
+    .select-option {
+      float: left;
+      margin: 0 0.5rem 0.5rem;
+    }
+  }
+
+  &.full-width {
+
+    .options {
+
+      .select-option {
+        width: 100%;
+        float: none;
+      }
+    }
+  }
+}
