@@ -21,10 +21,12 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
 
   identifyUser() {
 
-    const user = JSON.parse(JSON.stringify(this.get('currentUser.user')));
-    
-    if (user) {
-      this.get('segment').identifyUser(this.get('currentUser.user.id'), user);
+    if (this.get('currentUser.user')) {
+      const user = JSON.parse(JSON.stringify(this.get('currentUser.user')));
+
+      if (user) {
+        this.get('segment').identifyUser(this.get('currentUser.user.id'), user);
+      }
     }
   },
 
