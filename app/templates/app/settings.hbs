@@ -72,95 +72,100 @@
 
     </div>
 
-    <div class="card">
-      <h1>Billing</h1>
-      <section>
-        <label>Current Plan</label>
-        <h2>Freelancer</h2>
-        <p class="small">$100 billed annually | Unlimited projects, up to 5 users</p>
-        {{#if isChangingPlan}}
+    {{#if currentUser.isOwner}}
+
+      {{#if plan}}
+        <div class="card">
+          <h1>Billing</h1>
           <section>
-            <div class="row center-xs">
-              <div class="col-xs-12 col-sm-6">
-                <div class="card payment-plan full-width">
-                  <h2>Freelancer 🤓</h2>
-                  <p class="light">Unlimited projects, up to 5 users</p>
-                  <div class="options">
-                    {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-monthly" price="$10/month" text="Cancel anytime" selectedPlan=selectedPlan}}
-                    {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-annual" price="$100/year" text="Save 16%" selectedPlan=selectedPlan}}
+            <label>Current Plan</label>
+            <h2>{{planLabel}}</h2>
+            <p class="small">{{planAmount}} billed {{planBillingCycle}} | Unlimited projects, up to 5 users</p>
+            {{#if isChangingPlan}}
+              <section>
+                <div class="row center-xs">
+                  <div class="col-xs-12 col-sm-6">
+                    <div class="card payment-plan full-width">
+                      <h2>Freelancer 🤓</h2>
+                      <p class="light">Unlimited projects, up to 5 users</p>
+                      <div class="options">
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-monthly" price="$10/month" text="Cancel anytime" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-annual" price="$100/year" text="Save 16%" selectedPlan=selectedPlan}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <div class="card payment-plan full-width">
+                      <h2>Agency 🤓🤓🤓</h2>
+                      <p class="light">Unlimited everything</p>
+                      <div class="options">
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-monthly" price="$25/month" text="Cancel anytime" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-annual" price="$250/year" text="Save 16%" selectedPlan=selectedPlan}}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-xs-12 col-sm-6">
-                <div class="card payment-plan full-width">
-                  <h2>Agency 🤓🤓🤓</h2>
-                  <p class="light">Unlimited everything</p>
-                  <div class="options">
-                    {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-monthly" price="$25/month" text="Cancel anytime" selectedPlan=selectedPlan}}
-                    {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-annual" price="$250/year" text="Save 16%" selectedPlan=selectedPlan}}
+                <button class="btn-primary">Save</button>
+                <button class="cancel" {{action "toggleIsChangingPlan"}}>Cancel</button>
+              </section>
+
+            {{else}}
+              <button class="btn-small" {{action "toggleIsChangingPlan"}}>Change plan</button>
+              <button class="cancel">Cancel plan</button>
+            {{/if}}
+          </section>
+          <section>
+            <label>Payment Method</label>
+            <p>Austin Price</p>
+            <p class="small">Mastercard, *** *** *** 0000</p>
+            {{#unless isChangingCard}}
+              <button class="btn-small" {{action "toggleIsChangingCard"}}>Change card</button>
+            {{/unless}}
+          </section>
+          {{#if isChangingCard}}
+            <section>
+              <h2>Change Credit Card</h2>
+              <p class="small">Your updated card will be for the next upcoming charge</p>
+              {{#credit-card form="#payment-form"}}
+                <div class="payment-form-wrapper">
+                  <form id='payment-form' class='payment-info'>
+                    <div class="ui input">
+                      <label>Credit Card Number</label>
+                      {{input type="text" value=creditCard.number name='number' placeholder='Credit Card Number'}}
+                    </div>
+
+                    <div class="ui input">
+                      <label>Name on Credit Card</label>
+                      {{input type="text" value=creditCard.name name='name' placeholder='Name on Credit Card'}}
+                    </div>
+
+                    <div class="ui input exp">
+                      <label>Expiration</label>
+                      {{input type="text" name='expiry' value=expDate placeholder='MM/YY'}}
+                    </div>
+
+                    <div class="ui input cvc">
+                      <label>CVC</label>
+                      {{input type="text" name='cvc' value=creditCard.cvc placeholder='CVC'}}
+                    </div>
+                  </form>
+
+                  <div class="total">
+                    <button class="btn-primary" {{action "upgrade"}}>Save</button>
+                    <button class="cancel" {{action "toggleIsChangingCard"}}>Cancel</button>
                   </div>
                 </div>
-              </div>
-            </div>
-            <button class="btn-primary">Save</button>
-            <button class="cancel" {{action "toggleIsChangingPlan"}}>Cancel</button>
+              {{/credit-card}}
+            </section>
+          {{/if}}
+
+          <section>
+            {{error-message errors=passwordErrors}}
           </section>
 
-        {{else}}
-          <button class="btn-small" {{action "toggleIsChangingPlan"}}>Change plan</button>
-          <button class="cancel">Cancel plan</button>
-        {{/if}}
-      </section>
-      <section>
-        <label>Payment Method</label>
-        <p>Austin Price</p>
-        <p class="small">Mastercard, *** *** *** 0000</p>
-        {{#unless isChangingCard}}
-          <button class="btn-small" {{action "toggleIsChangingCard"}}>Change card</button>
-        {{/unless}}
-      </section>
-      {{#if isChangingCard}}
-        <section>
-          <h2>Change Credit Card</h2>
-          <p class="small">Your updated card will be for the next upcoming charge</p>
-          {{#credit-card form="#payment-form"}}
-            <div class="payment-form-wrapper">
-              <form id='payment-form' class='payment-info'>
-                <div class="ui input">
-                  <label>Credit Card Number</label>
-                  {{input type="text" value=creditCard.number name='number' placeholder='Credit Card Number'}}
-                </div>
-
-                <div class="ui input">
-                  <label>Name on Credit Card</label>
-                  {{input type="text" value=creditCard.name name='name' placeholder='Name on Credit Card'}}
-                </div>
-
-                <div class="ui input exp">
-                  <label>Expiration</label>
-                  {{input type="text" name='expiry' value=expDate placeholder='MM/YY'}}
-                </div>
-
-                <div class="ui input cvc">
-                  <label>CVC</label>
-                  {{input type="text" name='cvc' value=creditCard.cvc placeholder='CVC'}}
-                </div>
-              </form>
-
-              <div class="total">
-                <button class="btn-primary" {{action "upgrade"}}>Save</button>
-                <button class="cancel" {{action "toggleIsChangingCard"}}>Cancel</button>
-              </div>
-            </div>
-          {{/credit-card}}
-        </section>
+        </div>
       {{/if}}
-
-      <section>
-        {{error-message errors=passwordErrors}}
-      </section>
-
-    </div>
+    {{/if}}
   </div>
 </div>
 

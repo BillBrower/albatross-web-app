@@ -10,6 +10,7 @@ export default Ember.Controller.extend({
   sortDefinition: ['name'],
   notifications: Ember.inject.service('notification-messages'),
   setupNotifications: function () {
+    //console.log(this.get('currentUser'));
     this.get('notifications').setDefaultClearDuration(1000);
   }.observes('notifications').on('init'),
   timeOfDay: Ember.computed(function() {
@@ -26,29 +27,26 @@ export default Ember.Controller.extend({
       return "evening"
     }
   }),
+  canAdd: Ember.computed('sortedProjects', 'currentUser', function() {
+    var limit = this.get('currentUser.maxProjects');
+    var projects = this.get('sortedProjects.length');
 
-  onTrial: false,
-  planExpired: false,
-  paymentPlan: 0,
-
-  addProjects: Ember.computed('onTrial', 'needToUpgrade', 'paymentPlan', function() {
-    var onTrial = this.get('onTrial');
-    var currentProjects = this.get('sortedProjects').length;
-    var paymentPlan = this.get('paymentPlan')
-
-    if (onTrial || currentProjects < 1) {
-      return true;
-    } else if (paymentPlan > 0) {
+    if (limit === 'unlimited') {
       return true;
     } else {
-      return false;
+      return projects < limit;
     }
   }),
+  needsToUpgrade: Ember.computed('sortedProjects', 'currentUser', function () {
+    var limit = this.get('currentUser.maxProjects');
+    var projects = this.get('sortedProjects.length');
+    var onTrial = this.get('currentUser.onTrial');
 
-  canAddProjects: Ember.computed('sortedProjects', 'currentUser', function() {
-    var itemsToCheck = this.get('sortedProjects').length;
-    var user = this.get('currentUser.user');
-    return Permissions.canAdd(user, itemsToCheck, 'projects');
+    if (limit === 'unlimited' || onTrial) {
+      return false;
+    } else {
+      return projects > limit;
+    }
   }),
 
   actions: {

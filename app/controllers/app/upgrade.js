@@ -1,8 +1,13 @@
 import Ember from 'ember';
+import ENV from 'albatross-web-app/config/environment';
+
+const { inject: { service }} = Ember;
 
 export default Ember.Controller.extend({
 
   stripe: Ember.inject.service(),
+  session: Ember.inject.service('session'),
+  store: service(),
   creditCard: [],
   card: Ember.computed('creditCard', 'expDate', function() {
     return {
@@ -62,11 +67,53 @@ export default Ember.Controller.extend({
     upgrade() {
       var stripe = this.get('stripe');
       var card = this.get('card');
-      console.log(card);
+      var plan = this.get('selectedPlan');
+      var _this = this;
 
       return stripe.card.createToken(card).then(function(response) {
         // you get access to your newly created token here
-        console.log(response);
+        console.log(response.id);
+
+        _this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+          const headers = {};
+          headers[headerName] = headerValue;
+          headers['Accept'] = 'application/json';
+          const data = {
+            token: response.id
+          };
+          Ember.$.ajax({
+            url: ENV.host + '/api/v1/payments/change-card-token/',
+            type: 'POST',
+            data: JSON.stringify(data),
+            headers: headers,
+            contentType: 'application/json',
+            dataType: 'json',
+          }).then((response) => {
+            _this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+              const headers = {};
+              headers[headerName] = headerValue;
+              headers['Accept'] = 'application/json';
+              const data = {
+                stripe_plan: plan
+              };
+              Ember.$.ajax({
+                url: ENV.host + '/api/v1/payments/subscription/',
+                type: 'POST',
+                data: JSON.stringify(data),
+                headers: headers,
+                contentType: 'application/json',
+                dataType: 'json',
+              }).then((response) => {
+                console.log(response);
+                resolve();
+              }).catch(() => {
+                reject();
+              })
+            });
+          }).catch(() => {
+            reject();
+          })
+        });
       });
     }
   }

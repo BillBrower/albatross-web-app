@@ -14,6 +14,7 @@ const Validations = buildValidations({
 
 export default Model.extend(Validations, {
   name: attr('string'),
+  onTrial: attr('boolean'),
 
   memberships: hasMany('membership', { async: false }),
   users: Ember.computed('memberships.[]', function() {

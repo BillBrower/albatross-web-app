@@ -5,6 +5,7 @@ const { inject: { service } } = Ember;
 
 export default Ember.Controller.extend({
 
+  currentUser: Ember.inject.service('current-user'),
   notifications: Ember.inject.service('notification-messages'),
   segment: Ember.inject.service(),
   session: Ember.inject.service(),
@@ -15,6 +16,29 @@ export default Ember.Controller.extend({
   isChangingCard: false,
   isChangingPlan: false,
   selectedPlan: 'freelancer-beta-annual',
+
+  currentPlan: Ember.computed('currentUser', function() {
+    var plan = this.get('currentUser.teamPlan');
+  }),
+
+  init() {
+    var plan = this.get('currentUser.teamPlan');
+    var amount = this.get('currentUser.teamPlanAmount');
+    this.set('plan', plan);
+    this.set('planAmount', '$' + amount);
+
+    if (plan.includes('freelancer')) {
+      this.set('planLabel', 'Freelancer');
+    } else if (plan.includes('ageny')) {
+      this.set('planLabel', 'Agency');
+    }
+
+    if (plan.includes('monthly')) {
+      this.set('planBillingCycle', 'monthly');
+    } else if (plan.includes('annual')) {
+      this.set('planBillingCycle', 'annually');
+    }
+  },
 
   actions: {
     saveAccountButtonPressed() {

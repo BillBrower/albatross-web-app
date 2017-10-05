@@ -20,7 +20,7 @@
     {{#if isShowingMenu}}
       <div class="transparent-bg" {{action 'toggleIsShowingMenu'}}></div>
       <ul class="user-options">
-        <li><p class="small">{{teamName}}</p></li>
+        <li><p class="small">{{currentUser.teamName}}</p></li>
         <li {{action 'toggleIsShowingMenu'}}>{{#link-to 'app.settings'}}Settings{{/link-to}}</li>
         <li {{action 'toggleIsShowingMenu'}}><a id="logout" href="" {{action 'logout'}}>Logout</a></li>
       </ul>

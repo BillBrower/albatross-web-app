@@ -1,12 +1,16 @@
-{{#if needsToUpgrade}}
+{{#if currentUser.needsToUpgrade}}
   <div class="header">
     <div class="row center-xs">
       <div class="col-xs-10 col-sm-8">
         <h2>It's time to upgrade 🚀</h2>
-        <p>Looks like you have {{pastLimit}}. Don't worry, upgrading is easy! Just select a plan below and you'll be back to using Albatross in no time.</p>
-        <section>
-          {{#link-to 'app.upgrade'}}<button class="btn-primary">Choose a plan</button>{{/link-to}}
-        </section>
+        {{#if currentUser.isOwner}}
+          <p>Looks like you have more {{currentUser.pastLimit currentUser.pastLimit 'projects or users'}} than your plan allows. Don't worry, upgrading is easy! Just choose a plan and you'll be back to using Albatross in no time.</p>
+          <section>
+            {{#link-to 'app.upgrade'}}<button class="btn-primary">Choose a plan</button>{{/link-to}}
+          </section>
+        {{else}}
+          <p>Looks like you have more {{currentUser.pastLimit currentUser.pastLimit 'projects or users'}} than your plan allows. Don't worry, upgrading is easy! Talk to your team owner about upgrading your plan and you'll be back to using Albatross in no time.</p>
+        {{/if}}
       </div>
     </div>
   </div>
@@ -21,17 +25,21 @@
 
 </div>
 <div class="projects-wrapper">
-  {{#if canAddProjects}}
+  {{#if canAdd}}
     {{new-project-card onSave=(action 'createNewProject')}}
   {{else}}
     <div class="card new-project">
       <h2>Upgrade to add projects!</h2>
-      <p class="small">Our free tier only allows one project at a time. To add more projects, just upgrade to a paid plan starting at $10/month.</p>
+      {{#if currentUser.isOwner}}
+        <p class="small">Our free tier only allows one project at a time. To add more projects, just upgrade to a paid plan starting at $10/month.</p>
       <br/>
       <div>
         {{#spin-button class="btn-primary" buttonStyle="contract"}}Upgrade Now!{{/spin-button}}
         {{error-message errors=errors}}
       </div>
+      {{else}}
+        <p class="small">Our free tier only allows one project at a time. Talk to your team owner (the one who originally signed up) about upgrading to a paid plan, starting at just $10/month for unlimited projects.</p>
+      {{/if}}
     </div>
   {{/if}}
 

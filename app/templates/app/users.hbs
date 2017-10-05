@@ -1,3 +1,20 @@
+{{#if currentUser.needsToUpgrade}}
+  <div class="header">
+    <div class="row center-xs">
+      <div class="col-xs-10 col-sm-8">
+        <h2>It's time to upgrade 🚀</h2>
+        {{#if currentUser.isOwner}}
+          <p>Looks like you have more {{currentUser.pastLimit currentUser.pastLimit 'projects or users'}} than your plan allows. Don't worry, upgrading is easy! Just choose a plan and you'll be back to using Albatross in no time.</p>
+          <section>
+            {{#link-to 'app.upgrade'}}<button class="btn-primary">Choose a plan</button>{{/link-to}}
+          </section>
+        {{else}}
+          <p>Looks like you have more {{currentUser.pastLimit currentUser.pastLimit 'projects or users'}} than your plan allows. Don't worry, upgrading is easy! Talk to your team owner about upgrading your plan and you'll be back to using Albatross in no time.</p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+{{else}}
 <div class="header text-center">
   <h1>Users</h1>
 </div>
@@ -24,11 +41,19 @@
           {{error-message errors=errors}}
         </section>
       {{else}}
-        <section>
-          <h2>Upgrade to add users!</h2>
-          <p class="small">Looks like you've hit your limit on users. To add more, just upgrade to a paid plan starting at $10/month.</p>
-        </section>
-        {{#spin-button class="btn-primary" buttonStyle="contract"}}Upgrade Now!{{/spin-button}}
+
+        {{#if currentUser.isOwner}}
+          <section>
+            <h2>Upgrade to add users!</h2>
+            <p class="small">Looks like you've hit your limit on users. To add more, just upgrade to a paid plan starting at $10/month.</p>
+          </section>
+          {{#spin-button class="btn-primary" buttonStyle="contract"}}Upgrade Now!{{/spin-button}}
+        {{else}}
+          <section>
+            <h2>Upgrade to add users!</h2>
+            <p class="small">Looks like you've hit your limit on users. To add more, talk to your team owner about upgrading to a paid plan starting at $10/month.</p>
+          </section>
+        {{/if}}
       {{/if}}
 
     </div>
@@ -78,5 +103,6 @@
   </div>
 
 </div>
+{{/if}}
 
 {{notification-container position="top-right"}}
