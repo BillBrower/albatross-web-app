@@ -40,7 +40,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'development') {
-    ENV.host = 'https://getalbatross.com'
+    ENV.host = 'https://app.getalbatross.com'
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -60,7 +60,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.host = 'https://getalbatross.com'
+    ENV.host = 'https://app.getalbatross.com'
   }
 
   ENV['segment'] = {
