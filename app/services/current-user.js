@@ -50,34 +50,6 @@ export default Ember.Service.extend({
     }
   },
 
-  // teamPlan: Ember.computed('user', function(){
-  //   if (this.get('session.isAuthenticated')) {
-  //     return new Ember.RSVP.Promise((resolve, reject) => {
-  //       this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
-  //         const headers = {};
-  //         headers[headerName] = headerValue;
-  //         headers['Accept'] = 'application/json';
-  //         Ember.$.ajax({
-  //           url: ENV.host + '/api/v1/payments/subscription/',
-  //           type: 'GET',
-  //           headers: headers,
-  //           contentType: 'application/json',
-  //           dataType: 'json',
-  //         }).then((response) => {
-  //           const id = response['data']['id'];
-  //           this.get('store').pushPayload(response);
-  //           console.log("hello");
-  //           return response;
-  //           resolve();
-  //         }).catch(() => {
-  //           console.log("hi");
-  //           reject();
-  //         })
-  //       });
-  //     });
-  //   }
-  // }),
-
   init() {
 
     if (this.get('session.isAuthenticated')) {
@@ -146,29 +118,6 @@ export default Ember.Service.extend({
       return false
     }
   }),
-
-  permissions(currentUser, itemsToCheck, typeOfItems) {
-
-    let maxItemsAllowed = 1;
-
-    if (typeOfItems === 'users' && paymentPlan > 0) {
-      if (paymentPlan === 1) {
-        maxItemsAllowed = 5;
-      } else if (paymentPlan > 1) {
-        maxItemsAllowed = 25;
-      }
-    }
-
-    if (onTrial || itemsToCheck < maxItemsAllowed) {
-      return true;
-    } else if (typeOfItems === 'projects' && paymentPlan > 0) {
-      return true;
-    } else {
-      return false;
-    }
-
-    console.log('hello');
-  },
 
   logout() {
     this.get('session').invalidate();

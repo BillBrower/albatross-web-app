@@ -72,7 +72,6 @@ export default Ember.Controller.extend({
 
       return stripe.card.createToken(card).then(function(response) {
         // you get access to your newly created token here
-        console.log(response.id);
 
         _this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
           const headers = {};

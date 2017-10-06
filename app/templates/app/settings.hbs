@@ -78,9 +78,15 @@
         <div class="card">
           <h1>Billing</h1>
           <section>
+            {{#if isCancellingPlan}}
+              <h2>Are you sure you want to cancel?</h2>
+              <p>We'd hate to see you go. If there's anything we can do, whether it's adding more emoji or features, please let us know. If you really want to break our hearts, click to big red button.</p>
+              <button class="btn-primary" {{action "cancelPlan"}}>Yes, cancel my plan</button>
+              <button class="cancel" {{action "toggleIsCancellingPlan"}}>Nevermind</button>
+            {{else}}
             <label>Current Plan</label>
             <h2>{{planLabel}}</h2>
-            <p class="small">{{planAmount}} billed {{planBillingCycle}} | Unlimited projects, up to 5 users</p>
+            <p class="small">{{planAmount}} billed {{planBillingCycle}} | {{planDescription}}</p>
             {{#if isChangingPlan}}
               <section>
                 <div class="row center-xs">
@@ -105,13 +111,13 @@
                     </div>
                   </div>
                 </div>
-                <button class="btn-primary">Save</button>
+                <button class="btn-primary" {{action "updatePlan"}}>Save</button>
                 <button class="cancel" {{action "toggleIsChangingPlan"}}>Cancel</button>
               </section>
-
             {{else}}
               <button class="btn-small" {{action "toggleIsChangingPlan"}}>Change plan</button>
-              <button class="cancel">Cancel plan</button>
+              <button class="cancel" {{action "toggleIsCancellingPlan"}}>Cancel plan</button>
+            {{/if}}
             {{/if}}
           </section>
           <section>
@@ -151,7 +157,7 @@
                   </form>
 
                   <div class="total">
-                    <button class="btn-primary" {{action "upgrade"}}>Save</button>
+                    <button class="btn-primary" {{action "updateCard"}}>Save</button>
                     <button class="cancel" {{action "toggleIsChangingCard"}}>Cancel</button>
                   </div>
                 </div>
