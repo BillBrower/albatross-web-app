@@ -122,8 +122,8 @@
           </section>
           <section>
             <label>Payment Method</label>
-            <p>Austin Price</p>
-            <p class="small">Mastercard, *** *** *** 0000</p>
+            <p>{{currentCard.card_kind}}</p>
+            <p class="small">*** *** *** {{currentCard.card_last_4}}</p>
             {{#unless isChangingCard}}
               <button class="btn-small" {{action "toggleIsChangingCard"}}>Change card</button>
             {{/unless}}

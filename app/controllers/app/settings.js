@@ -33,6 +33,28 @@ export default Ember.Controller.extend({
     var plan = this.get('currentUser.teamPlan');
   }),
 
+  currentCard: Ember.computed('currentUser', function() {
+    new Ember.RSVP.Promise((resolve, reject) => {
+      this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+        const headers = {};
+        headers[headerName] = headerValue;
+        headers['Accept'] = 'application/json';
+        Ember.$.ajax({
+          url: ENV.host + '/api/v1/payments/details',
+          type: 'GET',
+          headers: headers,
+          contentType: 'application/json',
+          dataType: 'json',
+        }).then((response) => {
+          return response;
+          resolve();
+        }).catch(() => {
+          reject();
+        })
+      });
+    });
+  }),
+
   init() {
     var plan = this.get('currentUser.teamPlan');
     var amount = this.get('currentUser.teamPlanAmount');
@@ -53,6 +75,26 @@ export default Ember.Controller.extend({
     } else if (plan.includes('annual')) {
       this.set('planBillingCycle', 'annually');
     }
+
+    new Ember.RSVP.Promise((resolve, reject) => {
+      this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+        const headers = {};
+        headers[headerName] = headerValue;
+        headers['Accept'] = 'application/json';
+        Ember.$.ajax({
+          url: ENV.host + '/api/v1/payments/details',
+          type: 'GET',
+          headers: headers,
+          contentType: 'application/json',
+          dataType: 'json',
+        }).then((response) => {
+          this.set('currentCard', response);
+          resolve();
+        }).catch(() => {
+          reject();
+        })
+      });
+    });
   },
 
   actions: {
