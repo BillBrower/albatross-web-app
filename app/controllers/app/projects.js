@@ -52,6 +52,7 @@ export default Ember.Controller.extend({
         return projects < limit;
       }
     }
+
   }),
   needsToUpgrade: Ember.computed('sortedProjects', 'currentUser', function () {
     var limit = this.get('currentUser.maxProjects');

@@ -80,6 +80,8 @@ export default Ember.Controller.extend({
       window.location.reload(true);
     }
 
+    this.get('currentUser').load();
+
     this.get('store').findAll('project').then((loadedProjects) => {
       this.set('numberOfProjects', loadedProjects.get('length'));
     });
