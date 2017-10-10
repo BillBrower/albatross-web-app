@@ -50,48 +50,43 @@ export default Ember.Service.extend({
     }
   },
 
-  init() {
-
+  subscription: function () {
     if (this.get('session.isAuthenticated')) {
-      return new Ember.RSVP.Promise((resolve, reject) => {
-        this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
-          const headers = {};
-          headers[headerName] = headerValue;
-          headers['Accept'] = 'application/json';
-          Ember.$.ajax({
-            url: ENV.host + '/api/v1/payments/subscription/',
-            type: 'GET',
-            headers: headers,
-            contentType: 'application/json',
-            dataType: 'json',
-          }).then((response) => {
-            this.set('teamPlan', response.plan);
-            this.set('teamPlanAmount', response.amount);
-            var plan = response.plan;
+      return this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+        const headers = {};
+        headers[headerName] = headerValue;
+        headers['Accept'] = 'application/json';
+        Ember.$.ajax({
+          url: ENV.host + '/api/v1/payments/subscription/',
+          type: 'GET',
+          headers: headers,
+          contentType: 'application/json',
+          dataType: 'json',
+        }).then((response) => {
+          this.set('teamPlan', response.plan);
+          this.set('teamPlanAmount', response.amount);
+          var plan = response.plan;
 
-            if (!this.get('onTrial')) {
-              if (plan === 'freelancer-beta-monthly' || plan === 'freelancer-beta-annual') {
-                this.set('maxProjects', 'unlimited');
-                this.set('maxUsers', 5);
-              } else if (plan === 'moonlighter-beta-monthly' || plan === 'moonlighter-beta-annual') {
-                this.set('maxProjects', 'unlimited');
-                this.set('maxUsers', 'unlimited');
-              } else {
-                this.set('maxProjects', 1);
-                this.set('maxUsers', 1);
-              }
-            } else {
+          if (!this.get('onTrial')) {
+            if (plan === 'freelancer-beta-monthly' || plan === 'freelancer-beta-annual') {
+              this.set('maxProjects', 'unlimited');
+              this.set('maxUsers', 5);
+            } else if (plan === 'moonlighter-beta-monthly' || plan === 'moonlighter-beta-annual') {
               this.set('maxProjects', 'unlimited');
               this.set('maxUsers', 'unlimited');
+            } else {
+              this.set('maxProjects', 1);
+              this.set('maxUsers', 1);
             }
-            resolve();
-          }).catch(() => {
-            reject();
-          })
-        });
+          } else {
+            this.set('maxProjects', 'unlimited');
+            this.set('maxUsers', 'unlimited');
+          }
+        }).catch(() => {
+        })
       });
     }
-  },
+  }.observes('onTrial').on('init'),
 
   needsToUpgrade: Ember.computed('user', 'maxUsers', 'maxProjects', 'onTrial', function() {
     const projectsArray = this.get('store').peekAll('project');

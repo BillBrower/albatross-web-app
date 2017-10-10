@@ -76,6 +76,8 @@ export default Ember.Controller.extend({
           });
         }
       });
+    } else {
+      window.location.reload(true);
     }
 
     this.get('store').findAll('project').then((loadedProjects) => {

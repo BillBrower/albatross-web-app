@@ -111,7 +111,7 @@
                     </div>
                   </div>
                 </div>
-                <button class="btn-primary" {{action "updatePlan"}}>Save</button>
+                {{#spin-button action=(action 'updatePlan') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
                 <button class="cancel" {{action "toggleIsChangingPlan"}}>Cancel</button>
               </section>
             {{else}}
@@ -157,17 +157,16 @@
                   </form>
 
                   <div class="total">
-                    <button class="btn-primary" {{action "updateCard"}}>Save</button>
+                    {{#spin-button action=(action 'updateCard') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
                     <button class="cancel" {{action "toggleIsChangingCard"}}>Cancel</button>
                   </div>
                 </div>
               {{/credit-card}}
             </section>
+            <section>
+              {{error-message errors=cardErrors}}
+            </section>
           {{/if}}
-
-          <section>
-            {{error-message errors=passwordErrors}}
-          </section>
 
         </div>
       {{/if}}

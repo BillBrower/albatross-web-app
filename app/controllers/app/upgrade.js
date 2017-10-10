@@ -5,6 +5,7 @@ const { inject: { service }} = Ember;
 
 export default Ember.Controller.extend({
 
+  currentUser: Ember.inject.service('current-user'),
   stripe: Ember.inject.service(),
   session: Ember.inject.service('session'),
   store: service(),
@@ -113,6 +114,8 @@ export default Ember.Controller.extend({
             reject();
           })
         });
+      }).catch((response) => {
+        this.set('cardErrors', [response.error.message]);
       });
     }
   }

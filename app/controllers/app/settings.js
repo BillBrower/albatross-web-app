@@ -62,39 +62,42 @@ export default Ember.Controller.extend({
     this.set('selectedPlan', plan);
     this.set('planAmount', '$' + amount);
 
-    if (plan.includes('freelancer')) {
-      this.set('planLabel', 'Freelancer');
-      this.set('planDescription', 'Unlimited projects, up to 5 users');
-    } else if (plan.includes('agency')) {
-      this.set('planLabel', 'Agency');
-      this.set('planDescription', 'Unlimited projects, unlimited users, unlimited possibilities');
-    }
+    if (plan) {
+      if (plan.includes('freelancer')) {
+        this.set('planLabel', 'Freelancer');
+        this.set('planDescription', 'Unlimited projects, up to 5 users');
+      } else if (plan.includes('agency')) {
+        this.set('planLabel', 'Agency');
+        this.set('planDescription', 'Unlimited projects, unlimited users, unlimited possibilities');
+      }
 
-    if (plan.includes('monthly')) {
-      this.set('planBillingCycle', 'monthly');
-    } else if (plan.includes('annual')) {
-      this.set('planBillingCycle', 'annually');
-    }
+      if (plan.includes('monthly')) {
+        this.set('planBillingCycle', 'monthly');
+      } else if (plan.includes('annual')) {
+        this.set('planBillingCycle', 'annually');
+      }
 
-    new Ember.RSVP.Promise((resolve, reject) => {
-      this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
-        const headers = {};
-        headers[headerName] = headerValue;
-        headers['Accept'] = 'application/json';
-        Ember.$.ajax({
-          url: ENV.host + '/api/v1/payments/details',
-          type: 'GET',
-          headers: headers,
-          contentType: 'application/json',
-          dataType: 'json',
-        }).then((response) => {
-          this.set('currentCard', response);
-          resolve();
-        }).catch(() => {
-          reject();
-        })
+      new Ember.RSVP.Promise((resolve, reject) => {
+        this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+          const headers = {};
+          headers[headerName] = headerValue;
+          headers['Accept'] = 'application/json';
+          Ember.$.ajax({
+            url: ENV.host + '/api/v1/payments/details',
+            type: 'GET',
+            headers: headers,
+            contentType: 'application/json',
+            dataType: 'json',
+          }).then((response) => {
+            this.set('currentCard', response);
+            resolve();
+          }).catch(() => {
+            reject();
+          })
+        });
       });
-    });
+    }
+
   },
 
   actions: {
@@ -239,6 +242,7 @@ export default Ember.Controller.extend({
       var stripe = this.get('stripe');
       var card = this.get('card');
       var _this = this;
+      this.set('cardErrors', null);
 
       return stripe.card.createToken(card).then(function(response) {
         // you get access to your newly created token here
@@ -263,10 +267,13 @@ export default Ember.Controller.extend({
               autoClear: true,
             });
             _this.set('isChangingCard', false);
-          }).catch(() => {
+          }).catch((response) => {
+            console.log(response);
             reject();
           })
         });
+      }).catch((response) => {
+        this.set('cardErrors', [response.error.message]);
       });
     },
     cancelPlan() {

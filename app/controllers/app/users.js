@@ -32,15 +32,23 @@ export default Ember.Controller.extend(Validations, {
   sortInvitationDefinition: ['email'],
   sortUserDefinition: ['dateJoined:desc'],
 
-  canAddUsers: Ember.computed('sortedUsers', 'currentUser', function() {
-    var limit = this.get('currentUser.maxUsers');
+  canAddUsers: Ember.computed('sortedProjects', 'currentUser', function() {
+    var limit = this.get('currentUser.maxProjects');
     var users = this.get('sortedUsers.length');
 
-    if (limit === 'unlimited') {
-      return true;
-    } else {
-      return users < limit
+    if (typeof this.get('currentUser.onTrial') !== "undefined") {
+
+      if (this.get('currentUser.onTrial')) {
+        return true;
+      } else {
+        if (limit === 'unlimited') {
+          return true;
+        } else {
+          return users < limit;
+        }
+      }
     }
+
   }),
 
   actions: {
