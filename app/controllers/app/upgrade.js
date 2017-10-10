@@ -67,9 +67,19 @@ export default Ember.Controller.extend({
 
     upgrade() {
       var stripe = this.get('stripe');
-      var card = this.get('card');
+      var cardd = this.get('card');
       var plan = this.get('selectedPlan');
       var _this = this;
+
+      var card = {
+        name: this.get('creditCard.name'),
+        number: this.get('creditCard.number'),
+        exp_month: this.get('expDate').substring(0,2),
+        exp_year: this.get('expDate').substring(5),
+        cvc: this.get('creditCard.cvc')
+      }
+
+      this.set('cardErrors', []);
 
       return stripe.card.createToken(card).then(function(response) {
         // you get access to your newly created token here
@@ -104,7 +114,6 @@ export default Ember.Controller.extend({
                 contentType: 'application/json',
                 dataType: 'json',
               }).then((response) => {
-                console.log(response);
                 resolve();
               }).catch(() => {
                 reject();
@@ -114,6 +123,8 @@ export default Ember.Controller.extend({
             reject();
           })
         });
+      }).then(() => {
+        this.transitionToRoute('app.projects');
       }).catch((response) => {
         this.set('cardErrors', [response.error.message]);
       });

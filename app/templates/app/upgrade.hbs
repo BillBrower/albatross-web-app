@@ -82,7 +82,7 @@
                 </span>
                 {{/if}}
               </div>
-              <button class="btn-primary" {{action "upgrade"}}>Upgrade your plan</button>
+              {{#spin-button action=(action "upgrade") class="btn-primary" buttonStyle="contract"}}Updgrade your plan{{/spin-button}}
               <p class="small">🔒 processed securely through Stripe</p>
             </div>
 
