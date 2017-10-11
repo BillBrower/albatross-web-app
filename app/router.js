@@ -18,6 +18,7 @@ Router.map(function() {
     this.route('users');
     this.route('settings');
     this.route('project', {path: '/projects/:project_id'});
+    this.route('help');
   });
   this.route('sandbox');
   this.route('error');
