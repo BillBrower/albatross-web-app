@@ -1,7 +1,9 @@
 import Ember from 'ember';
+import Params from '../../constants/params';
 import Errors from '../../constants/errors';
 import ENV from 'albatross-web-app/config/environment';
-const { inject: { service } } = Ember;
+
+const {inject: {service}} = Ember;
 
 
 export default Ember.Controller.extend({
@@ -11,7 +13,7 @@ export default Ember.Controller.extend({
   isEmpty: Ember.computed('model.actual', 'model.estimated', function () {
     return this.get('model.actual') === 0 && this.get('model.estimated') === 0;
   }),
-  isShowingTogglModal: false,
+  isShowingImportModal: false,
   hasCategories: Ember.computed('model.categories', function () {
     return this.get('model.categories').content.length > 0;
   }),
@@ -24,6 +26,38 @@ export default Ember.Controller.extend({
   sortDefinition: ['createdAt'],
 
   segment: Ember.inject.service(),
+
+  integrationType: function () {
+    var togglKey = this.get('currentUser.user.profile.togglApiKey');
+    var harvestTokens = this.get('currentUser.user.profile.harvestAccessToken');
+
+    if (togglKey) {
+      this.set('togglIntegration', true);
+      return 'toggl';
+    } else if (harvestTokens) {
+      this.set('harvestIntegration', true);
+      return 'harvest';
+    }
+  }.observes('currentUser').on('init'),
+
+  harvestCode: Ember.computed('currentUser', function () {
+    return Params.getParameterByName('code', window.location.href);
+  }),
+
+  triggerHarvestAction: function () {
+    var code = this.get('harvestCode');
+
+    if (code) {
+      //console.log('Has code');
+    }
+  }.observes('harvestCode').on('init'),
+
+  init() {
+    this._super(...arguments);
+    // if(Params.getParameterName('code')) {
+    //   console.log(Params.getParameterName('code'));
+    // }
+  },
 
   saveItem(item) {
     if (item.get('validations.isValid')) {
@@ -51,7 +85,11 @@ export default Ember.Controller.extend({
       });
       category.save()
         .then(() => {
-          this.get('segment').trackEvent('Added a new category', { projectId: this.get('model.id'), categoryName: categoryName, categoryID: category.id });
+          this.get('segment').trackEvent('Added a new category', {
+            projectId: this.get('model.id'),
+            categoryName: categoryName,
+            categoryID: category.id
+          });
           result.resolve()
         }).catch((response) => {
         category.rollbackAttributes();
@@ -65,10 +103,13 @@ export default Ember.Controller.extend({
         createdAt: new Date(),
         category: category
       });
-      this.get('segment').trackEvent('Added a new item', { projectId: this.get('model.id'), categoryID: categoryId });
+      this.get('segment').trackEvent('Added a new item', {projectId: this.get('model.id'), categoryID: categoryId});
     },
 
-    importTogglHours(result) {
+    importHours(result) {
+      if (!result) {
+        result = Ember.RSVP.defer();
+      }
       this.get('session')
         .authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
           const headers = {'Accept': 'application/vnd.api+json'};
@@ -79,23 +120,27 @@ export default Ember.Controller.extend({
             headers: headers,
             contentType: 'application/vnd.api+json',
           }).then(() => {
-            this.get('segment').trackEvent('Imported Toggl hours', { projectId: this.get('model.id'), projectName: this.get('model.name') });
+            this.get('segment').trackEvent('Imported Toggl hours', {
+              projectId: this.get('model.id'),
+              projectName: this.get('model.name')
+            });
             const model = this.get('model');
             model.reload();
             model.hasMany('categories').reload();
-            this.get('notifications').success("Toggl hours imported successfully!", {
+            this.get('notifications').success("Hours imported successfully!", {
               cssClasses: 'notification',
               autoClear: true,
             });
             result.resolve();
           }).catch(() => {
-            this.get('notifications').error("Toggl hours failed to import!", {
+            this.get('notifications').error("Hours failed to import!", {
               cssClasses: 'notification error',
               autoClear: true,
             });
             result.reject();
           });
         });
+      return result.promise;
     },
     onBufferChanged(value) {
       const model = this.get('model');
@@ -109,7 +154,11 @@ export default Ember.Controller.extend({
             cssClasses: 'notification',
             autoClear: true,
           });
-          this.get('segment').trackEvent('Updated buffer', { projectId: this.get('model.id'), projectName: this.get('model.name'), buffer: parseInt(value) });
+          this.get('segment').trackEvent('Updated buffer', {
+            projectId: this.get('model.id'),
+            projectName: this.get('model.name'),
+            buffer: parseInt(value)
+          });
         })
         .catch(() => {
           this.get('notifications').error("Buffer failed to update!", {
@@ -124,7 +173,14 @@ export default Ember.Controller.extend({
       }
       item.set('actual', value);
       this.saveItem(item);
-      this.get('segment').trackEvent('Updated an item actual', { projectId: this.get('model.id'), categoryID: item.get('category.id'), itemID: item.get('id'), itemDescription: item.get('description'), itemEstimated: item.get('estimated'), itemActual: item.get('actual')});
+      this.get('segment').trackEvent('Updated an item actual', {
+        projectId: this.get('model.id'),
+        categoryID: item.get('category.id'),
+        itemID: item.get('id'),
+        itemDescription: item.get('description'),
+        itemEstimated: item.get('estimated'),
+        itemActual: item.get('actual')
+      });
     },
     cancelSaveName(model) {
       model.rollbackAttributes()
@@ -132,7 +188,10 @@ export default Ember.Controller.extend({
     saveCategoryName(model, result) {
       model.save().then(() => {
         result.resolve();
-        this.get('segment').trackEvent('Updated category name', { projectId: this.get('model.id'), projectName: this.get('model.name') });
+        this.get('segment').trackEvent('Updated category name', {
+          projectId: this.get('model.id'),
+          projectName: this.get('model.name')
+        });
       }).catch((response) => {
         result.reject(response);
       });
@@ -140,7 +199,10 @@ export default Ember.Controller.extend({
     saveProjectName(model, result) {
       model.save().then(() => {
         result.resolve();
-        this.get('segment').trackEvent('Updated project name', { projectId: this.get('model.id'), projectName: this.get('model.name') });
+        this.get('segment').trackEvent('Updated project name', {
+          projectId: this.get('model.id'),
+          projectName: this.get('model.name')
+        });
       }).catch((response) => {
         result.reject(response);
       });
@@ -148,7 +210,14 @@ export default Ember.Controller.extend({
     saveDescription(item, value) {
       item.set('description', value);
       this.saveItem(item);
-      this.get('segment').trackEvent('Updated an item description', { projectId: this.get('model.id'), categoryID: item.get('category.id'), itemID: item.get('id'), itemDescription: item.get('description'), itemEstimated: item.get('estimated'), itemActual: item.get('actual')});
+      this.get('segment').trackEvent('Updated an item description', {
+        projectId: this.get('model.id'),
+        categoryID: item.get('category.id'),
+        itemID: item.get('id'),
+        itemDescription: item.get('description'),
+        itemEstimated: item.get('estimated'),
+        itemActual: item.get('actual')
+      });
     },
     saveEstimated(item, value) {
       if (!value) {
@@ -156,7 +225,14 @@ export default Ember.Controller.extend({
       }
       item.set('estimated', value);
       this.saveItem(item);
-      this.get('segment').trackEvent('Updated an item estimated', { projectId: this.get('model.id'), categoryID: item.get('category.id'), itemID: item.get('id'), itemDescription: item.get('description'), itemEstimated: item.get('estimated'), itemActual: item.get('actual')});
+      this.get('segment').trackEvent('Updated an item estimated', {
+        projectId: this.get('model.id'),
+        categoryID: item.get('category.id'),
+        itemID: item.get('id'),
+        itemDescription: item.get('description'),
+        itemEstimated: item.get('estimated'),
+        itemActual: item.get('actual')
+      });
     },
     deleteItem(item) {
       item.destroyRecord().then((response) => {
@@ -204,19 +280,17 @@ export default Ember.Controller.extend({
     toggleIsShowingTogglModal() {
       if (this.get('isShowingTogglModal')) {
         this.set('isShowingTogglModal', false);
+      }
+    },
+    toggleIsShowingImportModal() {
+      if (this.get('isShowingImportModal')) {
+        this.set('isShowingImportModal', false);
       } else {
-        const result = Ember.RSVP.defer();
-        this.get('currentUser.user.profile').then((profile) => {
-          const togglApiKey = profile.get('togglApiKey');
-          if (togglApiKey || this.get('hasUpdatedToken')) {
-            this.send('importTogglHours', result);
-          } else {
-            this.set('isShowingTogglModal', true);
-            this.get('segment').trackEvent('Opened Toggl modal', { projectId: this.get('model.id'), projectName: this.get('model.name') });
-            result.resolve('no key');
-          }
+        this.get('segment').trackEvent('Opened Import modal', {
+          projectId: this.get('model.id'),
+          projectName: this.get('model.name')
         });
-        return result.promise;
+        this.set('isShowingImportModal', true);
       }
     },
 
@@ -238,8 +312,12 @@ export default Ember.Controller.extend({
               dataType: 'json',
             }).then(() => {
               this.set('hasUpdatedToken', true);
-              this.send('importTogglHours', result);
-              this.get('segment').trackEvent('Updated Toggl API key', { projectId: this.get('model.id'), projectName: this.get('model.name'), togglAPIKey: token });
+              this.send('importHours', result);
+              this.get('segment').trackEvent('Updated Toggl API key', {
+                projectId: this.get('model.id'),
+                projectName: this.get('model.name'),
+                togglAPIKey: token
+              });
             }).catch(() => {
               this.get('notifications').error("Toggl hours failed to import!", {
                 cssClasses: 'notification error',
@@ -248,14 +326,42 @@ export default Ember.Controller.extend({
               result.reject();
             })
           })
+      }).catch(() => {
+          this.get('notifications').error("Toggl hours failed to import!", {
+            cssClasses: 'notification error',
+            autoClear: true,
+          });
+          result.reject();
+        }
+      );
+    },
+    getHarvestTokens(code) {
+      let data = {
+        "authorization_code": code
+      };
+      this.get('session')
+        .authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+          const headers = {'Accept': 'application/json'};
+          headers[headerName] = headerValue;
+          Ember.$.ajax({
+            url: `${ENV.host}/api/v1/users/${this.get('currentUser.user.id')}/harvest/`,
+            type: 'POST',
+            data: JSON.stringify(data),
+            headers: headers,
+            contentType: 'application/json',
+            dataType: 'json',
+          }).then(() => {
+            this.set('hasUpdatedToken', true);
+            this.send('importHours');
+            var path = window.location.href.split('?')[0];
+            window.location.href = path;
           }).catch(() => {
-            this.get('notifications').error("Toggl hours failed to import!", {
+            this.get('notifications').error("Harvest hours failed to import!", {
               cssClasses: 'notification error',
               autoClear: true,
             });
-            result.reject();
-          }
-        );
+          })
+        })
     }
   }
 });

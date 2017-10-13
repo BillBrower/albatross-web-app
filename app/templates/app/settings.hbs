@@ -33,14 +33,23 @@
                                error=validations.attrs.email.message
                                showError=showError}}
       </section>
-      <section>
-        {{validated-text-input name='toggleToken'
-                               type='text'
-                               placeholder='Toggle API Token'
-                               label='Toggle API Token'
-                               value=model.profile.togglApiKey}}
-        <p class="small">You can find your Toggl API Token by going to your <a href="https://toggl.com/app/profile" target="_blank">profile settings on Toggl</a> and scrolling all the way to the bottom</p>
-      </section>
+
+      {{#if model.profile.toggleApiKey}}
+        <section>
+          {{validated-text-input name='toggleToken'
+                                 type='text'
+                                 placeholder='Toggle API Token'
+                                 label='Toggle API Token'
+                                 value=model.profile.togglApiKey}}
+          <p class="small">You can find your Toggl API Token by going to your <a href="https://toggl.com/app/profile" target="_blank">profile settings on Toggl</a> and scrolling all the way to the bottom</p>
+        </section>
+      {{/if}}
+      {{#if model.profile.harvestAccessToken}}
+        <section>
+          <img src="img/harvest-logo.png" class="harvest-logo" alt="Harvest Logo"/>
+          <p class="small">You're connected with Harvest so you can automatically import hours from your Harvest projects.</p>
+        </section>
+      {{/if}}
 
       {{#spin-button action=(action 'saveAccountButtonPressed') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
 
