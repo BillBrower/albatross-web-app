@@ -303,6 +303,8 @@ export default Ember.Controller.extend({
           }).then(() => {
             this.set('hasUpdatedToken', true);
             this.send('importHours');
+            var path = window.location.href.split('?')[0];
+            window.location.href = path;
           }).catch(() => {
             this.get('notifications').error("Harvest hours failed to import!", {
               cssClasses: 'notification error',

@@ -22,7 +22,7 @@ export default Ember.Component.extend(Validations,{
     },
     choseHarvest() {
       var currentLocation = window.location;
-      window.location.replace('https://id.getharvest.com/oauth2/authorize?client_id=7v4QX7tivd6wsBFK2oHKXEbB&response_type=code&redirect_uri=https://app.getalbatross.com/app/project/' + this.get('model.id'));
+      window.location.replace('https://id.getharvest.com/oauth2/authorize?client_id=7v4QX7tivd6wsBFK2oHKXEbB&response_type=code&redirect_uri=https://app.getalbatross.com/app/projects/' + this.get('model.id'));
     },
 
     importButtonPressed() {
