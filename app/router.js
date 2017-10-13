@@ -7,7 +7,7 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('login');
+  this.route('login', { path: '/'});
   this.route('forgot-password');
   this.route('signup');
   this.route('forgot-password-success');
@@ -18,15 +18,12 @@ Router.map(function() {
     this.route('users');
     this.route('settings');
     this.route('project', {path: '/projects/:project_id'});
-    this.route('harvest');
+    this.route('help');
   });
   this.route('sandbox');
   this.route('error');
   this.route('loading');
   this.route('not-found', { path: '/*path' });
-  this.route('index', { path: '/' }, function() {
-    this.route('pricing');
-  });
 });
 
 export default Router;
