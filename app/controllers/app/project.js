@@ -7,6 +7,7 @@ const { inject: { service } } = Ember;
 export default Ember.Controller.extend({
 
   currentUser: Ember.inject.service('current-user'),
+  isDeleting: false,
   isEmpty: Ember.computed('model.actual', 'model.estimated', function () {
     return this.get('model.actual') === 0 && this.get('model.estimated') === 0;
   }),
@@ -173,7 +174,7 @@ export default Ember.Controller.extend({
     },
     deleteCategroy(category) {
       category.destroyRecord().then((response) => {
-        this.get('notifications').success("Categor deleted!", {
+        this.get('notifications').success("Category deleted!", {
           cssClasses: 'notification',
           autoClear: true,
         });
@@ -184,6 +185,21 @@ export default Ember.Controller.extend({
           autoClear: true,
         });
       });
+    },
+    deleteProject() {
+      var model = this.get('model');
+      model.destroyRecord().then((response) => {
+        this.get('segment').trackEvent('Deleted a project', { itemId: this.get('model.id'), itemName: this.get('model.name') });
+        this.transitionToRoute('app');
+      }).catch((response) => {
+        this.get('notifications').error("Error deleting project. Try again in a second.", {
+          cssClasses: 'notification',
+          autoClear: true,
+        });
+      });
+    },
+    toggleIsDeleting() {
+      this.toggleProperty('isDeleting');
     },
     toggleIsShowingTogglModal() {
       if (this.get('isShowingTogglModal')) {
