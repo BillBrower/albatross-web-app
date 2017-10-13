@@ -24,6 +24,42 @@
     cursor: initial;
   }
 
+  &.btn-import {
+    padding: 2rem 3rem;
+    font-size: 1.45rem;
+    min-width: 16rem;
+
+    &.toggl {
+      background: #F30C16;
+      font-size: 1.95rem;
+      padding: 1.5rem 3rem;
+
+      &:hover {
+        background: mix(#F30C16, $white, 80%);
+      }
+    }
+    &.harvest {
+      background: #F36C00;
+
+      &:hover {
+        background: mix(#F36C00, $white, 80%);
+      }
+    }
+  }
+
+  &.harvest-login {
+    background: #F36C00;
+
+    &:hover {
+      background: mix(#F36C00, $white, 80%);
+    }
+
+    img {
+      max-height: 1rem;
+      margin: 0 0 -3px 8px;
+    }
+  }
+
   &.btn-primary {
     background: $primary;
 
@@ -36,6 +72,14 @@
 
       &:hover {
         @include buttonColor('blue', $primary-dark);
+      }
+    }
+
+    &.import-harvest {
+      padding: 0.75em 1.75em;
+      img {
+        max-height: 1rem;
+        margin: 0 0 -3px 8px;
       }
     }
   }
@@ -55,6 +99,18 @@
     }
   }
 
+  &.btn-small {
+    font-size: 0.8em;
+    margin: 0;
+    background-color: $dark !important;
+    min-width: 0;
+    padding: 0.4em 1em;
+
+    &:hover, &:focus {
+      background-color: $black !important;;
+    }
+  }
+
   &.spin-button {
     border: none;
     border-radius: $border-radius;
@@ -69,6 +125,10 @@
     &.in-flight {
       border-radius: 4px !important;
       width: auto !important;
+    }
+
+    &.btn-small {
+      @extend .btn-small;
     }
   }
 

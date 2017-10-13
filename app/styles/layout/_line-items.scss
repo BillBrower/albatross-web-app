@@ -4,7 +4,7 @@
 
 $status-icon-width: 10%;
 $description-width: 50%;
-$estimated-width: calc((98% - (#{$description-width} + #{$status-icon-width})) / 2);
+$estimated-width: calc((99% - (#{$description-width} + #{$status-icon-width})) / 2.5);
 $actual-width: $estimated-width;
 $items-min-width: 30em;
 
@@ -129,9 +129,31 @@ $items-min-width: 30em;
       }
     }
 
+    .icon--trash {
+      cursor: pointer;
+      float: right;
+      transform: translateY(30%);
+    }
+
     &.empty {
       max-height: initial;
       text-align: center;
+    }
+
+    .is-deleting {
+
+      #{$all-buttons} {
+        font-size: 0.8em;
+        margin: 0;
+        padding: 0.4em 1em;
+
+        &.btn-small {
+
+          &:hover {
+            background-color: $red !important;
+          }
+        }
+      }
     }
   }
 

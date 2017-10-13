@@ -40,16 +40,12 @@ module.exports = function(environment) {
   }
 
   if (environment === 'development') {
-    ENV.host = 'http://localhost:8000'
+    ENV.host = 'https://app.getalbatross.com'
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-
-    ENV.stripe = {
-      publishableKey: 'pk_test_xBKNwc9sDb5owErq1QkZa5I3'
-    };
   }
 
   if (environment === 'test') {
@@ -64,7 +60,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.host = 'https://getalbatross.com'
+    ENV.host = 'https://app.getalbatross.com'
   }
 
   ENV['segment'] = {

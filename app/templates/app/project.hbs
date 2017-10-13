@@ -36,11 +36,20 @@
         maxlength=40
         placeholder='Name your project...'}}
       <div class="hidden-sm">
-
-        {{#spin-button action=(action 'toggleIsShowingTogglModal') class="btn-primary pull-right"
-                       buttonStyle="contract"}}
-          Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
-        {{/spin-button}}
+        <div class="icon--trash" {{action "toggleIsDeleting"}}></div>
+        {{#if togglIntegration}}
+          {{#spin-button action=(action 'importHours') class="btn-primary pull-right"
+                         buttonStyle="contract"}}
+            Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
+          {{/spin-button}}
+        {{else if harvestIntegration}}
+          {{#spin-button action=(action 'importHours') class="btn-primary pull-right import-harvest"
+                         buttonStyle="contract"}}
+            Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
+          {{/spin-button}}
+        {{else}}
+          <button class="btn-primary pull-right" {{action 'toggleIsShowingImportModal'}}>Import hours automatically</button>
+        {{/if}}
       </div>
     </div>
 
@@ -56,10 +65,19 @@
             saveValue=(action "onBufferChanged")
             value=model.buffer}}
         </div>
-          {{#spin-button action=(action 'toggleIsShowingTogglModal') class="btn-primary shown-sm pull-right "
+        {{#if togglIntegration}}
+          {{#spin-button action=(action 'toggleIsShowingImportModal') class="btn-primary shown-sm pull-right"
                          buttonStyle="contract"}}
             Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
           {{/spin-button}}
+        {{else if harvestIntegration}}
+          {{#spin-button action=(action 'toggleIsShowingImportModal') class="btn-primary shown-sm pull-right"
+                         buttonStyle="contract"}}
+            Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
+          {{/spin-button}}
+        {{else}}
+          <button class="btn-primary shown-sm pull-right" {{action 'toggleIsShowingImportModal'}}>Import hours</button>
+        {{/if}}
       </div>
 
       <div class="progress-wrapper {{if isEmpty "empty"}}">
@@ -93,6 +111,7 @@
           {{category-card model=category
                           onAddNewItem=(action "addNewItem")
                           onCancelSaveCategoryName=(action "cancelSaveName")
+                          onDeleteItem=(action 'deleteItem')
                           onSaveCategoryName=(action "saveCategoryName")
                           onSaveDescription=(action "saveDescription")
                           onSaveEstimated=(action "saveEstimated")
@@ -117,10 +136,17 @@
 </div>
 {{/if}}
 
-{{#if isShowingTogglModal}}
-  {{toggl-modal
-    close=(action 'toggleIsShowingTogglModal')
+{{#if isShowingImportModal}}
+  {{import-modal
+    model=model
+    close=(action 'toggleIsShowingImportModal')
     onImport=(action 'updateTogglToken')}}
+{{/if}}
+
+{{#if isDeleting}}
+  {{delete-project-modal
+    close=(action 'toggleIsDeleting')
+    onDeleteProject=(action 'deleteProject')}}
 {{/if}}
 
 {{notification-container position="top-right"}}
