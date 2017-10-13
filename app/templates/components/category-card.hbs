@@ -1,15 +1,31 @@
  <div class="card category">
-    <div class="name">
-      {{transforming-text-input
-        data-title="Click to edit"
-        big=true
-        name='categoryName'
-        type='text'
-        onCancel=(action onCancelSaveCategoryName model)
-        onSave=(action onSaveCategoryName model)
-        value=model.name
-        placeholder='Name the category...'}}
-    </div>
+   <div class="header">
+     {{#if isDeleting}}
+        <div class="is-deleting">
+          <div class="name">
+            <span>Delete <strong>{{model.name}}</strong>?</span>
+            <p class="small">This will delete this category and all items in this category</p>
+          </div>
+          <div class="button-group">
+            <button class="cancel pull-right" {{action "toggleIsDeleting"}}>Cancel</button>
+            {{#spin-button class="btn-small pull-right" action=(action onDeleteItem model)}}Yes, delete{{/spin-button}}
+          </div>
+        </div>
+     {{else}}
+       <div class="name">
+         {{transforming-text-input
+           data-title="Click to edit"
+           big=true
+           name='categoryName'
+           type='text'
+           onCancel=(action onCancelSaveCategoryName model)
+           onSave=(action onSaveCategoryName model)
+           value=model.name
+           placeholder='Name the category...'}}
+       </div>
+       <div class="icon--trash" {{action "toggleIsDeleting"}}></div>
+     {{/if}}
+   </div>
 
     <div class="summary category">
       <div class="progress-wrapper category {{if isEmpty "empty"}}">
@@ -49,6 +65,7 @@
       {{/if}}
       {{#each sortedItems as |item|}}
         {{line-item-row model=item
+                        onDeleteItem=(action onDeleteItem)
                         onSaveDescription=(action onSaveDescription)
                         onSaveEstimated=(action onSaveEstimated)
                         onSaveActual=(action onSaveActual)}}

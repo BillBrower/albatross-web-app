@@ -7,8 +7,39 @@ $padding-width: $padding-mid;
 .category {
   padding: 0;
 
-  .name {
+  .header {
     padding: $padding $padding-mid 0;
+
+    .transforming-text-input {
+      max-width: 90%;
+    }
+
+    .icon--trash {
+      cursor: pointer;
+      float: right;
+    }
+
+    .is-deleting {
+      padding: 0 0 $padding 0;
+
+      .name {
+        display: inline-block;
+        width: calc(98% - 12rem);
+      }
+      .button-group {
+        width: 12rem;
+        height: auto;
+        float: right;
+        overflow: hidden;
+        display: inline-block;
+
+        #{$all-buttons} {
+          font-size: 0.8em;
+          margin: 0;
+          padding: 0.4em 1em;
+        }
+      }
+    }
   }
 
   .progress-wrapper {

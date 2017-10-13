@@ -18,7 +18,7 @@
         maxlength=40
         placeholder='Name your project...'}}
       <div class="hidden-sm">
-
+        <div class="icon--trash" {{action "toggleIsDeleting"}}></div>
         {{#if togglIntegration}}
           {{#spin-button action=(action 'importHours') class="btn-primary pull-right"
                          buttonStyle="contract"}}
@@ -93,6 +93,7 @@
           {{category-card model=category
                           onAddNewItem=(action "addNewItem")
                           onCancelSaveCategoryName=(action "cancelSaveName")
+                          onDeleteItem=(action 'deleteItem')
                           onSaveCategoryName=(action "saveCategoryName")
                           onSaveDescription=(action "saveDescription")
                           onSaveEstimated=(action "saveEstimated")
@@ -121,6 +122,12 @@
     model=model
     close=(action 'toggleIsShowingImportModal')
     onImport=(action 'updateTogglToken')}}
+{{/if}}
+
+{{#if isDeleting}}
+  {{delete-project-modal
+    close=(action 'toggleIsDeleting')
+    onDeleteProject=(action 'deleteProject')}}
 {{/if}}
 
 {{notification-container position="top-right"}}

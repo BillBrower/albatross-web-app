@@ -49,4 +49,16 @@
     height: 2.6em;
     width: 2em;
   }
+
+  &--trash {
+    @extend .icon;
+    background-image: url('/img/icons/trash-icon.svg');
+    height: 1em;
+    opacity: 0.25;
+    width: 1em;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 }

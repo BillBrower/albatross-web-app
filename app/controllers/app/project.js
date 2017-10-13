@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Params from '../../constants/params';
+import Errors from '../../constants/errors';
 import ENV from 'albatross-web-app/config/environment';
 
 const {inject: {service}} = Ember;
@@ -8,6 +9,7 @@ const {inject: {service}} = Ember;
 export default Ember.Controller.extend({
 
   currentUser: Ember.inject.service('current-user'),
+  isDeleting: false,
   isEmpty: Ember.computed('model.actual', 'model.estimated', function () {
     return this.get('model.actual') === 0 && this.get('model.estimated') === 0;
   }),
@@ -231,6 +233,54 @@ export default Ember.Controller.extend({
         itemEstimated: item.get('estimated'),
         itemActual: item.get('actual')
       });
+    },
+    deleteItem(item) {
+      item.destroyRecord().then((response) => {
+        this.get('notifications').success("Item deleted!", {
+          cssClasses: 'notification',
+          autoClear: true,
+        });
+        this.get('segment').trackEvent('Deleted an item', { itemId: this.get('model.id'), itemName: this.get('model.description') });
+      }).catch((response) => {
+        this.get('notifications').error("Error deleting item. Try again in a second.", {
+          cssClasses: 'notification',
+          autoClear: true,
+        });
+      });
+    },
+    deleteCategroy(category) {
+      category.destroyRecord().then((response) => {
+        this.get('notifications').success("Category deleted!", {
+          cssClasses: 'notification',
+          autoClear: true,
+        });
+        this.get('segment').trackEvent('Deleted an item', { itemId: this.get('model.id'), itemName: this.get('model.name') });
+      }).catch((response) => {
+        this.get('notifications').error("Error deleting category. Try again in a second.", {
+          cssClasses: 'notification',
+          autoClear: true,
+        });
+      });
+    },
+    deleteProject() {
+      var model = this.get('model');
+      model.destroyRecord().then((response) => {
+        this.get('segment').trackEvent('Deleted a project', { itemId: this.get('model.id'), itemName: this.get('model.name') });
+        this.transitionToRoute('app');
+      }).catch((response) => {
+        this.get('notifications').error("Error deleting project. Try again in a second.", {
+          cssClasses: 'notification',
+          autoClear: true,
+        });
+      });
+    },
+    toggleIsDeleting() {
+      this.toggleProperty('isDeleting');
+    },
+    toggleIsShowingTogglModal() {
+      if (this.get('isShowingTogglModal')) {
+        this.set('isShowingTogglModal', false);
+      }
     },
     toggleIsShowingImportModal() {
       if (this.get('isShowingImportModal')) {

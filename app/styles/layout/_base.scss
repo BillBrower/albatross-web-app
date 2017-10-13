@@ -35,7 +35,14 @@
   }
 
   .transforming-text-input {
-    width: calc(100% - 250px);
+    width: calc(100% - (250px + 5rem));
+  }
+
+  .icon--trash {
+    cursor: pointer;
+    height: 2.75rem;
+    float: right;
+    margin: 0 0 0 2rem;
   }
 }
 

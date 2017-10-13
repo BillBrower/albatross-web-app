@@ -1,34 +1,43 @@
 <div class="item">
   <!--TODO: Replace "1" with model.id-->
-  <div class="description">
-    {{live-updating-text-input class='toggle-input'
-                               name='description'
-                               type='text'
-                               placeholder='Enter item description...'
-                               value=model.description
-                               saveValue=(action onSaveDescription model)}}
-  </div>
-  <div class="estimated">
-    {{live-updating-text-input class='toggle-input small'
-                               name='estimated'
-                               type='number'
-                               min=0
-                               placeholder=0
-                               value=model.estimated
-                               saveValue=(action onSaveEstimated model)}}
+  {{#if isDeleting}}
+    <div class="is-deleting">
+      <span>Delete <strong>{{model.description}}</strong>?</span>
+      <button class="cancel pull-right" {{action "toggleIsDeleting"}}>Cancel</button>
+      {{#spin-button class="btn-small pull-right" action=(action onDeleteItem model)}}Yes, delete{{/spin-button}}
     </div>
-  <div class="actual">
-    {{live-updating-text-input class='toggle-input small'
-                               name='actual'
-                               type='number'
-                               min=0
-                               placeholder=0
-                               value=model.actual
-                               saveValue=(action onSaveActual model)}}
-  </div>
-  {{hours-remaining
-    actual=model.actual
-    estimated=model.estimated
-    icon=true
-    class='status-wrapper'}}
+  {{else}}
+    <div class="description">
+      {{live-updating-text-input class='toggle-input'
+                                 name='description'
+                                 type='text'
+                                 placeholder='Enter item description...'
+                                 value=model.description
+                                 saveValue=(action onSaveDescription model)}}
+    </div>
+    <div class="estimated">
+      {{live-updating-text-input class='toggle-input small'
+                                 name='estimated'
+                                 type='number'
+                                 min=0
+                                 placeholder=0
+                                 value=model.estimated
+                                 saveValue=(action onSaveEstimated model)}}
+    </div>
+    <div class="actual">
+      {{live-updating-text-input class='toggle-input small'
+                                 name='actual'
+                                 type='number'
+                                 min=0
+                                 placeholder=0
+                                 value=model.actual
+                                 saveValue=(action onSaveActual model)}}
+    </div>
+    {{hours-remaining
+      actual=model.actual
+      estimated=model.estimated
+      icon=true
+      class='status-wrapper'}}
+    <div class="icon--trash" {{action 'toggleIsDeleting'}}></div>
+  {{/if}}
 </div>
