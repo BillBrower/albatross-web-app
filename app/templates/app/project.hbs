@@ -20,12 +20,12 @@
       <div class="hidden-sm">
 
         {{#if togglIntegration}}
-          {{#spin-button action=(action 'toggleIsShowingImportModal') class="btn-primary pull-right"
+          {{#spin-button action=(action 'importHours') class="btn-primary pull-right"
                          buttonStyle="contract"}}
             Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
           {{/spin-button}}
         {{else if harvestIntegration}}
-          {{#spin-button action=(action 'toggleIsShowingImportModal') class="btn-primary pull-right import-harvest"
+          {{#spin-button action=(action 'importHours') class="btn-primary pull-right import-harvest"
                          buttonStyle="contract"}}
             Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
           {{/spin-button}}

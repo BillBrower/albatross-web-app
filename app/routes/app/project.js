@@ -10,6 +10,9 @@ export default Ember.Route.extend({
 
   setupController(transition) {
     this._super(...arguments);
-    //transition.send('getHarvestTokens', Params.getParameterByName('code', window.location.href));
+    let code = Params.getParameterByName('code', window.location.href);
+    if (code) {
+      transition.send('getHarvestTokens', code);
+    }
   }
 });
