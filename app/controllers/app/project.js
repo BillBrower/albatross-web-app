@@ -157,6 +157,20 @@ export default Ember.Controller.extend({
       this.saveItem(item);
       this.get('segment').trackEvent('Updated an item estimated', { projectId: this.get('model.id'), categoryID: item.get('category.id'), itemID: item.get('id'), itemDescription: item.get('description'), itemEstimated: item.get('estimated'), itemActual: item.get('actual')});
     },
+    deleteItem(item) {
+      item.destroyRecord().then((response) => {
+        this.get('notifications').success("Item deleted!", {
+          cssClasses: 'notification',
+          autoClear: true,
+        });
+        this.get('segment').trackEvent('Deleted an item', { itemId: this.get('model.id'), itemName: this.get('model.name') });
+      }).catch((response) => {
+        this.get('notifications').error("Error deleting item. Try again in a second.", {
+          cssClasses: 'notification',
+          autoClear: true,
+        });
+      });
+    },
     toggleIsShowingTogglModal() {
       if (this.get('isShowingTogglModal')) {
         this.set('isShowingTogglModal', false);

@@ -49,6 +49,7 @@
       {{/if}}
       {{#each sortedItems as |item|}}
         {{line-item-row model=item
+                        onDeleteItem=(action onDeleteItem)
                         onSaveDescription=(action onSaveDescription)
                         onSaveEstimated=(action onSaveEstimated)
                         onSaveActual=(action onSaveActual)}}
