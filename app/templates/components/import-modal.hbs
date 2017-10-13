@@ -1,0 +1,120 @@
+<div class="modal-wrapper">
+  <div class="modal-bg" {{action 'close'}}></div>
+  <div class="modal-card">
+    <div class="row">
+      <div class="col-xs-12">
+        <button class="cancel" {{action 'close'}}>Cancel</button>
+      </div>
+    </div>
+
+    <div class="row center-xs">
+      <div class="col-xs-12">
+        <h1>
+        {{#if isImportingToggl}}
+          Add your Toggl API Token
+        {{else if isImportingHarvest}}
+          Sign in to your Harvest account
+        {{else}}
+          Where do you want to import from?
+        {{/if}}
+        </h1>
+      </div>
+      <div class="col-xs-10 col-sm-8">
+        <p class="small">
+        {{#if isImportingToggl}}
+          Before we can pull your data from Toggl, you’ll need to enter your Toggle API key. It can be found by going to <a href="https://toggl.com/app/profile" target="_blank">your profile in Toggl</a> and scrolling to the bottom.
+        {{else if isImportingHarvest}}
+          To pull your hours automagically from Harvest, you’ll need to login to Harvest. You’ll only have to do this once and then we’ll be able to pull any project from Harvest anytime. You’ll be directed to the Harvest login screen and then back here.
+        {{else}}
+          You can choose to import your hours from either Toggl or Harvest. If you use a different time tracking tool and want to import from that, let us know or see if it’s on our roadmap.
+        {{/if}}
+        </p>
+      </div>
+    </div>
+
+    <section>
+
+    </section>
+    {{#if isImportingToggl}}
+      <div class="row center-xs">
+        <div class="col-xs-8 col-sm-6">
+          {{validated-text-input
+            name='togglApiToken'
+            type='text'
+            placeholder='Toggl API Token'
+            value=togglApiToken
+            error=validations.attrs.togglApiToken.message
+            showError=showError}}
+
+          <section>
+            {{#spin-button class="btn-primary" action=(action 'importButtonPressed') buttonStyle="contract"}}Import Hours{{/spin-button}}
+          </section>
+        </div>
+      </div>
+
+      <section>
+        <div class="row center-xs">
+          <div class="col-xs-12">
+            <h2>Where to find your Toggl API Token</h2>
+          </div>
+        </div>
+      </section>
+      <section class="screens">
+        <div class="row around-xs">
+          <div class="col-xs-8 col-sm-5">
+            <img src="/img/toggl-screens/toggl-profile-settings.png" alt="Toggl Profile Settings" />
+            <p class="small shown-xs"><strong>1.</strong> With Toggl open, go to your profile by clicking on your name at the bottom of the sidebar and selecting “Profile Settings.”</p>
+          </div>
+
+          <div class="col-xs-8 col-sm-5">
+            <img src="/img/toggl-screens/toggl-api-token.png" alt="Toggl API Token" />
+            <p class="small shown-xs"><strong>2.</strong> Scroll all the way to the bottom of your Profile Settings to the API Token section. Copy the token from there and paste it in the field above. That’s all!</p>
+          </div>
+        </div>
+
+        <div class="row around-xs hidden-xs">
+          <div class="col-xs-8 col-sm-5">
+            <p class="small"><strong>1.</strong> With Toggl open, go to your profile by clicking on your name at the bottom of the sidebar and selecting “Profile Settings.”</p>
+          </div>
+
+          <div class="col-xs-8 col-sm-5">
+            <p class="small"><strong>2.</strong> Scroll all the way to the bottom of your Profile Settings to the API Token section. Copy the token from there and paste it in the field above. That’s all!</p>
+          </div>
+        </div>
+      </section>
+    {{else if isImportingHarvest}}
+      <section>
+        <div class="row center-xs">
+          <button class="harvest-login" {{action "loginToHarvest"}}>Login to <img src="/img/harvest-logo-white.png" alt="Harvest"/></button>
+        </div>
+      </section>
+      <section>
+        <div class="row center-xs">
+          <div class="col-xs-12 col-sm-8">
+            <p class="small">You'll be briefly redirected to Harvest's website to login there. Don't worry, though, we'll bring you right back here safe and sound.</p>
+          </div>
+        </div>
+      </section>
+    {{else}}
+      <section>
+        <div class="row center-xs">
+          <div class="col-xs-12 col-sm-5">
+            <button class="btn-import toggl" {{action 'choseToggl'}}><img src="/img/toggl-logo-white.png" alt="Toggl"/></button>
+          </div>
+          <div class="col-xs-12 col-sm-5">
+            <button class="btn-import harvest" {{action 'choseHarvest'}}><img src="/img/harvest-logo-white.png" alt="Harvest"/></button>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="row center-xs">
+          <div class="col-xs-12 col-sm-8">
+            <p class="small">Don't see the time tracker you're looking for? Let us know or check out our roadmap to see if it's in the works.</p>
+          </div>
+        </div>
+      </section>
+    {{/if}}
+
+    {{yield}}
+  </div>
+</div>
