@@ -13,7 +13,14 @@ export default Ember.Component.extend({
       }
     }
   }),
+  isDeleting: false,
   sortedItems: Ember.computed.sort('model.items', 'sortDefinition'),
   sortDefinition: ['createdAt'],
-  tagName:''
+  tagName:'',
+
+  actions: {
+    toggleIsDeleting() {
+      this.toggleProperty('isDeleting');
+    }
+  }
 });

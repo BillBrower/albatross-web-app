@@ -163,9 +163,23 @@ export default Ember.Controller.extend({
           cssClasses: 'notification',
           autoClear: true,
         });
-        this.get('segment').trackEvent('Deleted an item', { itemId: this.get('model.id'), itemName: this.get('model.name') });
+        this.get('segment').trackEvent('Deleted an item', { itemId: this.get('model.id'), itemName: this.get('model.description') });
       }).catch((response) => {
         this.get('notifications').error("Error deleting item. Try again in a second.", {
+          cssClasses: 'notification',
+          autoClear: true,
+        });
+      });
+    },
+    deleteCategroy(category) {
+      category.destroyRecord().then((response) => {
+        this.get('notifications').success("Categor deleted!", {
+          cssClasses: 'notification',
+          autoClear: true,
+        });
+        this.get('segment').trackEvent('Deleted an item', { itemId: this.get('model.id'), itemName: this.get('model.name') });
+      }).catch((response) => {
+        this.get('notifications').error("Error deleting category. Try again in a second.", {
           cssClasses: 'notification',
           autoClear: true,
         });
