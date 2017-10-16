@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import {buildValidations, validator} from "ember-cp-validations";
 import Errors from '../../constants/errors';
+import Permissions from '../../constants/permissions';
 import ENV from 'albatross-web-app/config/environment';
 const { inject: { service } } = Ember;
 
@@ -21,6 +22,7 @@ const Validations = buildValidations({
 
 export default Ember.Controller.extend(Validations, {
 
+  currentUser: service('current-user'),
   emailAddress: null,
   notifications: Ember.inject.service('notification-messages'),
   segment: Ember.inject.service(),
@@ -30,9 +32,24 @@ export default Ember.Controller.extend(Validations, {
   sortInvitationDefinition: ['email'],
   sortUserDefinition: ['dateJoined:desc'],
 
-  init() {
-    //console.log(this.get('model'));
-  },
+  canAddUsers: Ember.computed('sortedProjects', 'currentUser', function() {
+    var limit = this.get('currentUser.maxProjects');
+    var users = this.get('sortedUsers.length');
+
+    if (typeof this.get('currentUser.onTrial') !== "undefined") {
+
+      if (this.get('currentUser.onTrial')) {
+        return true;
+      } else {
+        if (limit === 'unlimited') {
+          return true;
+        } else {
+          return users < limit;
+        }
+      }
+    }
+
+  }),
 
   actions: {
     inviteButtonPressed() {

@@ -1,3 +1,21 @@
+{{#if currentUser.needsToUpgrade}}
+  <div class="header">
+    <div class="row center-xs">
+      <div class="col-xs-10 col-sm-8">
+        <h2>It's time to upgrade 🚀</h2>
+        {{#if currentUser.isOwner}}
+          <p>Looks like you have more {{if currentUser.pastLimit currentUser.pastLimit 'projects or users'}} than your plan allows. Don't worry, upgrading is easy! Just choose a plan and you'll be back to using Albatross in no time.</p>
+          <section>
+            {{#link-to 'app.upgrade'}}<button class="btn-primary">Choose a plan</button>{{/link-to}}
+          </section>
+        {{else}}
+          <p>Looks like you have more {{if currentUser.pastLimit currentUser.pastLimit 'projects or users'}} than your plan allows. Don't worry, upgrading is easy! Talk to your team owner about upgrading your plan and you'll be back to using Albatross in no time.</p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+{{else}}
+
 <div class="row">
   <div class="hidden-xs col-sm-1">
     <div class="header">
@@ -116,6 +134,7 @@
     </div>
   </div>
 </div>
+{{/if}}
 
 {{#if isShowingImportModal}}
   {{import-modal

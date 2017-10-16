@@ -36,16 +36,24 @@ module.exports = function(environment) {
   };
 
   if (environment === 'local') {
-    ENV.host = 'http://127.0.0.1:8000'
+    ENV.host = 'http://127.0.0.1:8000';
+
+    ENV.stripe = {
+      publishableKey: 'pk_test_xBKNwc9sDb5owErq1QkZa5I3'
+    };
   }
 
   if (environment === 'development') {
-    ENV.host = 'https://app.getalbatross.com'
+    ENV.host = 'https://app.getalbatross.com';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+
+    ENV.stripe = {
+      publishableKey: 'pk_test_xBKNwc9sDb5owErq1QkZa5I3'
+    };
   }
 
   if (environment === 'test') {
@@ -57,10 +65,18 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+
+    ENV.stripe = {
+      publishableKey: 'pk_test_xBKNwc9sDb5owErq1QkZa5I3'
+    };
   }
 
   if (environment === 'production') {
-    ENV.host = 'https://app.getalbatross.com'
+    ENV.host = 'https://app.getalbatross.com';
+
+    ENV.stripe = {
+      publishableKey: 'pk_live_87oq6twA9gogA0U1aihJCxc3'
+    };
   }
 
   ENV['segment'] = {

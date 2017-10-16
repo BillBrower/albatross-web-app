@@ -21,6 +21,49 @@ export default Ember.Controller.extend({
     }
   }),
 
+  onTrial: true,
+
+  needsToUpgrade: Ember.computed('currentUser', 'onTrial', 'numberOfUsers', 'numberOfProjects', function () {
+    var onTrial = this.get('onTrial');
+    var projects = this.get('numberOfProjects');
+    var users = this.get('numberOfUsers');
+    var plan = 0;
+
+    if (onTrial) {  // Free Trial
+      return false;
+    } else if (projects < 2 && users < 2) {  // No need for trial or plan if only 1 user and project
+      return false;
+    } else if (plan > 1){ // Highest plan, unlimited everything
+      return false;
+    } else if (plan === 1) { // Middle plan, limited users
+      if (users < 6) {
+        return false;
+      } else {
+        return true;
+      }
+    } else if (plan < 1) {
+      if (users > 1 || projects > 1) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }),
+
+  pastLimit: Ember.computed('numberOfUsers', 'numberOfUsers', function() {
+    var projects = this.get('numberOfProjects');
+    var users = this.get('numberOfUsers');
+    var plan = 0;
+
+    if (plan === 1 && users > 5) {
+      return users + " users, but your current plan only supports up to 5"
+    } else if(plan < 1) {
+      return "more than the 1 project and 1 user that the free tier supports"
+    } else {
+      return "more projects or users than your current plan supports";
+    }
+  }),
+
   init() {
     this._super(...arguments);
 
@@ -33,7 +76,18 @@ export default Ember.Controller.extend({
           });
         }
       });
+    } else {
+      window.location.reload(true);
     }
+
+    this.get('currentUser').load();
+
+    this.get('store').findAll('project').then((loadedProjects) => {
+      this.set('numberOfProjects', loadedProjects.get('length'));
+    });
+    this.get('store').findAll('user').then((loadedUsers) => {
+      this.set('numberOfUsers', loadedUsers.get('length'));
+    });
   },
 
   actions: {

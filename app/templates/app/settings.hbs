@@ -80,6 +80,106 @@
       </section>
 
     </div>
+
+    {{#if currentUser.isOwner}}
+
+      {{#if plan}}
+        <div class="card">
+          <h1>Billing</h1>
+          <section>
+            {{#if isCancellingPlan}}
+              <h2>Are you sure you want to cancel?</h2>
+              <p>We'd hate to see you go. If there's anything we can do, whether it's adding more emoji or features, please let us know. If you really want to break our hearts, click to big red button.</p>
+              <button class="btn-primary" {{action "cancelPlan"}}>Yes, cancel my plan</button>
+              <button class="cancel" {{action "toggleIsCancellingPlan"}}>Nevermind</button>
+            {{else}}
+            <label>Current Plan</label>
+            <h2>{{planLabel}}</h2>
+            <p class="small">{{planAmount}} billed {{planBillingCycle}} | {{planDescription}}</p>
+            {{#if isChangingPlan}}
+              <section>
+                <div class="row center-xs">
+                  <div class="col-xs-12 col-sm-6">
+                    <div class="card payment-plan full-width">
+                      <h2>Freelancer 🤓</h2>
+                      <p class="light">Unlimited projects, up to 5 users</p>
+                      <div class="options">
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-monthly" price="$10/month" text="Cancel anytime" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-annual" price="$100/year" text="Save 16%" selectedPlan=selectedPlan}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <div class="card payment-plan full-width">
+                      <h2>Agency 🤓🤓🤓</h2>
+                      <p class="light">Unlimited everything</p>
+                      <div class="options">
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-monthly" price="$25/month" text="Cancel anytime" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-annual" price="$250/year" text="Save 16%" selectedPlan=selectedPlan}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {{#spin-button action=(action 'updatePlan') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
+                <button class="cancel" {{action "toggleIsChangingPlan"}}>Cancel</button>
+              </section>
+            {{else}}
+              <button class="btn-small" {{action "toggleIsChangingPlan"}}>Change plan</button>
+              <button class="cancel" {{action "toggleIsCancellingPlan"}}>Cancel plan</button>
+            {{/if}}
+            {{/if}}
+          </section>
+          <section>
+            <label>Payment Method</label>
+            <p>{{currentCard.card_kind}}</p>
+            <p class="small">*** *** *** {{currentCard.card_last_4}}</p>
+            {{#unless isChangingCard}}
+              <button class="btn-small" {{action "toggleIsChangingCard"}}>Change card</button>
+            {{/unless}}
+          </section>
+          {{#if isChangingCard}}
+            <section>
+              <h2>Change Credit Card</h2>
+              <p class="small">Your updated card will be for the next upcoming charge</p>
+              {{#credit-card form="#payment-form"}}
+                <div class="payment-form-wrapper">
+                  <form id='payment-form' class='payment-info'>
+                    <div class="ui input">
+                      <label>Credit Card Number</label>
+                      {{input type="text" value=creditCard.number name='number' placeholder='Credit Card Number'}}
+                    </div>
+
+                    <div class="ui input">
+                      <label>Name on Credit Card</label>
+                      {{input type="text" value=creditCard.name name='name' placeholder='Name on Credit Card'}}
+                    </div>
+
+                    <div class="ui input exp">
+                      <label>Expiration</label>
+                      {{input type="text" name='expiry' value=expDate placeholder='MM/YY'}}
+                    </div>
+
+                    <div class="ui input cvc">
+                      <label>CVC</label>
+                      {{input type="text" name='cvc' value=creditCard.cvc placeholder='CVC'}}
+                    </div>
+                  </form>
+
+                  <div class="total">
+                    {{#spin-button action=(action 'updateCard') class="btn-primary" buttonStyle="contract"}}Save{{/spin-button}}
+                    <button class="cancel" {{action "toggleIsChangingCard"}}>Cancel</button>
+                  </div>
+                </div>
+              {{/credit-card}}
+            </section>
+            <section>
+              {{error-message errors=cardErrors}}
+            </section>
+          {{/if}}
+
+        </div>
+      {{/if}}
+    {{/if}}
   </div>
 </div>
 

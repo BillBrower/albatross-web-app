@@ -1,0 +1,65 @@
+// Payment Info
+// All styles for laying out the payment info/credit card form
+// -------------------------------------------------------------------
+
+.card-wrapper {
+  display: inline-block;
+  float: right;
+  padding: 3em 0;
+  width: calc(99% - 17em);
+}
+
+.payment-form-wrapper {
+  float: left;
+  text-align: center;
+  width: 17em;
+
+  .input {
+    text-align: left;
+  }
+
+  .exp {
+    display: inline-block;
+    width: 55%;
+  }
+
+  .cvc {
+    display: inline-block;
+    margin: 0 0 0 1em;
+    width: calc(98% - 55% - 1em);
+  }
+
+  .total {
+    border-top: $border;
+    margin: 1em 0 0;
+    padding: $padding 0;
+
+    span {
+      display: inline-block;
+      width: 49%;
+
+      &.label {
+        text-align: left;
+      }
+
+      &.amount {
+        text-align: right;
+        h1 {
+          font-size: 2.75em;
+          font-weight: $body-bold;
+        }
+      }
+    }
+
+  }
+
+  .btn-primary {
+    margin: 0 0 1em 0;
+    width: 100%;
+  }
+
+  .cancel {
+    margin: 0;
+    padding: 0;
+  }
+}

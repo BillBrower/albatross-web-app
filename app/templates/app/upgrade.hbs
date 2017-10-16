@@ -1,0 +1,108 @@
+{{#if currentUser.teamPlan}}
+  <div class="header">
+    <div class="row center-xs">
+      <div class="col-xs-12 col-sm-8">
+        <h1>You've already upgraded! 🚀</h1>
+        {{#if currentUser.isOwner}}
+          <p>Looking to manage your plan or payment options? Just scroll to the bottom of the {{#link-to 'app.settings'}}settings{{/link-to}} page.</p>
+        {{else}}
+          <p>Looks like your team owner already upgraded your team! Ask them about managing your plan or payment details in their settings page.</p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+{{else if currentUser.isOwner}}
+  <div class="header">
+    <div class="row center-xs">
+      <div class="col-xs-12 col-sm-8">
+        <h1>Upgrade 🚀</h1>
+        <p>Need a little more? Choose a plan and you’ll up your project estimate game in no time!</p>
+      </div>
+    </div>
+  </div>
+  <div class="row center-xs">
+    <div class="col-sm-5">
+      <div class="card payment-plan">
+        <h2>Freelancer 🤓</h2>
+        <p class="light">Unlimited projects, up to 5 users</p>
+        <div class="options">
+          {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-monthly" price="$10/month" text="Cancel anytime" selectedPlan=selectedPlan}}
+          {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-annual" price="$100/year" text="Save 16%" selectedPlan=selectedPlan}}
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <div class="card payment-plan">
+        <h2>Agency 🤓🤓🤓</h2>
+        <p class="light">Unlimited everything</p>
+        <div class="options">
+          {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-monthly" price="$25/month" text="Cancel anytime" selectedPlan=selectedPlan}}
+          {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-annual" price="$250/year" text="Save 16%" selectedPlan=selectedPlan}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row around-xs">
+    <div class="col-xs-12 col-sm-10">
+      <div class="card">
+        <h1>Billing Information 💳</h1>
+        <section>
+          {{#credit-card form="#payment-form"}}
+            <div class="payment-form-wrapper">
+              <form id='payment-form' class='payment-info'>
+                <div class="ui input">
+                  <label>Credit Card Number</label>
+                  {{input type="text" value=creditCard.number name='number' placeholder='Credit Card Number'}}
+                </div>
+
+                <div class="ui input">
+                  <label>Name on Credit Card</label>
+                  {{input type="text" value=creditCard.name name='name' placeholder='Name on Credit Card'}}
+                </div>
+
+                <div class="ui input exp">
+                  <label>Expiration</label>
+                  {{input type="text" name='expiry' value=expDate placeholder='MM/YY'}}
+                </div>
+
+                <div class="ui input cvc">
+                  <label>CVC</label>
+                  {{input type="text" name='cvc' value=creditCard.cvc placeholder='CVC'}}
+                </div>
+              </form>
+
+              <div class="total">
+                {{#if selectedPlan}}
+                  <span class="label">
+                  <p>{{selectedPlanName}}</p>
+                  <p class="small">billed {{selectedPlanCycle}}</p>
+                </span>
+                  <span class="amount">
+                  <h1>{{selectedPlanPrice}}</h1>
+                </span>
+                {{/if}}
+              </div>
+              {{#spin-button action=(action "upgrade") class="btn-primary" buttonStyle="contract"}}Updgrade your plan{{/spin-button}}
+              <p class="small">🔒 processed securely through Stripe</p>
+            </div>
+
+          {{/credit-card}}
+        </section>
+
+        <section>
+          {{error-message errors=cardErrors}}
+        </section>
+
+      </div>
+    </div>
+  </div>
+{{else}}
+  <div class="header">
+    <div class="row center-xs">
+      <div class="col-xs-12 col-sm-8">
+        <h1>Upgrade 🚀</h1>
+        <p>Need a little more? Talk to your team owner about upgrading your plan, starting at just $10/month.</p>
+      </div>
+    </div>
+  </div>
+{{/if}}
