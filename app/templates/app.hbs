@@ -7,6 +7,9 @@
       <ul class="nav-list">
         <li>{{#link-to 'app.projects'}}Projects{{/link-to}}</li>
         <li>{{#link-to 'app.users'}}Users{{/link-to}}</li>
+        {{#unless currentUser.teamPlan}}
+          <li>{{#link-to 'app.upgrade'}}Upgrade 🚀{{/link-to}}</li>
+        {{/unless}}
         <li><a class="user-name {{if isShowingMenu 'is-active'}}" {{action 'toggleIsShowingMenu'}}>{{currentUser.user.name}}<div class="icon--down"></div></a></li>
       </ul>
 
