@@ -7,6 +7,7 @@ export default Ember.Controller.extend({
 
   currentUser: Ember.inject.service('current-user'),
   stripe: Ember.inject.service(),
+  segment: Ember.inject.service(),
   session: Ember.inject.service('session'),
   store: service(),
   creditCard: [],
@@ -77,7 +78,11 @@ export default Ember.Controller.extend({
         exp_month: this.get('expDate').substring(0,2),
         exp_year: this.get('expDate').substring(5),
         cvc: this.get('creditCard.cvc')
-      }
+      };
+
+      this.get('segment').trackEvent('Upgraded plan', {
+        plan: plan
+      });
 
       this.set('cardErrors', []);
 
@@ -114,17 +119,25 @@ export default Ember.Controller.extend({
                 contentType: 'application/json',
                 dataType: 'json',
               }).then((response) => {
+                this.get('segment').trackEvent('Upgraded plan', {
+                  plan: plan
+                });
+                var path = window.location.href.split('/')[0];
+                window.location.href = path + '/app/projects';
                 resolve();
               }).catch(() => {
+                var path = window.location.href.split('/')[0];
+                window.location.href = path + '/app/projects';
                 reject();
               })
             });
           }).catch(() => {
+            var path = window.location.href.split('/')[0];
+            window.location.href = path + '/app/projects';
             reject();
           })
         });
       }).then(() => {
-        this.transitionToRoute('app.projects');
       }).catch((response) => {
         this.set('cardErrors', [response.error.message]);
       });

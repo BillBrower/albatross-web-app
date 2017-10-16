@@ -38,18 +38,20 @@ export default Ember.Controller.extend({
       this.set('onTrial', onTrial);
     }
   },
-  canAdd: Ember.computed('sortedProjects', 'currentUser', 'onTrial', function() {
+  canAdd: Ember.computed('sortedProjects', 'currentUser.onTrial', 'onTrial', function() {
     var limit = this.get('currentUser.maxProjects');
     var projects = this.get('sortedProjects.length');
     var onTrial = this.get('onTrial');
 
-    if (this.get('currentUser.onTrial')) {
-      return true;
-    } else {
-      if (limit === 'unlimited') {
+    if (typeof this.get('currentUser.onTrial') !== 'undefined') {
+      if (this.get('currentUser.onTrial')) {
         return true;
       } else {
-        return projects < limit;
+        if (limit === 'unlimited') {
+          return true;
+        } else {
+          return projects < limit;
+        }
       }
     }
 

@@ -233,6 +233,9 @@ export default Ember.Controller.extend({
           contentType: 'application/json',
           dataType: 'json',
         }).then((response) => {
+          this.get('segment').trackEvent('Updated plan', {
+            plan: plan
+          });
           window.location.reload(true);
         }).catch(() => {
         })
@@ -267,8 +270,9 @@ export default Ember.Controller.extend({
               autoClear: true,
             });
             _this.set('isChangingCard', false);
+
+            _this.get('segment').trackEvent('Updated card');
           }).catch((response) => {
-            console.log(response);
             reject();
           })
         });
@@ -290,6 +294,7 @@ export default Ember.Controller.extend({
           contentType: 'application/json',
           dataType: 'json',
         }).then((response) => {
+          _this.get('segment').trackEvent('Cancelled plan');
           window.location.reload(true);
         }).catch(() => {
         })

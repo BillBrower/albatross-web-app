@@ -36,7 +36,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'local') {
-    ENV.host = 'https://app.getalbatross.com';
+    ENV.host = 'http://127.0.0.1:8000';
 
     ENV.stripe = {
       publishableKey: 'pk_test_xBKNwc9sDb5owErq1QkZa5I3'
@@ -44,7 +44,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'development') {
-    ENV.host = 'https://app.getalbatross.com'
+    ENV.host = 'https://app.getalbatross.com';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
