@@ -38,7 +38,7 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
 
   _loadCurrentUser() {
     if (!this.get('currentUser')) {
-      this.get('session').invalidate();
+     return;
     }
     return this.get('currentUser').load().catch(() => {
         if (this.get('session.isAuthenticated')) {
