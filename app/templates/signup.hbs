@@ -73,12 +73,6 @@
                              showError=showError}}
       <p class="small text-left">Passwords must be at least 8 characters and contain at least 1 special character</p>
 
-      <section>
-        <p>Subscribe to our newsletter
-          {{input type="checkbox" name="wantsEmail" checked=wantsEmail}}</p>
-      </section>
-
-
       {{#unless code}}
         <section>
           <p class="small text-left">We'll start you out with our Agency plan free for 14 days. After that, you can upgrade or
@@ -88,6 +82,14 @@
 
       <section>
         {{#spin-button action=(action 'signupButtonPressed') class="btn-primary" buttonStyle="contract"}}Get Started!{{/spin-button}}
+      </section>
+
+      <section>
+        <label class="checkbox">
+          Receive emails about updates to Albatross and more
+          {{input type="checkbox" name="wantsEmail" checked=wantsEmail}}
+          <div class="indicator"></div>
+        </label>
       </section>
 
       <section>
