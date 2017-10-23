@@ -15,10 +15,13 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin,{
   },
 
   actions: {
-    signup(user, teamName, inviteCode, result) {
+    signup(user, teamName, inviteCode, wantsEmail, result) {
       const json = user.serialize();
       if (inviteCode) {
         json.data.attributes.code = inviteCode;
+      }
+      if (wantsEmail) {
+        json.data.attributes.subscribe_to_newsletter = true;
       }
       Ember.$.ajax({
         url: ENV.host + '/api/v1/registration/',

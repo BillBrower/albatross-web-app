@@ -48,6 +48,7 @@ const Validations = buildValidations({
 export default Ember.Controller.extend(Validations, {
 
   queryParams: ['code'],
+  wantsEmail: true,
 
   actions: {
     signupButtonPressed() {
@@ -76,7 +77,8 @@ export default Ember.Controller.extend(Validations, {
           password: password,
         });
         const inviteCode = this.get('code');
-        this.send('signup', user, teamName, inviteCode, result);
+        const wantsEmail = this.get('wantsEmail');
+        this.send('signup', user, teamName, inviteCode, wantsEmail, result);
         return result.promise;
       }
     }
