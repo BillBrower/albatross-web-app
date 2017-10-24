@@ -33,7 +33,7 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin,{
         contentType: 'application/vnd.api+json',
         dataType: 'json',
       }).then((res) => {
-          this.get('segment').identifyUser(res.id, res);
+          this.get('segment').identifyUser(res.data.id, res.data);
           this.get('session')
             .authenticate('authenticator:django-rest-authenticator', user.get('email'), user.get('password'))
             .then(() => {

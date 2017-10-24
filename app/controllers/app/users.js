@@ -49,6 +49,8 @@ export default Ember.Controller.extend(Validations, {
       }
     }
 
+    return true;
+
   }),
 
   actions: {
