@@ -22,14 +22,12 @@ export default Ember.Service.extend({
             contentType: 'application/vnd.api+json',
             dataType: 'json',
           }).then((response) => {
-            debugger;
             const id = response['data']['id'];
             this.get('store').pushPayload(response);
             const user = this.get('store').peekRecord('user', id);
             if (user) {
               user.get('membership').then((membership) => {
                 this.set('user', user);
-                debugger;
                 if (membership === null) {
                   this.set('isLoadingUser', false);
                   resolve();
