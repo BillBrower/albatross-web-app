@@ -50,7 +50,7 @@ export default Ember.Controller.extend({
     }
   }),
 
-  pastLimit: Ember.computed('numberOfUsers', 'numberOfUsers', function() {
+  pastLimit: Ember.computed('currentUser', 'numberOfUsers', 'numberOfUsers', function() {
     var projects = this.get('numberOfProjects');
     var users = this.get('numberOfUsers');
     var plan = 0;
@@ -72,6 +72,9 @@ export default Ember.Controller.extend({
       const team = this.get('currentUser.user').get('membership').then((membership) => {
         if (membership) {
           membership.get('team').then((team) => {
+            team.get('users').then((users) => {
+              this.set('numberOfUsers', users.get('length'));
+            });
             this.set('teamName', team.get('name'));
           });
         }
@@ -84,9 +87,6 @@ export default Ember.Controller.extend({
 
     this.get('store').findAll('project').then((loadedProjects) => {
       this.set('numberOfProjects', loadedProjects.get('length'));
-    });
-    this.get('store').findAll('user').then((loadedUsers) => {
-      this.set('numberOfUsers', loadedUsers.get('length'));
     });
   },
 

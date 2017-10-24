@@ -8,45 +8,71 @@ export default Ember.Service.extend({
   store: service(),
 
   load() {
-    if (this.get('session.isAuthenticated')) {
+    if (this.get('session.isAuthenticated') && !this.isLoadingUser) {
+     this.isLoadingUser = true;
       return new Ember.RSVP.Promise((resolve, reject) => {
-      this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
-        const headers = {};
-        headers[headerName] = headerValue;
-        headers['Accept'] = 'application/vnd.api+json';
-        Ember.$.ajax({
-          url: ENV.host + '/api/v1/users/',
-          type: 'GET',
-          headers: headers,
-          contentType: 'application/vnd.api+json',
-          dataType: 'json',
-        }).then((response) => {
-          const id = response['data']['id'];
-          this.get('store').pushPayload(response);
-          const user = this.get('store').peekRecord('user', id);
-          if (user) {
-            const teamId = user.get('membership.team.id');
-            const role = user.get('membership.role');
-            const team = this.get('store').findRecord('team', teamId).then((response) => {
-              this.set('onTrial', response.get('onTrial'));
-              this.set('teamName', response.get('name'));
-            });
+        this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+          const headers = {};
+          headers[headerName] = headerValue;
+          headers['Accept'] = 'application/vnd.api+json';
+          Ember.$.ajax({
+            url: ENV.host + '/api/v1/users/',
+            type: 'GET',
+            headers: headers,
+            contentType: 'application/vnd.api+json',
+            dataType: 'json',
+          }).then((response) => {
+            debugger;
+            const id = response['data']['id'];
+            this.get('store').pushPayload(response);
+            const user = this.get('store').peekRecord('user', id);
+            if (user) {
+              user.get('membership').then((membership) => {
+                this.set('user', user);
+                debugger;
+                if (membership === null) {
+                  this.set('isLoadingUser', false);
+                  resolve();
+                  return;
+                }
+                const teamId = membership.get('team.id');
+                const role = membership.get('role');
+                this.get('store').findRecord('team', teamId).then((response) => {
+                  this.set('onTrial', response.get('onTrial'));
+                  this.set('teamName', response.get('name'));
+                  this.set('isLoadingUser', false);
+                  resolve();
+                }).catch(() => {
+                  this.set('isLoadingUser', false);
+                  reject();
+                });
 
-            if (role === 'owner') {
-              this.set('isOwner', true);
+                if (role === 'owner') {
+                  this.set('isOwner', true);
+                } else {
+                  this.set('isOwner', false);
+                }
+
+              }).catch(() => {
+                debugger;
+                this.isLoadingUser = false;
+                reject();
+              });
             } else {
-              this.set('isOwner', false);
+              debugger;
+              this.isLoadingUser = false;
+              reject();
             }
-            this.set('user', user);
-          }
-          resolve();
-        }).catch(() => {
-          reject();
+          }).catch(() => {
+            debugger;
+            this.isLoadingUser = false;
+            reject();
+          });
         })
       });
-      });
     } else {
-      return Ember.RSVP.reject();
+      this.isLoadingUser = false;
+      return Ember.RSVP.resolve();
     }
   },
 
@@ -90,28 +116,41 @@ export default Ember.Service.extend({
 
   needsToUpgrade: Ember.computed('user', 'maxUsers', 'maxProjects', 'onTrial', function() {
     const projectsArray = this.get('store').peekAll('project');
-    const usersArray = this.get('store').peekAll('user');
-    const projects = projectsArray.get('length');
-    const users = usersArray.get('length');
-    const maxProjects = this.get('maxProjects');
-    const maxUsers = this.get('maxUsers');
-    const onTrial = this.get('onTrial');
+    if (this.get('user')) {
+      return this.get('user.membership').then((membership) => {
+        if (!membership) {
+          return false;
+        }
+        return membership.get('team.users').then((usersArray) => {
+          const projects = projectsArray.get('length');
+          const users = usersArray.get('length');
+          const maxProjects = this.get('maxProjects');
+          const maxUsers = this.get('maxUsers');
+          const onTrial = this.get('onTrial');
 
-    if (onTrial) {
-      return false;
-    } else if (maxProjects === 'unlimited' && maxUsers === 'unlimited') {
-      return false;
-    } else if (projects > maxProjects || users > maxUsers) {
+          if (onTrial === undefined) {
+            return false;
+          }
 
-      if (projects > maxProjects) {
-        this.set('pastLimit', 'projects');
-      } else {
-        this.set('pastLimit', 'users');
-      }
-      return true
-    } else {
-      return false
+          if (onTrial) {
+            return false;
+          } else if (maxProjects === 'unlimited' && maxUsers === 'unlimited') {
+            return false;
+          } else if (projects > maxProjects || users > maxUsers) {
+
+            if (projects > maxProjects) {
+              this.set('pastLimit', 'projects');
+            } else {
+              this.set('pastLimit', 'users');
+            }
+            return true
+          } else {
+            return false
+          }
+        })
+      })
     }
+
   }),
 
   logout() {

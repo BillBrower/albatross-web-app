@@ -41,7 +41,6 @@ export default Ember.Controller.extend({
   canAdd: Ember.computed('sortedProjects', 'currentUser.onTrial', 'onTrial', function() {
     var limit = this.get('currentUser.maxProjects');
     var projects = this.get('sortedProjects.length');
-    var onTrial = this.get('onTrial');
 
     if (typeof this.get('currentUser.onTrial') !== 'undefined') {
       if (this.get('currentUser.onTrial')) {
@@ -54,6 +53,8 @@ export default Ember.Controller.extend({
         }
       }
     }
+
+    return true;
 
   }),
   needsToUpgrade: Ember.computed('sortedProjects', 'currentUser', function () {
