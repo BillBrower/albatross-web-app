@@ -313,6 +313,7 @@ export default Ember.Controller.extend({
             }).then(() => {
               this.set('hasUpdatedToken', true);
               this.send('importHours', result);
+              this.set('togglIntegration', true);
               this.get('segment').trackEvent('Updated Toggl API key', {
                 projectId: this.get('model.id'),
                 projectName: this.get('model.name'),
@@ -352,6 +353,7 @@ export default Ember.Controller.extend({
             dataType: 'json',
           }).then(() => {
             this.set('hasUpdatedToken', true);
+            this.set('harvestIntegration', true);
             this.send('importHours');
             var path = window.location.href.split('?')[0];
             window.location.href = path;

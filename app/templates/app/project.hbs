@@ -66,12 +66,12 @@
             value=model.buffer}}
         </div>
         {{#if togglIntegration}}
-          {{#spin-button action=(action 'toggleIsShowingImportModal') class="btn-primary shown-sm pull-right"
+          {{#spin-button action=(action 'importHours') class="btn-primary shown-sm pull-right"
                          buttonStyle="contract"}}
             Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
           {{/spin-button}}
         {{else if harvestIntegration}}
-          {{#spin-button action=(action 'toggleIsShowingImportModal') class="btn-primary shown-sm pull-right"
+          {{#spin-button action=(action 'importHours') class="btn-primary shown-sm pull-right"
                          buttonStyle="contract"}}
             Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
           {{/spin-button}}
