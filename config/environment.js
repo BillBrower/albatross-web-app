@@ -41,6 +41,9 @@ module.exports = function(environment) {
     ENV.stripe = {
       publishableKey: 'pk_test_xBKNwc9sDb5owErq1QkZa5I3'
     };
+    ENV['segment'] = {
+      LOG_EVENT_TRACKING: false
+    };
   }
 
   if (environment === 'development') {
@@ -53,6 +56,9 @@ module.exports = function(environment) {
 
     ENV.stripe = {
       publishableKey: 'pk_test_xBKNwc9sDb5owErq1QkZa5I3'
+    };
+    ENV['segment'] = {
+      LOG_EVENT_TRACKING: false
     };
   }
 
@@ -69,6 +75,10 @@ module.exports = function(environment) {
     ENV.stripe = {
       publishableKey: 'pk_test_xBKNwc9sDb5owErq1QkZa5I3'
     };
+
+    ENV['segment'] = {
+      LOG_EVENT_TRACKING: false
+    };
   }
 
   if (environment === 'production') {
@@ -77,12 +87,14 @@ module.exports = function(environment) {
     ENV.stripe = {
       publishableKey: 'pk_live_87oq6twA9gogA0U1aihJCxc3'
     };
+
+    ENV['segment'] = {
+      WRITE_KEY: 'Zd2UrFYRkJXe5dd9MWp9nhB7dW1dTXUX',
+      LOG_EVENT_TRACKING: true
+    };
   }
 
-  ENV['segment'] = {
-    WRITE_KEY: 'Zd2UrFYRkJXe5dd9MWp9nhB7dW1dTXUX',
-    LOG_EVENT_TRACKING: true
-  };
+
 
   return ENV;
 };
