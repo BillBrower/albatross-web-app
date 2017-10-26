@@ -50,7 +50,7 @@ export default Ember.Controller.extend({
     }
   }),
 
-  pastLimit: Ember.computed('currentUser', 'numberOfUsers', 'numberOfUsers', function() {
+  pastLimit: Ember.computed('currentUser', 'numberOfProjects', 'numberOfUsers', function() {
     var projects = this.get('numberOfProjects');
     var users = this.get('numberOfUsers');
     var plan = 0;

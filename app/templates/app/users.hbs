@@ -1,108 +1,118 @@
-{{#if currentUser.needsToUpgrade}}
-  <div class="header">
-    <div class="row center-xs">
-      <div class="col-xs-10 col-sm-8">
-        <h2>It's time to upgrade 🚀</h2>
-        {{#if currentUser.isOwner}}
-          <p>Looks like you have more {{if currentUser.pastLimit currentUser.pastLimit 'projects or users'}} than your plan allows. Don't worry, upgrading is easy! Just choose a plan and you'll be back to using Albatross in no time.</p>
-          <section>
-            {{#link-to 'app.upgrade'}}<button class="btn-primary">Choose a plan</button>{{/link-to}}
-          </section>
-        {{else}}
-          <p>Looks like you have more {{if currentUser.pastLimit currentUser.pastLimit 'projects or users'}} than your plan allows. Don't worry, upgrading is easy! Talk to your team owner about upgrading your plan and you'll be back to using Albatross in no time.</p>
-        {{/if}}
+{{#unless currentUser.needsToUpgrade.isPending}}
+  {{#if currentUser.needsToUpgrade.content}}
+    <div class="header">
+      <div class="row center-xs">
+        <div class="col-xs-10 col-sm-8">
+          <h2>It's time to upgrade 🚀</h2>
+          {{#if currentUser.isOwner}}
+            <p>Looks like you have more {{if currentUser.pastLimit currentUser.pastLimit 'projects or users'}} than your
+              plan allows. Don't worry, upgrading is easy! Just choose a plan and you'll be back to using Albatross in
+              no time.</p>
+            <section>
+              {{#link-to 'app.upgrade'}}
+                <button class="btn-primary">Choose a plan</button>{{/link-to}}
+            </section>
+          {{else}}
+            <p>Looks like you have more {{if currentUser.pastLimit currentUser.pastLimit 'projects or users'}} than your
+              plan allows. Don't worry, upgrading is easy! Talk to your team owner about upgrading your plan and you'll
+              be back to using Albatross in no time.</p>
+          {{/if}}
+        </div>
       </div>
     </div>
-  </div>
-{{else}}
-<div class="header text-center">
-  <h1>Users</h1>
-</div>
-
-<div class="row">
-  <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-    <div class="card">
-      <h1>Invite a New User 🙋</h1>
-
-      {{#if canAddUsers}}
-        <section>
-          {{validated-text-input name='emailAddress'
-                                 type='text'
-                                 placeholder='Enter an email...'
-                                 value=emailAddress
-                                 error=validations.attrs.emailAddress.message
-                                 showError=showError}}
-          <p class="small">
-            Estimating is more fun with friends. To add your teammates to Albatross, just enter their email and we'll send them a link to join!
-          </p>
-        </section>
-        {{#spin-button action=(action 'inviteButtonPressed') class="btn-primary" buttonStyle="contract"}}Invite{{/spin-button}}
-        <section>
-          {{error-message errors=errors}}
-        </section>
-      {{else}}
-
-        {{#if currentUser.isOwner}}
-          <section>
-            <h2>Upgrade to add users!</h2>
-            <p class="small">Looks like you've hit your limit on users. To add more, just upgrade to a paid plan starting at $10/month.</p>
-          </section>
-          {{#spin-button class="btn-primary" buttonStyle="contract"}}Upgrade Now!{{/spin-button}}
-        {{else}}
-          <section>
-            <h2>Upgrade to add users!</h2>
-            <p class="small">Looks like you've hit your limit on users. To add more, talk to your team owner about upgrading to a paid plan starting at $10/month.</p>
-          </section>
-        {{/if}}
-      {{/if}}
-
+  {{else}}
+    <div class="header text-center">
+      <h1>Users</h1>
     </div>
 
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        <div class="card">
+          <h1>Invite a New User 🙋</h1>
 
-    <div class="card has-line-items">
+          {{#if canAddUsers}}
+            <section>
+              {{validated-text-input name='emailAddress'
+                                     type='text'
+                                     placeholder='Enter an email...'
+                                     value=emailAddress
+                                     error=validations.attrs.emailAddress.message
+                                     showError=showError}}
+              <p class="small">
+                Estimating is more fun with friends. To add your teammates to Albatross, just enter their email and
+                we'll send them a link to join!
+              </p>
+            </section>
+            {{#spin-button action=(action 'inviteButtonPressed') class="btn-primary" buttonStyle="contract"}}
+              Invite{{/spin-button}}
+            <section>
+              {{error-message errors=errors}}
+            </section>
+          {{else}}
 
-      <div class="inner-content">
-        <h1>Current Users</h1>
-      </div>
+            {{#if currentUser.isOwner}}
+              <section>
+                <h2>Upgrade to add users!</h2>
+                <p class="small">Looks like you've hit your limit on users. To add more, just upgrade to a paid plan
+                  starting at $10/month.</p>
+              </section>
+              {{#spin-button class="btn-primary" buttonStyle="contract"}}Upgrade Now!{{/spin-button}}
+            {{else}}
+              <section>
+                <h2>Upgrade to add users!</h2>
+                <p class="small">Looks like you've hit your limit on users. To add more, talk to your team owner about
+                  upgrading to a paid plan starting at $10/month.</p>
+              </section>
+            {{/if}}
+          {{/if}}
 
-      <div class="line-items">
-        <div class="items-header">
-          <p class="small name">Name</p>
-          <p class="small email">Email</p>
         </div>
 
 
-        {{#if sortedUsers}}
-        {{#each sortedUsers as |user|}}
-        <div class="item">
-          <div class="name">
-            <p>{{user.name}}</p>
-          </div>
-          <div class="email">
-            <p>{{user.email}}</p>
-          </div>
-        </div>
-        {{/each}}
-        {{/if}}
+        <div class="card has-line-items">
 
-        {{#if sortedInvitations}}
-          {{#each sortedInvitations as |invitation|}}
-            <div class="item">
-              <div class="name">
-                  <p class="light">Not registered yet</p>
-              </div>
-              <div class="email">
-                <p>{{invitation.email}}</p>
-              </div>
+          <div class="inner-content">
+            <h1>Current Users</h1>
+          </div>
+
+          <div class="line-items">
+            <div class="items-header">
+              <p class="small name">Name</p>
+              <p class="small email">Email</p>
             </div>
-          {{/each}}
-        {{/if}}
+
+
+            {{#if sortedUsers}}
+              {{#each sortedUsers as |user|}}
+                <div class="item">
+                  <div class="name">
+                    <p>{{user.name}}</p>
+                  </div>
+                  <div class="email">
+                    <p>{{user.email}}</p>
+                  </div>
+                </div>
+              {{/each}}
+            {{/if}}
+
+            {{#if sortedInvitations}}
+              {{#each sortedInvitations as |invitation|}}
+                <div class="item">
+                  <div class="name">
+                    <p class="light">Not registered yet</p>
+                  </div>
+                  <div class="email">
+                    <p>{{invitation.email}}</p>
+                  </div>
+                </div>
+              {{/each}}
+            {{/if}}
+          </div>
+        </div>
+
       </div>
+
     </div>
-
-  </div>
-
-</div>
-{{/if}}
-
+  {{/if}}
+{{/unless}}
 {{notification-container position="top-right"}}

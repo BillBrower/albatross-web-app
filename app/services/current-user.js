@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ENV from 'albatross-web-app/config/environment';
+import DS from 'ember-data';
 
 const { inject: { service }} = Ember;
 
@@ -52,17 +53,14 @@ export default Ember.Service.extend({
                 }
 
               }).catch(() => {
-                debugger;
                 this.isLoadingUser = false;
                 reject();
               });
             } else {
-              debugger;
               this.isLoadingUser = false;
               reject();
             }
           }).catch(() => {
-            debugger;
             this.isLoadingUser = false;
             reject();
           });
@@ -115,40 +113,41 @@ export default Ember.Service.extend({
   needsToUpgrade: Ember.computed('user', 'maxUsers', 'maxProjects', 'onTrial', function() {
     const projectsArray = this.get('store').peekAll('project');
     if (this.get('user')) {
-      return this.get('user.membership').then((membership) => {
-        if (!membership) {
-          return false;
-        }
-        return membership.get('team.users').then((usersArray) => {
-          const projects = projectsArray.get('length');
-          const users = usersArray.get('length');
-          const maxProjects = this.get('maxProjects');
-          const maxUsers = this.get('maxUsers');
-          const onTrial = this.get('onTrial');
-
-          if (onTrial === undefined) {
+      return DS.PromiseObject.create({
+        promise: this.get('user.membership').then((membership) => {
+          if (!membership) {
             return false;
           }
+          return membership.get('team.users').then((usersArray) => {
+            const projects = projectsArray.get('length');
+            const users = usersArray.get('length');
+            const maxProjects = this.get('maxProjects');
+            const maxUsers = this.get('maxUsers');
+            const onTrial = this.get('onTrial');
 
-          if (onTrial) {
-            return false;
-          } else if (maxProjects === 'unlimited' && maxUsers === 'unlimited') {
-            return false;
-          } else if (projects > maxProjects || users > maxUsers) {
-
-            if (projects > maxProjects) {
-              this.set('pastLimit', 'projects');
-            } else {
-              this.set('pastLimit', 'users');
+            if (onTrial === undefined) {
+              return false;
             }
-            return true
-          } else {
-            return false
-          }
-        })
-      })
-    }
 
+            if (onTrial) {
+              return false;
+            } else if (maxProjects === 'unlimited' && maxUsers === 'unlimited') {
+              return false;
+            } else if (projects > maxProjects || users > maxUsers) {
+
+              if (projects > maxProjects) {
+                this.set('pastLimit', 'projects');
+              } else {
+                this.set('pastLimit', 'users');
+              }
+              return true
+            } else {
+              return false
+            }
+          })
+        })
+      });
+    }
   }),
 
   logout() {
