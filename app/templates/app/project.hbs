@@ -58,6 +58,9 @@
                 automatically
               </button>
             {{/if}}
+            {{#if model.lastImportedDate}}
+                <p class="small">{{moment-from-now model.lastImportedDate}}</p>
+            {{/if}}
           </div>
         </div>
 
