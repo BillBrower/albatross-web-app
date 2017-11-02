@@ -23,7 +23,6 @@ export default Ember.Controller.extend({
     this.get('notifications').setDefaultClearDuration(1200);
   }.observes('notifications').on('init'),
   stripe: Ember.inject.service(),
-  toggleToken: null,
   isCancellingPlan: false,
   isChangingCard: false,
   isChangingPlan: false,

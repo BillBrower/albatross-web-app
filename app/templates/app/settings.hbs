@@ -40,12 +40,12 @@
                                showError=showError}}
       </section>
 
-      {{#if model.profile.toggleApiKey}}
+      {{#if model.profile.togglApiKey}}
         <section>
-          {{validated-text-input name='toggleToken'
+          {{validated-text-input name='togglToken'
                                  type='text'
-                                 placeholder='Toggle API Token'
-                                 label='Toggle API Token'
+                                 placeholder='Toggl API Token'
+                                 label='Toggl API Token'
                                  value=model.profile.togglApiKey}}
           <p class="small">You can find your Toggl API Token by going to your <a href="https://toggl.com/app/profile" target="_blank">profile settings on Toggl</a> and scrolling all the way to the bottom</p>
         </section>
