@@ -38,9 +38,15 @@
                                value=model.email
                                error=validations.attrs.email.message
                                showError=showError}}
+        <label class="checkbox">
+          Receive weekly emails about your projects
+          {{input type="checkbox" name="wantsWeeklyEmails" checked=model.profile.wantsWeeklyEmails}}
+          <div class="indicator"></div>
+        </label>
       </section>
 
       {{#if model.profile.toggleApiKey}}
+
         <section>
           {{validated-text-input name='toggleToken'
                                  type='text'
