@@ -24,8 +24,8 @@
     <div class="header">
       <h1>Good {{timeOfDay}}, <strong>{{currentUser.user.firstName}}</strong>! 👋</h1>
       <p class="pull-right">
-        {{#if sortedProjects}}
-          {{model.length}} projects
+        {{#if activeProjects}}
+          {{activeProjects.length}} projects
         {{/if}}
       </p>
 
@@ -64,9 +64,28 @@
         </div>
       {{/unless}}
 
-      {{#each sortedProjects as |project|}}
+      {{#each activeProjects as |project|}}
         {{project-card model=project onCardClicked=(route-action 'goToProject')}}
       {{/each}}
+
+
     </div>
+
+    {{#if archivedProjects}}
+    <div class="projects-wrapper">
+      <div class="header">
+        <p>Archived Projects</p>
+        <p class="pull-right">
+            {{archivedProjects.length}} projects
+        </p>
+
+      </div>
+
+      {{#each archivedProjects as |project|}}
+        {{project-card model=project onCardClicked=(route-action 'goToProject')}}
+      {{/each}}
+
+    </div>
+      {{/if}}
   {{/if}}
 {{/unless}}

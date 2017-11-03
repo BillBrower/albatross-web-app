@@ -14,6 +14,7 @@ export default Ember.Controller.extend({
     return this.get('model.actual') === 0 && this.get('model.estimated') === 0;
   }),
   isShowingImportModal: false,
+  isShowingMenu: false,
   hasCategories: Ember.computed('model.categories', function () {
     return this.get('model.categories').content.length > 0;
   }),
@@ -234,6 +235,14 @@ export default Ember.Controller.extend({
         itemActual: item.get('actual')
       });
     },
+
+    toggleArchived() {
+      const model = this.get('model');
+      model.toggleProperty('archived');
+      model.save().catch(() => {
+        model.rollbackAttributes();
+      });
+    },
     deleteItem(item) {
       item.destroyRecord().then((response) => {
         this.get('notifications').success("Item deleted!", {
@@ -292,6 +301,10 @@ export default Ember.Controller.extend({
         });
         this.set('isShowingImportModal', true);
       }
+    },
+
+    toggleIsShowingMenu() {
+      this.toggleProperty('isShowingMenu');
     },
 
     updateTogglToken(token, result) {
