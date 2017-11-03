@@ -17,6 +17,7 @@ export default Model.extend(Validations, {
   archived: attr('boolean'),
   buffer: attr('number', {defaultValue: 0}),
   estimated: attr('number', {serialize: false}),
+  lastImportedDate: attr('date'),
   name: attr('string'),
   updatedAt: attr('date'),
 

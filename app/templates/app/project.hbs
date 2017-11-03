@@ -59,18 +59,19 @@
             {{/if}}
             </div>
 
+            <div class="import-wrapper">
             {{#if togglIntegration}}
-              {{#spin-button action=(action 'importHours') class="btn-primary pull-right"
+              {{#spin-button action=(action 'importHours') class="btn-primary "
                              buttonStyle="contract"}}
                 Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
               {{/spin-button}}
             {{else if harvestIntegration}}
-              {{#spin-button action=(action 'importHours') class="btn-primary pull-right import-harvest"
+              {{#spin-button action=(action 'importHours') class="btn-primary import-harvest"
                              buttonStyle="contract"}}
                 Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
               {{/spin-button}}
             {{else}}
-              <button class="btn-primary pull-right" {{action 'toggleIsShowingImportModal'}}>Import hours
+              <button class="btn-primary" {{action 'toggleIsShowingImportModal'}}>Import hours
                 automatically
               </button>
             {{/if}}
