@@ -22,95 +22,99 @@
     </div>
   {{else}}
     {{#if model.archived}}
-    <p class="center-xs">This project is currently archived. <a href="#" {{action (action 'toggleArchived')}}>Click here</a> to unarchive it.</p>
+      <p class="center-xs">This project is currently archived. <a href="#" {{action (action 'toggleArchived')}}>Click
+        here</a> to unarchive it.</p>
     {{/if}}
-  <div class="project-wrapper {{if model.archived 'archived'}}">
-    <div class="row">
-      <div class="hidden-xs col-sm-1">
-        <div class="header">
-          {{#link-to "app.projects"}}
-            <div class="icon--back"></div>{{/link-to}}
+    <div class="project-wrapper {{if model.archived 'archived'}}">
+      <div class="row">
+        <div class="hidden-xs col-sm-1">
+          <div class="header">
+            {{#link-to "app.projects"}}
+              <div class="icon--back"></div>{{/link-to}}
+          </div>
         </div>
-      </div>
-      <div class="col-xs-12 col-sm-10">
-        <div class="header">
-          {{transforming-text-input
-            data-title="Click to edit"
-            big=true
-            name='projectName'
-            type='text'
-            onCancel=(action "cancelSaveName" model)
-            onSave=(action "saveProjectName" model)
-            value=model.name
-            maxlength=40
-            placeholder='Name your project...'}}
-          <div class="hidden-sm">
-            <!--<div class="icon--trash" {{action "toggleIsDeleting"}}></div>-->
-            <div class="project-dropdown">
-              <ul>
-                <li><a class="project-action {{if isShowingMenu 'is-active'}}" {{action 'toggleIsShowingMenu'}}>Settings <div class="icon--down"></div></a></li>
-              </ul>
+        <div class="col-xs-12 col-sm-10">
+          <div class="header">
+            {{transforming-text-input
+              data-title="Click to edit"
+              big=true
+              name='projectName'
+              type='text'
+              onCancel=(action "cancelSaveName" model)
+              onSave=(action "saveProjectName" model)
+              value=model.name
+              maxlength=40
+              placeholder='Name your project...'}}
+            <div class="hidden-sm">
+              <!--<div class="icon--trash" {{action "toggleIsDeleting"}}></div>-->
+              <div class="project-dropdown">
+                <ul>
+                  <li class="options"><a class="project-action {{if isShowingMenu 'is-active'}}" {{action 'toggleIsShowingMenu'}}>Options
+                    <div class="icon--down"></div>
+                  </a></li>
+                </ul>
+                {{#if isShowingMenu}}
+                  <ul class="project-options">
+                    <li {{action 'toggleIsShowingMenu'}}><a href="" {{action 'toggleArchived'}}>Archive Project</a></li>
+                    <li {{action 'toggleIsShowingMenu'}}><a href="" {{action 'toggleIsDeleting'}}>Delete Project</a>
+                    </li>
+                  </ul>
+                {{/if}}
+              </div>
 
-            {{#if isShowingMenu}}
-              <ul class="project-options">
-                <li {{action 'toggleIsShowingMenu'}}><a href="" {{action 'toggleArchived'}}>Archive Project</a></li>
-                <li {{action 'toggleIsShowingMenu'}}><a href="" {{action 'toggleIsDeleting'}}>Delete Project</a></li>
-              </ul>
-            {{/if}}
-            </div>
-
-            <div class="import-wrapper">
-            {{#if togglIntegration}}
-              {{#spin-button action=(action 'importHours') class="btn-primary "
-                             buttonStyle="contract"}}
-                Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
-              {{/spin-button}}
-            {{else if harvestIntegration}}
-              {{#spin-button action=(action 'importHours') class="btn-primary import-harvest"
-                             buttonStyle="contract"}}
-                Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
-              {{/spin-button}}
-            {{else}}
-              <button class="btn-primary" {{action 'toggleIsShowingImportModal'}}>Import hours
-                automatically
-              </button>
-            {{/if}}
-            {{#if model.lastImportedDate}}
-                <p class="small">Last imported: {{moment-from-now model.lastImportedDate}}</p>
-            {{/if}}
+              <div class="import-wrapper">
+                {{#if togglIntegration}}
+                  {{#spin-button action=(action 'importHours') class="btn-primary "
+                                 buttonStyle="contract"}}
+                    Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
+                  {{/spin-button}}
+                {{else if harvestIntegration}}
+                  {{#spin-button action=(action 'importHours') class="btn-primary import-harvest"
+                                 buttonStyle="contract"}}
+                    Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
+                  {{/spin-button}}
+                {{else}}
+                  <button class="btn-primary" {{action 'toggleIsShowingImportModal'}}>Import hours
+                    automatically
+                  </button>
+                {{/if}}
+                {{#if model.lastImportedDate}}
+                  <p class="small xs-center">Last imported: {{moment-from-now model.lastImportedDate}}</p>
+                {{/if}}
+              </div>
             </div>
           </div>
 
-        <div class="summary">
-          <div class="buffer">
-            <div class="field">
-              <label for="buffer">Buffer</label>
-              <span class="percent-sign">%</span>
-              {{live-updating-text-input
-                name='buffer'
-                type='number'
-                placeholder='0'
-                saveValue=(action "onBufferChanged")
-                value=model.buffer}}
+          <div class="summary">
+            <div class="buffer">
+              <div class="field">
+                <label for="buffer">Buffer</label>
+                <span class="percent-sign">%</span>
+                {{live-updating-text-input
+                  name='buffer'
+                  type='number'
+                  placeholder='0'
+                  saveValue=(action "onBufferChanged")
+                  value=model.buffer}}
+              </div>
+              {{#if togglIntegration}}
+                {{#spin-button action=(action 'importHours') class="btn-primary shown-sm pull-right"
+                               buttonStyle="contract"}}
+                  Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
+                {{/spin-button}}
+              {{else if harvestIntegration}}
+                {{#spin-button action=(action 'importHours') class="btn-primary shown-sm pull-right"
+                               buttonStyle="contract"}}
+                  Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
+                {{/spin-button}}
+              {{else}}
+                <button class="btn-primary shown-sm pull-right" {{action 'toggleIsShowingImportModal'}}>Import hours
+                </button>
+              {{/if}}
             </div>
-            {{#if togglIntegration}}
-              {{#spin-button action=(action 'importHours') class="btn-primary shown-sm pull-right"
-                             buttonStyle="contract"}}
-                Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
-              {{/spin-button}}
-            {{else if harvestIntegration}}
-              {{#spin-button action=(action 'importHours') class="btn-primary shown-sm pull-right"
-                             buttonStyle="contract"}}
-                Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
-              {{/spin-button}}
-            {{else}}
-              <button class="btn-primary shown-sm pull-right" {{action 'toggleIsShowingImportModal'}}>Import hours
-              </button>
-            {{/if}}
-          </div>
 
-          <div class="progress-wrapper {{if isEmpty "empty"}}">
-            <div class="content">
+            <div class="progress-wrapper {{if isEmpty "empty"}}">
+              <div class="content">
           <span class="section-left">
             <span>
               <p><strong>{{model.estimated}}</strong></p>
@@ -122,48 +126,48 @@
             </span>
           </span>
 
-              <span class="section-right">
-                {{hours-remaining text=true
-                                  icon=true
-                                  estimated=model.estimated
-                                  actual=model.actual}}
-              </span>
-            </div>
-            {{completion-bar estimated=model.estimated actual=model.actual}}
-          </div>
-        </div>
-
-        <div class="project-body">
-
-          {{#if hasCategories}}
-            {{#each sortedCategories as |category|}}
-              {{category-card model=category
-                              onAddNewItem=(action "addNewItem")
-                              onCancelSaveCategoryName=(action "cancelSaveName")
-                              onDeleteItem=(action 'deleteItem')
-                              onSaveCategoryName=(action "saveCategoryName")
-                              onSaveDescription=(action "saveDescription")
-                              onSaveEstimated=(action "saveEstimated")
-                              onSaveActual=(action "saveActual")}}
-            {{/each}}
-            {{new-category onSave=(action "addNewCategory")}}
-          {{else}}
-            {{new-category onSave=(action "addNewCategory")}}
-
-            {{#unless hasCategories}}
-              <div class="empty-state project">
-                <div class="icon--up-arrow"></div>
-                <div class="text">
-                  <h1 class="bold">Add your first category!</h1>
-                  <p class="light">Categories are collections of estimate items. Think Design, Front End Dev, etc.</p>
-                </div>
+                <span class="section-right">
+                  {{hours-remaining text=true
+                                    icon=true
+                                    estimated=model.estimated
+                                    actual=model.actual}}
+                </span>
               </div>
-            {{/unless}}
-          {{/if}}
+              {{completion-bar estimated=model.estimated actual=model.actual}}
+            </div>
+          </div>
+
+          <div class="project-body">
+
+            {{#if hasCategories}}
+              {{#each sortedCategories as |category|}}
+                {{category-card model=category
+                                onAddNewItem=(action "addNewItem")
+                                onCancelSaveCategoryName=(action "cancelSaveName")
+                                onDeleteItem=(action 'deleteItem')
+                                onSaveCategoryName=(action "saveCategoryName")
+                                onSaveDescription=(action "saveDescription")
+                                onSaveEstimated=(action "saveEstimated")
+                                onSaveActual=(action "saveActual")}}
+              {{/each}}
+              {{new-category onSave=(action "addNewCategory")}}
+            {{else}}
+              {{new-category onSave=(action "addNewCategory")}}
+
+              {{#unless hasCategories}}
+                <div class="empty-state project">
+                  <div class="icon--up-arrow"></div>
+                  <div class="text">
+                    <h1 class="bold">Add your first category!</h1>
+                    <p class="light">Categories are collections of estimate items. Think Design, Front End Dev, etc.</p>
+                  </div>
+                </div>
+              {{/unless}}
+            {{/if}}
+          </div>
         </div>
       </div>
     </div>
-  </div>
   {{/if}}
 
   {{#if isShowingImportModal}}

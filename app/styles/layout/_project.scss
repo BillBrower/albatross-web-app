@@ -10,12 +10,12 @@
 }
 
 .import-wrapper {
-
   p {
     display: block;
   }
   button {
     display: block;
+    padding: 0.9rem 1.25rem;
   }
 }
 
@@ -33,6 +33,12 @@
       display: inline-block;
       line-height: $navbar-content-height;
       position: relative;
+
+      &.options {
+        border: $border;
+        border-radius: $border-radius;
+        background-color: white;
+      }
 
       a {
         color: $grey-mid;
