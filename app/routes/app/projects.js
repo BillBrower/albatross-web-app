@@ -4,7 +4,12 @@ const { inject: { service } } = Ember;
 
 export default Ember.Route.extend({
 
+  didTransitionViaBackOrForward: function(transition) {
+    return transition && transition.sequence > 1 && transition.hasOwnProperty('urlMethod');
+  },
+
   model() {
+
     return this.get('store').findAll('project')
   },
 

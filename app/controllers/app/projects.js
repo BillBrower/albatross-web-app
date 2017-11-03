@@ -5,11 +5,11 @@ const { inject: { service } } = Ember;
 
 export default Ember.Controller.extend({
 
-  activeProjects: Ember.computed.filter('sortedProjects', function(project) {
+  activeProjects: Ember.computed.filter('sortedProjects.@each.archived', function(project) {
     return !project.get('archived')
   }),
-  archivedProjects: Ember.computed.filter('sortedProjects', function (project) {
-    return project.geT('archived')
+  archivedProjects: Ember.computed.filter('sortedProjects.@each.archived', function (project) {
+    return project.get('archived')
   }),
   currentUser: service('current-user'),
   sortedProjects: Ember.computed.sort('model', 'sortDefinition'),
