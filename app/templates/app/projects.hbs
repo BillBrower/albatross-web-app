@@ -64,7 +64,7 @@
         </div>
       {{/unless}}
 
-      {{#each sortedProjects as |project|}}
+      {{#each activeProjects as |project|}}
         {{project-card model=project onCardClicked=(route-action 'goToProject')}}
       {{/each}}
     </div>

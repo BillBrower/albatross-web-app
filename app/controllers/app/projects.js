@@ -5,8 +5,15 @@ const { inject: { service } } = Ember;
 
 export default Ember.Controller.extend({
 
+  activeProjects: Ember.computed.filter('sortedProjects', function(project) {
+    return !project.get('archived')
+  }),
+  archivedProjects: Ember.computed.filter('sortedProjects', function (project) {
+    return project.geT('archived')
+  }),
   currentUser: service('current-user'),
   sortedProjects: Ember.computed.sort('model', 'sortDefinition'),
+
   sortDefinition: ['name'],
   notifications: Ember.inject.service('notification-messages'),
   setupNotifications: function () {
