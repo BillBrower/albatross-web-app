@@ -1,0 +1,10 @@
+// Project
+// All styles for laying out the project view
+// -------------------------------------------------------------------
+
+.project-wrapper {
+  &.archived {
+    opacity: 0.2;
+    pointer-events: none;
+  }
+}
