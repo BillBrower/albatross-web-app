@@ -67,25 +67,25 @@
       {{#each activeProjects as |project|}}
         {{project-card model=project onCardClicked=(route-action 'goToProject')}}
       {{/each}}
-
-
     </div>
 
     {{#if archivedProjects}}
-    <div class="projects-wrapper">
-      <div class="header">
-        <p>Archived Projects</p>
-        <p class="pull-right">
-            {{archivedProjects.length}} projects
-        </p>
+      <div class="archived-projects">
+        <div class="header">
+          <h1>Archived Projects</h1>
+          <p class="pull-right">
+            {{#if archivedProjects}}
+              {{archivedProjects.length}} projects
+            {{/if}}
+          </p>
 
+        </div>
+        <div class="projects-wrapper">
+          {{#each archivedProjects as |project|}}
+            {{project-card model=project onCardClicked=(route-action 'goToProject')}}
+          {{/each}}
+        </div>
       </div>
-
-      {{#each archivedProjects as |project|}}
-        {{project-card model=project onCardClicked=(route-action 'goToProject')}}
-      {{/each}}
-
-    </div>
-      {{/if}}
+    {{/if}}
   {{/if}}
 {{/unless}}

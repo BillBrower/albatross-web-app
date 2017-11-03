@@ -48,11 +48,9 @@
             <div class="hidden-sm">
               <!--<div class="icon--trash" {{action "toggleIsDeleting"}}></div>-->
               <div class="project-dropdown">
-                <ul>
-                  <li class="options"><a class="project-action {{if isShowingMenu 'is-active'}}" {{action 'toggleIsShowingMenu'}}>Options
-                    <div class="icon--down"></div>
-                  </a></li>
-                </ul>
+                <button class="btn-dropdown" {{action 'toggleIsShowingMenu'}}>
+                  <span class="project-action {{if isShowingMenu 'is-active'}}">Options<span class="icon--down"></span></span>
+                </button>
                 {{#if isShowingMenu}}
                   <ul class="project-options">
                     <li {{action 'toggleIsShowingMenu'}}><a href="" {{action 'toggleArchived'}}>Archive Project</a></li>
@@ -62,26 +60,28 @@
                 {{/if}}
               </div>
 
-              <div class="import-wrapper">
-                {{#if togglIntegration}}
-                  {{#spin-button action=(action 'importHours') class="btn-primary "
-                                 buttonStyle="contract"}}
-                    Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
-                  {{/spin-button}}
-                {{else if harvestIntegration}}
-                  {{#spin-button action=(action 'importHours') class="btn-primary import-harvest"
-                                 buttonStyle="contract"}}
-                    Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
-                  {{/spin-button}}
-                {{else}}
-                  <button class="btn-primary" {{action 'toggleIsShowingImportModal'}}>Import hours
-                    automatically
-                  </button>
-                {{/if}}
-                {{#if model.lastImportedDate}}
-                  <p class="small xs-center">Last imported: {{moment-from-now model.lastImportedDate}}</p>
-                {{/if}}
-              </div>
+              {{#unless model.archived}}
+                <div class="import-wrapper">
+                  {{#if togglIntegration}}
+                    {{#spin-button action=(action 'importHours') class="btn-primary "
+                                   buttonStyle="contract"}}
+                      Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
+                    {{/spin-button}}
+                  {{else if harvestIntegration}}
+                    {{#spin-button action=(action 'importHours') class="btn-primary import-harvest"
+                                   buttonStyle="contract"}}
+                      Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
+                    {{/spin-button}}
+                  {{else}}
+                    <button class="btn-primary" {{action 'toggleIsShowingImportModal'}}>Import hours
+                      automatically
+                    </button>
+                  {{/if}}
+                  {{#if model.lastImportedDate}}
+                    <p class="small xs-center">Last imported: {{moment-from-now model.lastImportedDate}}</p>
+                  {{/if}}
+                </div>
+              {{/unless}}
             </div>
           </div>
 
@@ -97,20 +97,35 @@
                   saveValue=(action "onBufferChanged")
                   value=model.buffer}}
               </div>
-              {{#if togglIntegration}}
-                {{#spin-button action=(action 'importHours') class="btn-primary shown-sm pull-right"
-                               buttonStyle="contract"}}
-                  Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
-                {{/spin-button}}
-              {{else if harvestIntegration}}
-                {{#spin-button action=(action 'importHours') class="btn-primary shown-sm pull-right"
-                               buttonStyle="contract"}}
-                  Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
-                {{/spin-button}}
-              {{else}}
-                <button class="btn-primary shown-sm pull-right" {{action 'toggleIsShowingImportModal'}}>Import hours
+
+              <div class="project-dropdown shown-sm">
+                <button class="btn-dropdown shown-sm" {{action 'toggleIsShowingMenu'}}>
+                  <span class="project-action shown-sm {{if isShowingMenu 'is-active'}}">Options<span class="icon--down"></span></span>
                 </button>
-              {{/if}}
+                {{#if isShowingMenu}}
+                  <ul class="project-options shown-sm">
+                    <li {{action 'toggleIsShowingMenu'}}><a href="" {{action 'toggleArchived'}}>Archive Project</a></li>
+                    <li {{action 'toggleIsShowingMenu'}}><a href="" {{action 'toggleIsDeleting'}}>Delete Project</a>
+                    </li>
+                  </ul>
+                {{/if}}
+              </div>
+              <div class="import-wrapper shown-sm">
+                {{#if togglIntegration}}
+                  {{#spin-button action=(action 'importHours') class="btn-primary shown-sm pull-right"
+                                 buttonStyle="contract"}}
+                    Import from <img src="/img/toggl-logo-white.png" alt="Toggl"/>
+                  {{/spin-button}}
+                {{else if harvestIntegration}}
+                  {{#spin-button action=(action 'importHours') class="btn-primary shown-sm pull-right"
+                                 buttonStyle="contract"}}
+                    Import from <img src="/img/harvest-logo-white.png" alt="Harvest"/>
+                  {{/spin-button}}
+                {{else}}
+                  <button class="btn-primary shown-sm pull-right" {{action 'toggleIsShowingImportModal'}}>Import hours
+                  </button>
+                {{/if}}
+              </div>
             </div>
 
             <div class="progress-wrapper {{if isEmpty "empty"}}">
@@ -152,6 +167,7 @@
               {{/each}}
               {{new-category onSave=(action "addNewCategory")}}
             {{else}}
+              {{#unless model.archived}}
               {{new-category onSave=(action "addNewCategory")}}
 
               {{#unless hasCategories}}
@@ -162,6 +178,7 @@
                     <p class="light">Categories are collections of estimate items. Think Design, Front End Dev, etc.</p>
                   </div>
                 </div>
+              {{/unless}}
               {{/unless}}
             {{/if}}
           </div>
