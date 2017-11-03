@@ -22,7 +22,7 @@
     </div>
   {{else}}
     {{#if model.archived}}
-    <p class="small center-xs">This project is currently archived. <a href="#" {{action (action 'toggleArchived')}}>Click here</a> to unarchive it.</p>
+    <p class="center-xs">This project is currently archived. <a href="#" {{action (action 'toggleArchived')}}>Click here</a> to unarchive it.</p>
     {{/if}}
   <div class="project-wrapper {{if model.archived 'archived'}}">
     <div class="row">
@@ -74,6 +74,10 @@
                 automatically
               </button>
             {{/if}}
+            {{#if model.lastImportedDate}}
+                <p class="small">Last imported: {{moment-from-now model.lastImportedDate}}</p>
+            {{/if}}
+            </div>
           </div>
         </div>
 
