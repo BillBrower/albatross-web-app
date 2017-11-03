@@ -48,7 +48,7 @@
             <!--<div class="icon--trash" {{action "toggleIsDeleting"}}></div>-->
             <div class="project-dropdown">
               <ul>
-                <li><a class="project-action {{if isShowingMenu 'is-active'}}" {{action 'toggleIsShowingMenu'}}><div class="icon--down"></div></a></li>
+                <li><a class="project-action {{if isShowingMenu 'is-active'}}" {{action 'toggleIsShowingMenu'}}>Settings <div class="icon--down"></div></a></li>
               </ul>
 
             {{#if isShowingMenu}}
@@ -79,7 +79,6 @@
             {{/if}}
             </div>
           </div>
-        </div>
 
         <div class="summary">
           <div class="buffer">
