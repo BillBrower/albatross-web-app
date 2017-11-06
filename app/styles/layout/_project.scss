@@ -1,0 +1,173 @@
+// Project
+// All styles for laying out the project view
+// -------------------------------------------------------------------
+
+.project-wrapper {
+  &.archived {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+}
+
+.import-wrapper {
+  display: inline-block;
+  float: right;
+
+  p {
+    display: block;
+  }
+  button {
+    display: block;
+    padding: 0.9rem 1.25rem;
+  }
+
+  &.shown-sm {
+    display: none;
+  }
+}
+
+.project-dropdown {
+  float: right;
+  display: inline-block;
+  padding: 0 0 0 $padding-mid;
+
+  &.shown-sm {
+    display: none;
+  }
+
+  .btn-dropdown {
+    background: $white;
+    border: $border;
+    padding: 0.9rem 1.25rem;
+  }
+
+  ul {
+    display: inline-block;
+    height: $navbar-content-height;
+    list-style-type: none;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      line-height: $navbar-content-height;
+      position: relative;
+
+      &.options {
+        border: $border;
+        border-radius: $border-radius;
+        background-color: white;
+      }
+
+      a {
+        color: $grey-mid;
+        font-size: 0.8em;
+        line-height: calc(#{$navbar-content-height} + 1em);
+        padding: $padding-small;
+        transition: $transition;
+
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none;
+
+        &.active, &:hover {
+          color: $dark;
+        }
+      }
+    }
+
+
+  }
+
+  .project-action {
+    color: $dark;
+    //font-size: 0.8em;
+    font-weight: 700;
+    padding: 0;
+
+    .icon--down {
+      margin-left: 6px;
+    }
+
+    &.is-active {
+      .icon--down {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .project-options {
+    background: $white;
+    border: $border;
+    border-radius: $border-radius;
+    display: block;
+    height: auto;
+    min-width: 8em;
+    padding: 0.5em 0;
+    position: absolute;
+    right: 0;
+    top: 75px;
+    width: auto;
+    z-index: 99;
+
+    li {
+      display: block;
+      line-height: 2em;
+      width: 100%;
+
+      a {
+        line-height: 1.65em;
+        padding: 0 $padding-small;
+      }
+
+      p {
+        border-bottom: $border;
+        line-height: 1.65em;
+        margin: 0 0 0.5em 0;
+        padding: 0 0 0.65em 0;
+      }
+    }
+  }
+
+  #{$all-buttons}, #{$all-text-inputs}, .field {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+
+
+
+@media screen and (max-width: $small-break) {
+
+  .project-dropdown {
+    &.shown-sm {
+      display: inline-block;
+    }
+
+    .project-options {
+      top: 60px;
+    }
+  }
+
+  .import-wrapper {
+    &.shown-sm {
+      display: inline-block;
+    }
+  }
+}
+
+// Mobile
+@media screen and (max-width: $xs-break) {
+
+  .import-wrapper {
+    display: block;
+    float: none;
+
+    &.shown-sm {
+      display: block;
+    }
+  }
+}
