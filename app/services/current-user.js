@@ -93,7 +93,7 @@ export default Ember.Service.extend({
             if (plan === 'freelancer-beta-monthly' || plan === 'freelancer-beta-annual') {
               this.set('maxProjects', 'unlimited');
               this.set('maxUsers', 5);
-            } else if (plan === 'moonlighter-beta-monthly' || plan === 'moonlighter-beta-annual') {
+            } else if (plan === 'agency-beta-monthly' || plan === 'agency-beta-annual') {
               this.set('maxProjects', 'unlimited');
               this.set('maxUsers', 'unlimited');
             } else {
