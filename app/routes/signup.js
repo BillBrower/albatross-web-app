@@ -39,7 +39,7 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin,{
             .then(() => {
             if (inviteCode) {
               this.get('segment').trackEvent('Signed up from invite', { email: user.get('email'), invited: true, inviteCode: inviteCode });
-              this.transitionTo('app.projects');
+              this.transitionTo('choose-plan');
             } else {
               const team = this.get('store').createRecord('team', {
                 name: teamName
@@ -47,7 +47,7 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin,{
               team.save()
                 .then(() => {
                   this.get('segment').trackEvent('Signed up team', { email: user.get('email'), team: teamName, invited: false});
-                  this.transitionTo('app.projects');
+                  this.transitionTo('choose-plan');
                 }).catch((response) => {
                 this.get('session').invalidate();
                 this.controller.set('errors', Errors.mapResponseErrors(response));

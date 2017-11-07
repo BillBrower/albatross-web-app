@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import ENV from 'albatross-web-app/config/environment';
 import DS from 'ember-data';
+import { plans, planFromName } from '../constants/plans'
 
-const { inject: { service }} = Ember;
+const {inject: {service}} = Ember;
 
 export default Ember.Service.extend({
   session: service(),
@@ -10,7 +11,7 @@ export default Ember.Service.extend({
 
   load() {
     if (this.get('session.isAuthenticated') && !this.isLoadingUser) {
-     this.isLoadingUser = true;
+      this.isLoadingUser = true;
       return new Ember.RSVP.Promise((resolve, reject) => {
         this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
           const headers = {};
@@ -85,24 +86,27 @@ export default Ember.Service.extend({
           contentType: 'application/json',
           dataType: 'json',
         }).then((response) => {
-          this.set('teamPlan', response.plan);
+          var plan = planFromName(response.plan);
+          this.set('teamPlan', plan);
           this.set('teamPlanAmount', response.amount);
-          var plan = response.plan;
 
-          if (!this.get('onTrial')) {
-            if (plan === 'freelancer-beta-monthly' || plan === 'freelancer-beta-annual') {
-              this.set('maxProjects', 'unlimited');
-              this.set('maxUsers', 5);
-            } else if (plan === 'agency-beta-monthly' || plan === 'agency-beta-annual') {
+
+          if (plan !== null) {
+            this.set('maxProjects', plan.maxProjects);
+            this.set('maxUsers', plan.maxUsers);
+          } else {
+            if (!this.get('onTrial')) {
+              if (this.get('currentUser.user.profile.beta')) {
+                this.set('maxProjects', 1);
+                this.set('maxUsers', 1);
+              } else {
+                this.set('maxProjects', -1);
+                this.set('maxProjects', -1);
+              }
+            } else {
               this.set('maxProjects', 'unlimited');
               this.set('maxUsers', 'unlimited');
-            } else {
-              this.set('maxProjects', 1);
-              this.set('maxUsers', 1);
             }
-          } else {
-            this.set('maxProjects', 'unlimited');
-            this.set('maxUsers', 'unlimited');
           }
         }).catch(() => {
         })
@@ -110,7 +114,7 @@ export default Ember.Service.extend({
     }
   }.observes('onTrial').on('init'),
 
-  needsToUpgrade: Ember.computed('user', 'maxUsers', 'maxProjects', 'onTrial', function() {
+  needsToUpgrade: Ember.computed('user', 'maxUsers', 'maxProjects', 'onTrial', function () {
     const projectsArray = this.get('store').peekAll('project');
     if (this.get('user')) {
       return DS.PromiseObject.create({

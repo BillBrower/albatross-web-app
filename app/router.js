@@ -25,6 +25,7 @@ Router.map(function() {
   this.route('error');
   this.route('loading');
   this.route('not-found', { path: '/*path' });
+  this.route('choose-plan');
 });
 
 export default Router;

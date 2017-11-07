@@ -1,16 +1,18 @@
 import Ember from 'ember';
 import Errors from '../../constants/errors';
 import ENV from 'albatross-web-app/config/environment';
+import { plans } from '../../constants/plans'
+
 const { inject: { service } } = Ember;
 
 export default Ember.Controller.extend({
 
   creditCard: [],
-  card: Ember.computed('creditCard', 'expDate', function() {
+  card: Ember.computed('creditCard', 'expDate', function () {
     return {
       name: this.get('creditCard.name'),
       number: this.get('creditCard.number'),
-      exp_month: this.get('expDate').substring(0,2),
+      exp_month: this.get('expDate').substring(0, 2),
       exp_year: this.get('expDate').substring(5),
       cvc: this.get('creditCard.cvc')
     }
@@ -26,13 +28,9 @@ export default Ember.Controller.extend({
   isCancellingPlan: false,
   isChangingCard: false,
   isChangingPlan: false,
-  selectedPlan: 'freelancer-beta-annual',
+  plans: plans,
 
-  currentPlan: Ember.computed('currentUser', function() {
-    var plan = this.get('currentUser.teamPlan');
-  }),
-
-  currentCard: Ember.computed('currentUser', function() {
+  currentCard: Ember.computed('currentUser', function () {
     new Ember.RSVP.Promise((resolve, reject) => {
       this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
         const headers = {};
@@ -62,40 +60,36 @@ export default Ember.Controller.extend({
     this.set('planAmount', '$' + amount);
 
     if (plan) {
-      if (plan.includes('freelancer')) {
+      if (plan.type === 'freelancer') {
         this.set('planLabel', 'Freelancer');
         this.set('planDescription', 'Unlimited projects, up to 5 users');
-      } else if (plan.includes('agency')) {
+      } else if (plan.type === 'agency') {
         this.set('planLabel', 'Agency');
         this.set('planDescription', 'Unlimited projects, unlimited users, unlimited possibilities');
       }
 
-      if (plan.includes('monthly')) {
-        this.set('planBillingCycle', 'monthly');
-      } else if (plan.includes('annual')) {
-        this.set('planBillingCycle', 'annually');
-      }
-
-      new Ember.RSVP.Promise((resolve, reject) => {
-        this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
-          const headers = {};
-          headers[headerName] = headerValue;
-          headers['Accept'] = 'application/json';
-          Ember.$.ajax({
-            url: ENV.host + '/api/v1/payments/details',
-            type: 'GET',
-            headers: headers,
-            contentType: 'application/json',
-            dataType: 'json',
-          }).then((response) => {
-            this.set('currentCard', response);
-            resolve();
-          }).catch(() => {
-            reject();
-          })
-        });
-      });
+      this.set('planBillingCycle', plan.frequency);
     }
+
+    new Ember.RSVP.Promise((resolve, reject) => {
+      this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+        const headers = {};
+        headers[headerName] = headerValue;
+        headers['Accept'] = 'application/json';
+        Ember.$.ajax({
+          url: ENV.host + '/api/v1/payments/details',
+          type: 'GET',
+          headers: headers,
+          contentType: 'application/json',
+          dataType: 'json',
+        }).then((response) => {
+          this.set('currentCard', response);
+          resolve();
+        }).catch(() => {
+          reject();
+        })
+      });
+    });
 
   },
 
@@ -214,8 +208,7 @@ export default Ember.Controller.extend({
       this.set('selectedPlan', plan);
     },
     updatePlan() {
-      var plan = this.get('selectedPlan');
-      var _this = this;
+      var plan = this.get('selectedPlan').name;
 
       this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
         const headers = {};
@@ -282,15 +275,17 @@ export default Ember.Controller.extend({
     cancelPlan() {
       var _this = this;
 
+      const data = {'confirm': true}
       this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
         const headers = {};
         headers[headerName] = headerValue;
         headers['Accept'] = 'application/json';
         Ember.$.ajax({
-          url: ENV.host + '/api/v1/payments/cancel/',
+          url: ENV.host + '/api/v1/payments/subscription/cancel/',
           type: 'POST',
           headers: headers,
           contentType: 'application/json',
+          data: JSON.stringify(data),
           dataType: 'json',
         }).then((response) => {
           _this.get('segment').trackEvent('Cancelled plan');

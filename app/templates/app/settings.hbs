@@ -115,8 +115,8 @@
                       <h2>Freelancer 🤓</h2>
                       <p class="light">Unlimited projects, up to 5 users</p>
                       <div class="options">
-                        {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-monthly" price="$10/month" text="Cancel anytime" selectedPlan=selectedPlan}}
-                        {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-annual" price="$100/year" text="Save 16%" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan=plans.freelancer.monthly text="Cancel anytime" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan=plans.freelancer.annually text="Save 16%" selectedPlan=selectedPlan}}
                       </div>
                     </div>
                   </div>
@@ -125,8 +125,8 @@
                       <h2>Agency 🤓🤓🤓</h2>
                       <p class="light">Unlimited everything</p>
                       <div class="options">
-                        {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-monthly" price="$25/month" text="Cancel anytime" selectedPlan=selectedPlan}}
-                        {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-annual" price="$250/year" text="Save 16%" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan=plans.agency.monthly price="$25/month" text="Cancel anytime" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan=plans.agency.annually price="$250/year" text="Save 16%" selectedPlan=selectedPlan}}
                       </div>
                     </div>
                   </div>
