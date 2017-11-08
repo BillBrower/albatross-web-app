@@ -89,6 +89,8 @@ export default Ember.Service.extend({
           var plan = planFromName(response.plan);
           this.set('teamPlan', plan);
           this.set('teamPlanAmount', response.amount);
+          this.set('teamPlanCanceled', response.cancel_at_period_end);
+          this.set('teamPlanEndPeriod', response.current_period_end);
 
 
           if (plan !== null) {

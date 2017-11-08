@@ -34,9 +34,11 @@ export default Ember.Controller.extend({
   init() {
     var plan = this.get('currentUser.teamPlan');
     var amount = this.get('currentUser.teamPlanAmount');
+    var canceled = this.get('currentUser.teamPlanCanceled');
     this.set('plan', plan);
     this.set('selectedPlan', plan);
     this.set('planAmount', '$' + amount);
+    this.set('planCanceled', canceled);
 
     if (plan) {
       if (plan.type === 'freelancer') {
@@ -251,6 +253,7 @@ export default Ember.Controller.extend({
       var _this = this;
 
       const data = {'confirm': true}
+      const result = Ember.RSVP.defer();
       this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
         const headers = {};
         headers[headerName] = headerValue;
@@ -265,9 +268,13 @@ export default Ember.Controller.extend({
         }).then((response) => {
           _this.get('segment').trackEvent('Cancelled plan');
           window.location.reload(true);
+          result.resolve();
         }).catch(() => {
+          result.reject();
         })
       });
+
+      return result.promise;
     }
   }
 });
