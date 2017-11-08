@@ -1,9 +1,10 @@
 import Ember from 'ember';
 import Errors from '../../constants/errors';
 import ENV from 'albatross-web-app/config/environment';
-import { plans } from '../../constants/plans'
+import {plans} from '../../constants/plans'
+import DS from 'ember-data'
 
-const { inject: { service } } = Ember;
+const {inject: {service}} = Ember;
 
 export default Ember.Controller.extend({
 
@@ -30,28 +31,6 @@ export default Ember.Controller.extend({
   isChangingPlan: false,
   plans: plans,
 
-  currentCard: Ember.computed('currentUser', function () {
-    new Ember.RSVP.Promise((resolve, reject) => {
-      this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
-        const headers = {};
-        headers[headerName] = headerValue;
-        headers['Accept'] = 'application/json';
-        Ember.$.ajax({
-          url: ENV.host + '/api/v1/payments/details',
-          type: 'GET',
-          headers: headers,
-          contentType: 'application/json',
-          dataType: 'json',
-        }).then((response) => {
-          return response;
-          resolve();
-        }).catch(() => {
-          reject();
-        })
-      });
-    });
-  }),
-
   init() {
     var plan = this.get('currentUser.teamPlan');
     var amount = this.get('currentUser.teamPlanAmount');
@@ -71,25 +50,21 @@ export default Ember.Controller.extend({
       this.set('planBillingCycle', plan.frequency);
     }
 
-    new Ember.RSVP.Promise((resolve, reject) => {
       this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
         const headers = {};
         headers[headerName] = headerValue;
         headers['Accept'] = 'application/json';
         Ember.$.ajax({
-          url: ENV.host + '/api/v1/payments/details',
+          url: ENV.host + '/api/v1/payments/details/',
           type: 'GET',
           headers: headers,
           contentType: 'application/json',
           dataType: 'json',
         }).then((response) => {
           this.set('currentCard', response);
-          resolve();
         }).catch(() => {
-          reject();
         })
       });
-    });
 
   },
 
@@ -239,7 +214,7 @@ export default Ember.Controller.extend({
       var _this = this;
       this.set('cardErrors', null);
 
-      return stripe.card.createToken(card).then(function(response) {
+      return stripe.card.createToken(card).then(function (response) {
         // you get access to your newly created token here
 
         _this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
