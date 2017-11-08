@@ -34,22 +34,12 @@ export default Ember.Controller.extend({
       return "evening"
     }
   }),
-  onTrial: Ember.computed('currentUser', function() {
-    return this.get('currentUser.onTrial');
-  }),
-  init () {
 
-    var onTrial = this.get('currentUser.onTrial');
-
-    if (typeof onTrial !== 'undefined') {
-      this.set('onTrial', onTrial);
-    }
-  },
-  canAdd: Ember.computed('sortedProjects', 'currentUser.onTrial', 'onTrial', function() {
+  canAdd: Ember.computed('sortedProjects', 'currentUser.onTrial', 'currentUser.maxProjects', function() {
     var limit = this.get('currentUser.maxProjects');
     var projects = this.get('sortedProjects.length');
 
-    if (typeof this.get('currentUser.onTrial') !== 'undefined') {
+    if (typeof this.get('currentUser.onTrial') !== 'undefined' && typeof this.get('currentUser.maxProjects') !== 'undefined') {
       if (this.get('currentUser.onTrial')) {
         return true;
       } else {
