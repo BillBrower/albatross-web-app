@@ -69,9 +69,10 @@ export default Ember.Component.extend({
       this.set('cardErrors', []);
 
       const _this = this;
-      return stripe.card.createToken(card).then(function(response) {
+      const result = Ember.RSVP.defer();
+      stripe.card.createToken(card).then(function(response) {
         // you get access to your newly created token here
-        _this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
+       return _this.get('session').authorize('authorizer:django-token-authorizer', (headerName, headerValue) => {
           const headers = {};
           headers[headerName] = headerValue;
           headers['Accept'] = 'application/json';
@@ -106,23 +107,24 @@ export default Ember.Component.extend({
                 });
                 var path = window.location.href.split('/')[0];
                 window.location.href = path + '/app/projects';
-                resolve();
+                result.resolve();
               }).catch(() => {
                 var path = window.location.href.split('/')[0];
                 window.location.href = path + '/app/projects';
-                reject();
+                result.reject();
               })
             });
           }).catch(() => {
             var path = window.location.href.split('/')[0];
             window.location.href = path + '/app/projects';
-            reject();
+            result.reject();
           })
         });
-      }).then(() => {
       }).catch((response) => {
         this.set('cardErrors', Errors.mapResponseErrors(response));
+        result.reject()
       });
+      return result.promise();
     }
   }
 });
