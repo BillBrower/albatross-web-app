@@ -2,36 +2,36 @@ const plans = {
   "freelancer": {
     "monthly": {
       "frequency": "monthly",
-      "name": "freelancer-beta-monthly",
+      "name": "freelancer-monthly",
       "maxProjects": "unlimited",
       "maxUsers": 5,
-      "price": "$10",
+      "price": "$25",
       "type": "freelancer"
     },
     "annually": {
       "frequency": "annually",
-      "name": "freelancer-beta-annual",
+      "name": "freelancer-annual",
       "maxProjects": "unlimited",
       "maxUsers": 5,
-      "price": "$100",
+      "price": "$250",
       "type": "freelancer"
     }
   },
   "agency": {
     "monthly": {
       "frequency": "monthly",
-      "name": "agency-beta-monthly",
+      "name": "agency-monthly",
       "maxProjects": "unlimited",
       "maxUsers": "unlimited",
-      "price": "$25",
+      "price": "$50",
       "type": "agency"
     },
     "annually": {
       "frequency": "annually",
-      "name": "agency-beta-annual",
+      "name": "agency-annual",
       "maxProjects": "unlimited",
       "maxUsers": "unlimited",
-      "price": "$250",
+      "price": "$500",
       "type": "agency"
     }
   }
