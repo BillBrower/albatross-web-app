@@ -24,6 +24,7 @@ Router.map(function() {
   this.route('sandbox');
   this.route('error');
   this.route('loading');
+  this.route('choose-plan');
   this.route('not-found', { path: '/*path' });
 });
 

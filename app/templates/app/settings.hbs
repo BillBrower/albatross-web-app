@@ -107,6 +107,9 @@
             <label>Current Plan</label>
             <h2>{{planLabel}}</h2>
             <p class="small">{{planAmount}} billed {{planBillingCycle}} | {{planDescription}}</p>
+            {{#if planCanceled}}
+            <p class="red">Your subscription will not renew and ends on {{moment-format currentUser.teamPlanEndPeriod 'MM/DD/YYYY'}}</p>
+            {{/if}}
             {{#if isChangingPlan}}
               <section>
                 <div class="row center-xs">
@@ -115,8 +118,8 @@
                       <h2>Freelancer 🤓</h2>
                       <p class="light">Unlimited projects, up to 5 users</p>
                       <div class="options">
-                        {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-monthly" price="$10/month" text="Cancel anytime" selectedPlan=selectedPlan}}
-                        {{payment-plan-option choosePlan=(action "choosePlan") plan="freelancer-beta-annual" price="$100/year" text="Save 16%" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan=plans.freelancer.monthly text="Cancel anytime" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan=plans.freelancer.annually text="Save 16%" selectedPlan=selectedPlan}}
                       </div>
                     </div>
                   </div>
@@ -125,8 +128,8 @@
                       <h2>Agency 🤓🤓🤓</h2>
                       <p class="light">Unlimited everything</p>
                       <div class="options">
-                        {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-monthly" price="$25/month" text="Cancel anytime" selectedPlan=selectedPlan}}
-                        {{payment-plan-option choosePlan=(action "choosePlan") plan="agency-beta-annual" price="$250/year" text="Save 16%" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan=plans.agency.monthly price="$25/month" text="Cancel anytime" selectedPlan=selectedPlan}}
+                        {{payment-plan-option choosePlan=(action "choosePlan") plan=plans.agency.annually price="$250/year" text="Save 16%" selectedPlan=selectedPlan}}
                       </div>
                     </div>
                   </div>
@@ -136,7 +139,9 @@
               </section>
             {{else}}
               <button class="btn-small" {{action "toggleIsChangingPlan"}}>Change plan</button>
-              <button class="cancel" {{action "toggleIsCancellingPlan"}}>Cancel plan</button>
+              {{#unless planCanceled}}
+                <button class="cancel" {{action "toggleIsCancellingPlan"}}>Cancel plan</button>
+              {{/unless}}
             {{/if}}
             {{/if}}
           </section>

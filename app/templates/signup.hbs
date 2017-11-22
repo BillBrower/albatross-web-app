@@ -73,15 +73,8 @@
                              showError=showError}}
       <p class="small text-left">Passwords must be at least 8 characters and contain at least 1 special character</p>
 
-      {{#unless code}}
-        <section>
-          <p class="small text-left">We'll start you out with our Agency plan free for 14 days. After that, you can upgrade or
-            continue using the Moonlighter plan for free.</p>
-        </section>
-      {{/unless}}
-
       <section>
-        {{#spin-button action=(action 'signupButtonPressed') class="btn-primary" buttonStyle="contract"}}Get Started!{{/spin-button}}
+        {{#spin-button action=(action 'signupButtonPressed') class="btn-primary" buttonStyle="contract"}}Choose Your Plan{{/spin-button}}
       </section>
 
       <section>
