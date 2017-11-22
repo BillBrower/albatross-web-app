@@ -15,7 +15,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   },
 
   checkPlan() {
-    if (!this.get('currentUser.onTrial') && !this.get('currentUser.teamPlan')) {
+    if (!this.get('currentUser.onTrial') && !this.get('currentUser.teamPlan') && !this.get('currentUser.isLoadingUser')) {
       this.transitionTo('choose-plan');
     }
   }
